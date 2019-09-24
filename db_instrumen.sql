@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2019 at 10:30 AM
+-- Generation Time: Sep 24, 2019 at 11:06 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -105,11 +105,18 @@ CREATE TABLE `tbl_sekolah` (
   `id_sekolah` int(5) NOT NULL,
   `nama_sekolah` varchar(85) DEFAULT NULL,
   `no_telp` varchar(15) DEFAULT NULL,
-  `propinsi` varchar(85) DEFAULT NULL,
+  `provinsi` varchar(85) DEFAULT NULL,
   `kabupaten` varchar(85) DEFAULT NULL,
   `kecamatan` varchar(85) DEFAULT NULL,
   `kelurahan` varchar(85) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_sekolah`
+--
+
+INSERT INTO `tbl_sekolah` (`id_sekolah`, `nama_sekolah`, `no_telp`, `provinsi`, `kabupaten`, `kecamatan`, `kelurahan`) VALUES
+(1, 'SMA Negeri 1', '085340778770', 'Gorontalo', 'Kota Gorontalo', 'Sipatana', 'Tapa');
 
 -- --------------------------------------------------------
 
@@ -135,6 +142,17 @@ CREATE TABLE `tbl_tenaga_pendidik` (
   `id_tenaga_pendidik` int(5) NOT NULL,
   `jenis_tenaga_pendidik` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_tenaga_pendidik`
+--
+
+INSERT INTO `tbl_tenaga_pendidik` (`id_tenaga_pendidik`, `jenis_tenaga_pendidik`) VALUES
+(1, 'Kepala Lab Komputer'),
+(2, 'Kepala Sekolah'),
+(3, 'Perpustakaan'),
+(4, 'Wakil Kepala Sekolah'),
+(5, 'Guru Mata Pelajaran');
 
 -- --------------------------------------------------------
 
@@ -243,7 +261,7 @@ ALTER TABLE `tbl_kompetensi`
 -- AUTO_INCREMENT for table `tbl_sekolah`
 --
 ALTER TABLE `tbl_sekolah`
-  MODIFY `id_sekolah` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sekolah` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_skor`
@@ -255,7 +273,7 @@ ALTER TABLE `tbl_skor`
 -- AUTO_INCREMENT for table `tbl_tenaga_pendidik`
 --
 ALTER TABLE `tbl_tenaga_pendidik`
-  MODIFY `id_tenaga_pendidik` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tenaga_pendidik` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
