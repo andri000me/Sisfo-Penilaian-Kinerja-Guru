@@ -317,7 +317,6 @@
     <!-- App js -->
     <script src="/lib/js/jquery.core.js"></script>
     <script src="/lib/js/jquery.app.js"></script>
-    <script src="/lib/ckeditor/ckeditor.js"></script>
     <script src="/lib/js/script.js?version=1.0"></script>
     <?= !empty($add_js_app) ? $add_js_app : ""; ?>
 

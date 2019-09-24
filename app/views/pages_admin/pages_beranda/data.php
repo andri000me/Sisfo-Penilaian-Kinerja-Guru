@@ -36,7 +36,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="col-sm-6 col-lg-3">
         <div class="card-box widget-icon">
             <div>
-                <i class="fe-users text-pink"></i>
+                <i class="fe-box text-pink"></i>
                 <div class="wid-icon-info">
                     <p class="text-muted m-b-5 font-13 text-uppercase">Total</p>
                     <h4 class="m-t-0 m-b-5 counter"><?= $rows_3; ?></h4>
@@ -48,11 +48,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="col-sm-6 col-lg-3">
         <div class="card-box widget-icon">
             <div>
-                <i class="fe-users text-pink"></i>
+                <i class="fe-layers text-danger"></i>
                 <div class="wid-icon-info">
                     <p class="text-muted m-b-5 font-13 text-uppercase">Total</p>
                     <h4 class="m-t-0 m-b-5 counter"><?= $rows_3; ?></h4>
-                    <p class="text-pink" title="Data Indikator" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:hidden; font-size: 12px;"><b>Data Indikator</b></p>
+                    <p class="text-danger" title="Data Indikator" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:hidden; font-size: 12px;"><b>Data Indikator</b></p>
                 </div>
             </div>
         </div>

@@ -43,7 +43,7 @@ class Model_sekolah extends CI_Model {
                     'no'           => $no,
                     'nama_sekolah' => $row->nama_sekolah,
                     'no_telp'      => $row->no_telp,
-                    'propinsi'     => $row->propinsi,
+                    'provinsi'     => $row->provinsi,
                     'kabupaten'    => $row->kabupaten,
                     'kecamatan'    => $row->kecamatan,
                     'kelurahan'    => $row->kelurahan,

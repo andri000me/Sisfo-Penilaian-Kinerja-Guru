@@ -45,14 +45,20 @@ class Data_sekolah extends CI_Controller {
         $act = $this->uri->segment(3);
         if ($act == 'i') {
             $data['nama_sekolah']    = $this->input->post('nama_sekolah', TRUE);
-            $data['jabatan_sekolah'] = $this->input->post('jabatan_sekolah', TRUE);
             $data['no_telp']         = $this->input->post('no_telp', TRUE);
+            $data['provinsi']        = $this->input->post('provinsi', TRUE);
+            $data['kabupaten']       = $this->input->post('kabupaten', TRUE);
+            $data['kecamatan']       = $this->input->post('kecamatan', TRUE);
+            $data['kelurahan']       = $this->input->post('kelurahan', TRUE);
             $this->model_sekolah->data_insert($data);
         } elseif ($act == 'e') {
             $id                      = $this->myfunction->_encdec('dec', $this->input->post('id'));
             $data['nama_sekolah']    = $this->input->post('nama_sekolah', TRUE);
-            $data['jabatan_sekolah'] = $this->input->post('jabatan_sekolah', TRUE);
             $data['no_telp']         = $this->input->post('no_telp', TRUE);
+            $data['provinsi']        = $this->input->post('provinsi', TRUE);
+            $data['kabupaten']       = $this->input->post('kabupaten', TRUE);
+            $data['kecamatan']       = $this->input->post('kecamatan', TRUE);
+            $data['kelurahan']       = $this->input->post('kelurahan', TRUE);
             $this->model_sekolah->data_update($data, $id);
         } elseif ($act == 'd') {
             $id = $this->myfunction->_encdec('dec', $this->uri->segment(4));
