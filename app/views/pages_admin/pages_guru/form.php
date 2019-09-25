@@ -61,7 +61,11 @@
                                                 }
                                             } else {
                                                 foreach ($select['jenis_tp']->result() as $row) {
-                                                    echo "<option value='" . $row->id_sekolah . "'>$row->jenis_tenaga_pendidik</option>";
+                                                    if ($row->jenis_tenaga_pendidik == "Guru Mata Pelajaran") {
+                                                        echo "<option value='" . $row->id_sekolah . "' selected>$row->jenis_tenaga_pendidik</option>";
+                                                    }else{
+                                                        echo "<option value='" . $row->id_sekolah . "'>$row->jenis_tenaga_pendidik</option>";
+                                                    }
                                                 }
                                             }
                                             ?>
@@ -69,15 +73,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">No Telp</label>
+                                    <label class="col-md-2 control-label">NIP</label>
                                     <div class="col-md-2">
-                                        <input type="number" name="no_telp" class="form-control" data-parsley-maxlength="12" data-parsley-minlength="11" placeholder="No Telp" required value="<?= $this->uri->segment(2) == "edit" ? $data->no_telp : "" ?>">
+                                        <input type="number" name="nip" class="form-control" data-parsley-maxlength="18" data-parsley-minlength="18" placeholder="NIP" required value="<?= $this->uri->segment(2) == "edit" ? $data->nip : "" ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Provinsi</label>
+                                    <label class="col-md-2 control-label">Nama Guru</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="provinsi" class="form-control" placeholder="Provinsi" required value="<?= $this->uri->segment(2) == "edit" ? $data->provinsi : "" ?>">
+                                        <input type="text" name="nama_guru" class="form-control" placeholder="Nama Guru" required value="<?= $this->uri->segment(2) == "edit" ? $data->nama_guru : "" ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
