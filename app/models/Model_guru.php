@@ -1,19 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Model_tenaga_pendidik extends CI_Model {
+class Model_guru extends CI_Model {
  
     /**
         * @author      	: Rezky P. Budihartono
         * @contact 		: rh3zky@gmail.com
-        * @description 	: Model_tenaga_pendidik model for administrator
+        * @description 	: Model_guru model for administrator
     **/
  
-    private $table       = 'tbl_tenaga_pendidik';
-    private $id_table    = 'id_tenaga_pendidik';
-    private $field_exist = 'jenis_tenaga_pendidik';
-    private $data_notif  = 'tenaga pendidik';
-    private $data_name   = 'jenis_tenaga_pendidik';
+    private $table       = 'tbl_guru';
+    private $id_table    = 'id_guru';
+    private $field_exist = 'nip';
+    private $field_1     = 'id_sekolah';
+    private $field_2     = 'level_guru';
+    private $data_notif  = 'guru';
+    private $data_name   = 'nama_guru';
     private $_data_list  = array();
     
     public function __construct()
@@ -27,29 +29,35 @@ class Model_tenaga_pendidik extends CI_Model {
             echo json_encode($this->_data_list);
         }
     }
+    public function data_select_form()
+    { 
+        $data['nama_sekolah'] = $this->db->get('tbl_sekolah');
+        $data['jenis_tp']     = $this->db->get('tbl_tenaga_pendidik');
+        return $data;
+    }
     private function data_list()
     {
         $query  = $this->db->select('*')
                            ->from($this->table)
-                           ->order_by($this->id_table, 'DESC')
+                           ->join('tbl_sekolah','tbl_guru.id_sekolah = tbl_sekolah.id_sekolah')
+                           ->join('tbl_tenaga_pendidik','tbl_guru.id_tenaga_pendidik = tbl_tenaga_pendidik.id_tenaga_pendidik')
+                           ->order_by('tbl_guru.id_guru', 'ASC')
                            ->get();
         $total  = $query->num_rows();
         if ($total > 0) {
             $no = 1;
-            
             foreach ($query->result() as $row) {
-                $aksi = '';
-                if($row->jenis_tenaga_pendidik != "Guru Mata Pelajaran"){
-                    $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_tenaga_pendidik)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
-                    $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->jenis_tenaga_pendidik . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_tenaga_pendidik)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
-                }else{
-                    $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" disabled title="Default system"><i class="fa fa-edit"></i></a></span>&nbsp;';
-                    $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" title="Default system" disabled><i class="fa fa-trash-o"></i></a></span>';
-                }
+                $aksi    = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
+                $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->nama_guru . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
                 $data[] = [
-                    'no'              => $no,
-                    'tenaga_pendidik' => $row->jenis_tenaga_pendidik, 
-                    'aksi'            => $aksi
+                    'no'           => $no,
+                    'nama_sekolah' => $row->nama_sekolah,
+                    'jenis_tp'     => $row->jenis_tenaga_pendidik,
+                    'nip'          => $row->nip,
+                    'nama_guru'    => $row->nama_guru,
+                    'guru_mapel'   => $row->guru_mapel,
+                    'level_guru'   => $row->level_guru,
+                    'aksi'         => $aksi
                 ];
                 $no++;
             }
@@ -123,15 +131,16 @@ class Model_tenaga_pendidik extends CI_Model {
     }
     protected function data_exist($value)
     {
-        $query = $this->db->get_where($this->table, array($this->field_exist => $value[$this->field_exist]));
+        $query = $this->db->where(array($this->field_exist => $value[$this->field_exist]))
+                          ->or_where([$this->field_1 => $value[$this->field_1], $this->field_2 => $value[$this->field_2] ]);
         if ($query->num_rows() < 1) {
             $data['status'] = TRUE;
         } else {
-            $data['status']   = FALSE;
+            $data['status'] = FALSE;
         }
         return $data;
     }
 }
  
-/* End of file Model_tenaga_pendidik.php */
-/* Location: ./application/models/Model_tenaga_pendidik.php */
+/* End of file Model_guru.php */
+/* Location: ./application/models/Model_guru.php */
