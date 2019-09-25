@@ -1,11 +1,6 @@
 <?php
 class Myfunction
 {
-	public function _romawi($bulan)
-	{
-		$array_bln = array(1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
-		return $array_bln[$bulan];
-	}
 	public function _inputGender()
 	{
 		$arr = array('Laki-Laki', 'Perempuan');
@@ -40,38 +35,7 @@ class Myfunction
 			}
 		}
 	}
-	function _inputStatusKawinSuami(){
-		$ag = array('Perjaka','Duda','Beristri');
-		for($i=0; $i<count($ag); $i++){
-			echo "<option value='$ag[$i]'>$ag[$i]</option>";
-		}
-	}
-	function _editStatusKawinSuami($a){
-		$ag = array('Perjaka','Duda','Beristri');
-		for($i=0; $i<count($ag); $i++){
-			if($ag[$i] == $a){
-				echo "<option value='$ag[$i]' selected>$ag[$i]</option>";
-			}else{
-				echo "<option value='$ag[$i]'>$ag[$i]</option>";
-			}
-		}
-	}
-	function _inputStatusKawinIstri(){
-		$ag = array('Perawan','Janda');
-		for($i=0; $i<count($ag); $i++){
-			echo "<option value='$ag[$i]'>$ag[$i]</option>";
-		}
-	}
-	function _editStatusKawinIstri($a){
-		$ag = array('Perawan','Janda');
-		for($i=0; $i<count($ag); $i++){
-			if($ag[$i] == $a){
-				echo "<option value='$ag[$i]' selected>$ag[$i]</option>";
-			}else{
-				echo "<option value='$ag[$i]'>$ag[$i]</option>";
-			}
-		}
-	}
+	
 	function _inputStatusAda(){
 		$ag = array('Ada','Tidak Ada');
 		for($i=0; $i<count($ag); $i++){
@@ -87,42 +51,6 @@ class Myfunction
 				echo "<option value='$ag[$i]'>$ag[$i]</option>";
 			}
 		}
-	}
-	function _ucapan(){
-		date_default_timezone_set("Asia/Jakarta");
-		$b = time();
-		$hour = date("G",$b);
-		if ($hour>=0 && $hour<=11){
-			 $text = "Selamat Pagi";
-		}elseif ($hour >=12 && $hour<=14){
-			 $text = "Selamat Siang";
-		}elseif ($hour >=15 && $hour<=17){
-			 $text = "Selamat Sore";
-		}elseif ($hour >=17 && $hour<=18){
-			 $text = "Selamat Petang";
-		}elseif ($hour >=19 && $hour<=23){
-			 $text = "Selamat Malam";
-		}
-		return $text;
-	}
-	public function _dateExpire($date_now,$date_exp){
-		$tgl_sekarang 	= strtotime($this->format_tgl6($date_now));
-		$tgl_expire  	= strtotime($this->format_tgl6($date_exp)); 
-		$selisih 		= $tgl_expire - $tgl_sekarang; 
-		$diff 			= $selisih/24/60/60; 
-		if($selisih > 0){
-			if($diff < 3) { 
-				$data['expire'] = $diff;
-				$data['status'] = "WARNING";
-			}else{ 
-				$data['expire'] = $diff;
-				$data['status'] = "SUCCESS";
-			} 
-		}else{
-		 	$data['expire'] = $diff;
-			$data['status'] = "DENIED";
-		} 
-		return json_encode($data);
 	}
 	public function random_color_part() {
     	return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);

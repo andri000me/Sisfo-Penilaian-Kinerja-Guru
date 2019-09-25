@@ -85,15 +85,24 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Kabupaten</label>
-                                    <div class="col-md-3">
-                                        <input type="text" name="kabupaten" class="form-control" placeholder="Kabupaten" required value="<?= $this->uri->segment(2) == "edit" ? $data->kabupaten : "" ?>">
+                                    <label class="col-md-2 control-label">Jenis Kelamin</label>
+                                    <div class="col-md-2">
+                                        <select name="jenis_kelamin" class="form-control " required>
+                                            <option value="">Pilih--</option>
+                                            <?php
+                                            if ($this->uri->segment(2) == "edit") {
+                                                $this->myfunction->_editGender($data->jenis_kelamin);
+                                            } else {
+                                                $this->myfunction->_inputGender();
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Kecamatan</label>
+                                    <label class="col-md-2 control-label">Tempat Lahir</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="kecamatan" class="form-control" placeholder="Kecamatan" required value="<?= $this->uri->segment(2) == "edit" ? $data->kecamatan : "" ?>">
+                                        <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required value="<?= $this->uri->segment(2) == "edit" ? $data->tempat_lahir : "" ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
