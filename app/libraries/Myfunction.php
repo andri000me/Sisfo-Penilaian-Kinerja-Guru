@@ -36,14 +36,14 @@ class Myfunction
 		}
 	}
 	
-	function _inputStatusAda(){
-		$ag = array('Ada','Tidak Ada');
+	function _inputLevel(){
+		$ag = array('Kepala Sekolah', 'Guru Senior', 'Guru Mata Pelajaran');
 		for($i=0; $i<count($ag); $i++){
 			echo "<option value='$ag[$i]'>$ag[$i]</option>";
 		}
 	}
-	function _editStatusAda($a){
-		$ag = array('Ada','Tidak Ada');
+	function _editLevel($a){
+		$ag = array('Kepala Sekolah', 'Guru Senior', 'Guru Mata Pelajaran');
 		for($i=0; $i<count($ag); $i++){
 			if($ag[$i] == $a){
 				echo "<option value='$ag[$i]' selected>$ag[$i]</option>";

@@ -425,3 +425,11 @@
   right:15px; 
 
 }
+.locked-tag .select2-selection__choice__remove {
+  display: none !important;
+}
+
+/* I suggest to hide  all selected tags from drop down list */
+.select2-results__option[aria-selected="true"] {
+  display: none;
+}

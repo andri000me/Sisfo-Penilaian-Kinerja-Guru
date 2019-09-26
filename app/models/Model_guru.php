@@ -132,7 +132,7 @@ class Model_guru extends CI_Model {
     protected function data_exist($value)
     {
         $query = $this->db->where(array($this->field_exist => $value[$this->field_exist]))
-                          ->or_where([$this->field_1 => $value[$this->field_1], $this->field_2 => $value[$this->field_2] ]);
+                          ->where([$this->field_1 => $value[$this->field_1], $this->field_2 => $value[$this->field_2] ])->get($this->table);
         if ($query->num_rows() < 1) {
             $data['status'] = TRUE;
         } else {
