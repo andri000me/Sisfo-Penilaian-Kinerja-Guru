@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2019 at 10:08 AM
+-- Generation Time: Sep 27, 2019 at 10:51 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -262,6 +262,25 @@ INSERT INTO `tbl_kompetensi` (`id_kompetensi`, `id_tenaga_pendidik`, `nama_kompe
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_penilaian_kompetensi`
+--
+
+CREATE TABLE `tbl_penilaian_kompetensi` (
+  `id_penilaian_kompetensi` int(5) NOT NULL,
+  `id_guru_nilai` int(5) DEFAULT NULL,
+  `id_guru_penilai` int(5) DEFAULT NULL,
+  `id_tenaga_pendidik` int(5) DEFAULT NULL,
+  `id_kompetensi` int(5) DEFAULT NULL,
+  `id_indikator` int(5) DEFAULT NULL,
+  `skor_1` int(5) DEFAULT NULL,
+  `skor_2` int(5) DEFAULT NULL,
+  `skor_3` int(5) DEFAULT NULL,
+  `skor_4` int(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_sekolah`
 --
 
@@ -372,6 +391,17 @@ ALTER TABLE `tbl_kompetensi`
   ADD KEY `id_tenaga_pendidik` (`id_tenaga_pendidik`);
 
 --
+-- Indexes for table `tbl_penilaian_kompetensi`
+--
+ALTER TABLE `tbl_penilaian_kompetensi`
+  ADD PRIMARY KEY (`id_penilaian_kompetensi`),
+  ADD KEY `id_guru_nilai` (`id_guru_nilai`),
+  ADD KEY `id_guru_penilai` (`id_guru_penilai`),
+  ADD KEY `id_tenaga_pendidik` (`id_tenaga_pendidik`),
+  ADD KEY `id_kompetensi` (`id_kompetensi`),
+  ADD KEY `id_indikator` (`id_indikator`);
+
+--
 -- Indexes for table `tbl_sekolah`
 --
 ALTER TABLE `tbl_sekolah`
@@ -421,6 +451,12 @@ ALTER TABLE `tbl_kompetensi`
   MODIFY `id_kompetensi` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
+-- AUTO_INCREMENT for table `tbl_penilaian_kompetensi`
+--
+ALTER TABLE `tbl_penilaian_kompetensi`
+  MODIFY `id_penilaian_kompetensi` int(5) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_sekolah`
 --
 ALTER TABLE `tbl_sekolah`
@@ -466,6 +502,16 @@ ALTER TABLE `tbl_indikator`
 --
 ALTER TABLE `tbl_kompetensi`
   ADD CONSTRAINT `tbl_kompetensi_ibfk_1` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tenaga_pendidik` (`id_tenaga_pendidik`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_penilaian_kompetensi`
+--
+ALTER TABLE `tbl_penilaian_kompetensi`
+  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_1` FOREIGN KEY (`id_guru_nilai`) REFERENCES `tbl_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_2` FOREIGN KEY (`id_guru_penilai`) REFERENCES `tbl_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_3` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tenaga_pendidik` (`id_tenaga_pendidik`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_4` FOREIGN KEY (`id_kompetensi`) REFERENCES `tbl_tenaga_pendidik` (`id_tenaga_pendidik`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_5` FOREIGN KEY (`id_indikator`) REFERENCES `tbl_indikator` (`id_indikator`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
