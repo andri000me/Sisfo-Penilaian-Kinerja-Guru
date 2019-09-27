@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2019 at 11:06 AM
+-- Generation Time: Sep 27, 2019 at 10:08 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -52,23 +52,32 @@ INSERT INTO `app_config` (`app_name`, `author`, `description`, `developer`, `sit
 CREATE TABLE `tbl_guru` (
   `id_guru` int(5) NOT NULL,
   `id_sekolah` int(5) DEFAULT NULL,
-  `id_tenaga_pendidik` int(5) DEFAULT NULL,
+  `id_tenaga_pendidik` varchar(8) DEFAULT NULL,
   `nip` varchar(30) DEFAULT NULL,
   `nama_guru` varchar(85) DEFAULT NULL,
+  `jenis_kelamin` varchar(20) DEFAULT NULL,
+  `tempat_lahir` varchar(85) DEFAULT NULL,
+  `tgl_lahir` date DEFAULT NULL,
   `nomor_seri` varchar(50) DEFAULT NULL,
   `nuptk` varchar(50) DEFAULT NULL,
   `nrg` varchar(50) DEFAULT NULL,
-  `tempat_lahir` varchar(85) DEFAULT NULL,
-  `tanggal_lahir` date DEFAULT NULL,
-  `jabatan_golongan` varchar(15) DEFAULT NULL,
-  `tmt_guru` varchar(15) DEFAULT NULL,
-  `tmp_guru` varchar(15) DEFAULT NULL,
-  `masa_kerja` text,
-  `jenis_kelamin` varchar(20) DEFAULT NULL,
+  `jabatan` varchar(15) DEFAULT NULL,
+  `tmt_pangkat_golongan` varchar(15) DEFAULT NULL,
+  `tmt_sebagai_guru` varchar(15) DEFAULT NULL,
+  `masa_kerja_sebagai_guru` text,
+  `tmt_tugas_tambahan` varchar(15) DEFAULT NULL,
+  `masa_kerja_tugas_tambahan` text,
   `pendidikan` varchar(15) DEFAULT NULL,
   `guru_mapel` varchar(25) DEFAULT NULL,
-  `level_guru` enum('Kepala Sekolah','Guru Senior','Guru Biasa') DEFAULT NULL
+  `level_guru` enum('Kepala Sekolah','Guru Senior','Guru Mata Pelajaran') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_guru`
+--
+
+INSERT INTO `tbl_guru` (`id_guru`, `id_sekolah`, `id_tenaga_pendidik`, `nip`, `nama_guru`, `jenis_kelamin`, `tempat_lahir`, `tgl_lahir`, `nomor_seri`, `nuptk`, `nrg`, `jabatan`, `tmt_pangkat_golongan`, `tmt_sebagai_guru`, `masa_kerja_sebagai_guru`, `tmt_tugas_tambahan`, `masa_kerja_tugas_tambahan`, `pendidikan`, `guru_mapel`, `level_guru`) VALUES
+(2, 1, '1,5', '123456879789564333', 'Iztys', 'Laki-Laki', 'Gorontalo', '2019-09-26', '234232344', '32423434', '23423424', 'Tes', 'tes', 'tes', '1 Thaun 2 Bulan', '34', '1 Thaun 2 Bulan', 'S1', 'PKN', 'Kepala Sekolah');
 
 -- --------------------------------------------------------
 
@@ -83,6 +92,130 @@ CREATE TABLE `tbl_indikator` (
   `nama_indikator` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `tbl_indikator`
+--
+
+INSERT INTO `tbl_indikator` (`id_indikator`, `id_tenaga_pendidik`, `id_kompetensi`, `nama_indikator`) VALUES
+(1, 1, 1, '1. Guru dapat mengidentifikasi karakteristik belajar setiap peserta didik di kelasnya.'),
+(2, 1, 1, '2. Guru memastikan bahwa semua peserta didik mendapatkan kesempatan yang sama untuk berpartisipasi aktif dalam kegiatan pembelajaran.'),
+(3, 1, 1, '3. Guru dapat mengatur kelas untuk memberikan kesempatan belajar yang sama pada semua peserta didik dengan kelainan fisik dan kemampuan belajar yang berbeda.'),
+(4, 1, 1, '4. Guru mencoba mengetahui penyebab penyimpangan perilaku peserta didik untuk mencegah agar perilaku tersebut tidak merugikan  peserta didik lainnya.'),
+(5, 1, 1, '5. Guru membantu mengembangkan potensi dan mengatasi kekurangan peserta didik.'),
+(6, 1, 1, '6. Guru memperhatikan peserta didik dengan kelemahan fisik tertentu agar dapat mengikuti aktivitas pembelajaran, sehingga peserta didik tersebut tidak termarginalkan (tersisihkan, diolok olok, minder, dsb.).'),
+(7, 1, 2, '1. Guru memberi kesempatan kepada peserta didik untuk menguasai materi pembelajaran sesuai usia dan kemampuan belajarnya melalui pengaturan proses pembelajaran dan aktivitas yang bervariasi.'),
+(8, 1, 2, '2. Guru selalu memastikan tingkat pemahaman peserta didik terhadap materi pembelajaran tertentu dan menyesuaikan aktivitas pembelajaran berikutnya berdasarkan tingkat pemahaman tersebut.'),
+(9, 1, 2, '3. Guru dapat menjelaskan alasan pelaksanaan kegiatan/aktivitas yang dilakukannya, baik yang  sesuai maupun yang berbeda dengan rencana, terkait keberhasilan pembelajaran'),
+(10, 1, 2, '4. Guru menggunakan berbagai teknik untuk memotiviasi kemauan belajar peserta didik'),
+(11, 1, 2, '5. Guru merencanakan kegiatan pembelajaran yang saling terkait satu sama lain, dengan memperhatikan tujuan pembelajaran maupun proses belajar peserta didik.'),
+(12, 1, 2, '6. Guru memperhatikan respon peserta didik yang belum/kurang memahami materi pembelajaran yang  diajarkan dan menggunakannya untuk memperbaiki rancangan pembelajaran berikutnya.'),
+(13, 1, 3, '1. Guru dapat menyusun silabus yang sesuai dengan kurikulum.'),
+(14, 1, 3, '2. Guru merancang rencana pembelajaran yang sesuai dengan silabus untuk membahas materi ajar tertentu agar peserta didik dapat mencapai kompetensi dasar yang ditetapkan.'),
+(15, 1, 3, '3. Guru mengikuti urutan materi pembelajaran dengan memperhatikan tujuan pembelajaran.'),
+(16, 1, 3, '4. Guru memilih materi pembelajaran yang: a) sesuai dengan tujuan pembelajaran, b) tepat dan mutakhir, c) sesuai dengan usia dan tingkat \r\nkemampuan belajar peserta didik, dan d) dapat dilaksanakan di kelas e) sesuai dengan konteks kehidupan seharihari peserta didik.'),
+(17, 1, 4, '1. Guru melaksanakan aktivitas pembelajaran sesuai dengan rancangan yang telah disusun secara lengkap dan pelaksanaan aktivitas tersebut mengindikasikan bahwa guru mengerti tentang tujuannya.'),
+(18, 1, 4, '2. Guru melaksanakan aktivitas pembelajaran yang bertujuan untuk membantu proses belajar peserta didik, bukan untuk menguji sehingga membuat peserta didik merasa tertekan.'),
+(19, 1, 4, '3. Guru mengkomunikasikan informasi baru (misalnya materi tambahan) sesuai dengan usia dan tingkat kemampuan belajar peserta didik.'),
+(20, 1, 4, '4. Guru menyikapi kesalahan yang dilakukan peserta didik sebagai tahapan proses pembelajaran, bukan sematamata kesalahan yang harus dikoreksi. Misalnya: dengan \r\nmengetahui terlebih dahulu peserta didik lain yang setuju atau tidak setuju dengan jawaban tersebut, sebelum memberikan penjelasan tentang jawaban yang benar.'),
+(21, 1, 4, '5. Guru melaksanakan kegiatan pembelajaran sesuai isi kurikulum dan mengkaitkannya dengan konteks kehidupan seharihari peserta didik.'),
+(22, 1, 4, '6. Guru melakukan aktivitas pembelajaran secara bervariasi dengan waktu yang cukup untuk kegiatan pembelajaran yang sesuai dengan usia dan tingkat kemampuan belajar dan \r\nmempertahankan perhatian peserta didik'),
+(23, 1, 4, '7. Guru mengelola kelas dengan efektif tanpa mendominasi atau sibuk dengan kegiatannya sendiri agar semua waktu peserta dapat termanfaatkan secara produktif.'),
+(24, 1, 4, '8. Guru mampu menyesuaikan aktivitas pembelajaran yang dirancang dengan kondisi kelas.'),
+(25, 1, 4, '9. Guru memberikan banyak kesempatan kepada peserta didik untuk bertanya, mempraktekkan dan berinteraksi dengan peserta didik lain'),
+(26, 1, 4, '10. Guru mengatur pelaksanaan aktivitas pembelajaran secara sistematis untuk membantu proses belajar peserta didik. Sebagai contoh: guru menambah informasi baru setelah mengevaluasi pemahaman peserta didik terhadap materi sebelumnya.'),
+(27, 1, 4, '11. Guru menggunakan alat bantu mengajar, dan/atau audiovisual (termasuk TIK) untuk meningkatkan motivasi belajar peserta didik dalam mencapai tujuan pembelajaran.'),
+(28, 1, 5, '1. Guru menganalisis hasil belajar berdasarkan segala bentuk penilaian terhadap setiap peserta didik untuk mengetahui tingkat kemajuan masing-masing.'),
+(29, 1, 5, '2. Guru merancang dan melaksanakan aktivitas pembelajaran yang mendorong peserta didik untuk belajar sesuai dengan kecakapan dan pola belajar masing-masing.'),
+(30, 1, 5, '3. Guru merancang dan melaksanakan aktivitas pembelajaran untuk memunculkan daya kreativitas dan kemampuan berfikir kritis peserta didik.'),
+(31, 1, 5, '4. Guru secara aktif membantu peserta didik dalam proses pembelajaran dengan memberikan perhatian kepada setiap individu.'),
+(32, 1, 5, '5. Guru dapat mengidentifikasi dengan benar tentang bakat, minat, potensi, dan kesulitan belajar masingmasing peserta didik.'),
+(33, 1, 5, '6. Guru memberikan kesempatan belajar kepada peserta didik sesuai dengan cara belajarnya masing-masing.'),
+(34, 1, 5, '7. Guru memusatkan perhatian pada interaksi dengan peserta didik dan mendorongnya untuk memahami dan menggunakan informasi yang disampaikan.'),
+(35, 1, 6, '1. Guru menggunakan pertanyaan untuk mengetahui pemahaman dan menjaga partisipasi peserta didik, termasuk memberikan pertanyaan terbuka yang menuntut peserta didik untuk menjawab dengan ide dan pengetahuan mereka.'),
+(36, 1, 6, '2. Guru memberikan perhatian dan mendengarkan semua pertanyaan dan tanggapan peserta didik, tanpa menginterupsi, kecuali jika diperlukan untuk membantu atau mengklarifikasi \r\npertanyaan/tanggapan tersebut.'),
+(37, 1, 6, '3. Guru menanggapinya pertanyaan peserta didik secara tepat, benar, dan mutakhir, sesuai tujuan pembelajaran dan isi kurikulum, tanpa mempermalukannya.'),
+(38, 1, 6, '4. Guru menyajikan kegiatan pembelajaran yang dapat menumbuhkan kerja sama yang baik antar pesertadidik.'),
+(39, 1, 6, '5. Guru mendengarkan dan memberikan perhatian terhadap semua jawaban peserta didik baik yang benar maupun yang dianggap salah untuk mengukur tingkat pemahaman peserta didik.'),
+(40, 1, 6, '6. Guru memberikan perhatian terhadap pertanyaan peserta didik dan meresponnya secara lengkap dan relevan untuk menghilangkan kebingungan pada peserta didik.'),
+(41, 1, 7, '1. Guru menyusun alat penilaian yang sesuai dengan tujuan pembelajaran untuk mencapai kompetensi tertentu seperti yang tertulis dalam RPP.'),
+(42, 1, 7, '2. Guru melaksanakan penilaian dengan berbagai teknik dan jenis penilaian, selain penilaian formal yang dilaksanakan sekolah, dan mengumumkan hasil serta implikasinya kepada peserta didik, \r\ntentang tingkat pemahaman terhadap materi pembelajaran yang telah dan akan dipelajari.'),
+(43, 1, 7, '3. Guru menganalisis hasil penilaian untuk mengidentifikasi topik/kompetensi dasar yang sulit sehingga diketahui kekuatan dan kelemahan masingmasing peserta didik untuk keperluan remedial dan pengayaan.'),
+(44, 1, 7, '4. Guru memanfaatkan masukan dari peserta didik dan merefleksikannya untuk meningkatkan pembelajaran selanjutnya, dan dapat membuktikannya melalui catatan, jurnal pembelajaran, rancangan pembelajaran, materi tambahan, dan sebagainya.'),
+(45, 1, 7, '5. Guru memanfatkan hasil penilaian sebagai bahan penyusunan rancangan pembelajaran yang akan dilakukan selanjutnya.'),
+(46, 1, 8, '1. Guru menghargai dan mempromosikan prinsip prinsip Pancasila sebagai dasar ideologi dan etika bagi semua warga Indonesia.'),
+(47, 1, 8, '2. Guru mengembangkan kerjasama dan membina kebersamaan dengan teman sejawat tanpa memperhatikan perbedaan yang ada (misalnya: suku, \r\nagama, dan gender).'),
+(48, 1, 8, '3. Guru saling menghormati dan menghargai teman sejawat sesuai dengan kondisi dan keberadaan masing-masing.'),
+(49, 1, 8, '4. Guru memiliki rasa persatuan dan kesatuan sebagai bangsa Indonesi.'),
+(50, 1, 8, '5. Guru mempunyai pandangan yang luas tentang keberagaman bangsa Indonesia (misalnya: budaya, suku, agama).'),
+(51, 1, 9, '1. Guru bertingkah laku sopan dalam berbicara,berpenampilan, dan berbuat terhadap semua peserta didik, orang tua, dan teman sejawat.'),
+(52, 1, 9, '2. Guru mau membagi pengalamannya dengan teman sejawat, termasuk mengundang mereka untuk mengobservasi cara mengajarnya dan memberikan masukan.'),
+(53, 1, 9, '3. Guru mampu mengelola pembelajaran yang membuktikan bahwa guru dihormati oleh peserta didik, sehingga semua peserta didik selalu \r\nmemperhatikan guru dan berpartisipasi aktif dalam proses pembelajaran.'),
+(54, 1, 9, '4. Guru bersikap dewasa dalam menerima masukan dari peserta didik dan memberikan kesempatan kepada peserta didik untuk berpartisipasi dalam proses pembelajaran.'),
+(55, 1, 9, '5. Guru berperilaku baik untuk mencitrakan nama baik sekolah.'),
+(56, 1, 10, '1. Guru mengawali dan mengakhiri pembelajaran dengan tepat waktu.'),
+(57, 1, 10, '2. Jika guru harus meninggalkan kelas, guru mengaktifkan siswa dengan melakukan halhal produktif terkait dengan mata pelajaran, dan meminta guru piket atau guru lain untuk mengawasi kelas.'),
+(58, 1, 10, '3. Guru memenuhi jam mengajar dan dapat melakukan semua kegiatan lain di luar jam mengajar berdasarkan ijin dan persetujuan \r\npengelola sekolah.'),
+(59, 1, 10, '4. Guru meminta ijin dan memberitahu lebih awal, dengan memberikan alasan dan bukti yang sah jika tidak menghadiri kegiatan yang telah direncanakan, termasuk proses pembelajaran di kelas.'),
+(60, 1, 10, '5. Guru menyelesaikan semua tugas administratif dan non pembelajaran dengan tepat waktu sesuai standar yang ditetapkan.'),
+(61, 1, 10, '6. Guru memanfaatkan waktu luang selain mengajar untuk kegiatan yang produktif terkait dengan tugasnya.'),
+(62, 1, 10, '7. Guru memberikan kontribusi terhadap pengembangan sekolah dan mempunyai prestasi yang berdampak positif terhadap nama baik sekolah.'),
+(63, 1, 10, '8. Guru merasa bangga dengan profesinya sebagai guru.'),
+(64, 1, 11, '1. Guru memperlakukan semua peserta didik secara adil, memberikan perhatian dan bantuan sesuai kebutuhan masing-masing, tanpa memperdulikan faktor personal.'),
+(65, 1, 11, '2. Guru menjaga hubungan baik dan peduli dengan teman sejawat (bersifat inklusif), serta berkontribusi positif terhadap semua diskusi formal dan informal terkait dengan pekerjaannya.'),
+(66, 1, 11, '3. Guru sering berinteraksi dengan peserta didik dan tidak membatasi perhatiannya hanya pada kelompok tertentu (misalnya: peserta didik yang pandai, kaya, berasal dari daerah yang sama dengan guru).'),
+(67, 1, 12, '1. Guru menyampaikan informasi tentang kemajuan, kesulitan, dan potensi peserta didik kepada orang tuanya, baik dalam pertemuan formal maupun tidak formal antara guru dan orang tua, teman sejawat, dan dapat menunjukkan buktinya.'),
+(68, 1, 12, '2. Guru ikut berperan aktif dalam kegiatan di luar pembelajaran yang diselenggarakan oleh sekolah dan masyarakat dan dapat memberikan bukti keikutsertaannya.'),
+(69, 1, 12, '3. Guru memperhatikan sekolah sebagai bagian dari masyarakat, berkomunikasi dengan masyarakat sekitar, serta berperan dalam kegiatan sosial di masyarakat.'),
+(70, 1, 13, '1. Guru melakukan pemetaan standar kompetensi dan kompetensi dasar untuk mata pelajaran yang dimampunya, untuk mengidentifikasi materi pembelajaran yang dianggap sulit, melakukan\r\nperencanaan dan pelaksanaan pembelajaran, dan memperkirakan alokasi waktu yang diperlukan.'),
+(71, 1, 13, '2. Guru menyertakan informasi yang tepat dan mutakhir di dalam perencanaan dan pelaksanaan pembelajaran.'),
+(72, 1, 13, '3. Guru menyusun materi, perencanaan dan pelaksanaan pembelajaran yang berisi informasi yang tepat, mutakhir, dan yang membantu peserta didik untuk memahami konsep materi  pembelajaran.'),
+(73, 1, 14, '1. Guru melakukan evaluasi diri secara spesifik, lengkap, dan  didukung dengan contoh pengalaman diri sendiri.'),
+(74, 1, 14, '2. Guru memiliki jurnal pembelajaran, catatan masukan dari kolega atau hasil penilaian proses pembelajaran sebagai bukti yang menggambarkan kinerjanya.'),
+(75, 1, 14, '3. Guru memanfaatkan bukti gambaran kinerjanya untuk mengembangkan  perencanaan dan pelaksanaan pembelajaran selanjutnya dalam program Pengembangan Keprofesian Berkelanjutan (PKB).'),
+(76, 1, 14, '4. Guru dapat mengaplikasikan pengalaman PKB dalam perencanaan, pelaksanaan, penilaian pembelajaran dan tindak lanjutnya.'),
+(77, 1, 14, '5. Guru melakukan penelitian, mengembangkan karya inovasi, mengikuti kegiatan ilmiah (misalnya seminar, konferensi), dan aktif dalam melaksanakan PKB.'),
+(78, 1, 14, '6. Guru dapat memanfaatkan TIK dalam berkomunikasi dan pelaksanaan PKB.'),
+(79, 2, 15, '1. Berakhlak mulia, mengembangkan budaya dan tradisi akhlak mulia, dan menjadi teladan akhlak mulia bagi komunitas di sekolah/madrasah.'),
+(80, 2, 15, '2. Melaksanakan tugas pokok dan fungsi sebagai kepala sekolah dengan penuh kejujuran, ketulusan, komitmen, dan integritas.'),
+(81, 2, 15, '3. Bersikap terbuka dalam melaksanakan tugas pokok dan fungsi sebagai kepala sekolah/madrasah.'),
+(82, 2, 15, '4. Mengendalikan diri dalam menghadapi masalah dan tantangan sebagai kepala sekolah/madrasah.'),
+(83, 2, 15, '5. Berpartisipasi dalam kegiatan sosial kemasyarakatan.'),
+(84, 2, 15, '6. Tanggap dan peduli terhadap kepentingan orang atau kelompok lain.'),
+(85, 2, 15, '7. Mengembangkan dan mengelola hubungan sekolah/madrasah dengan pihak lain di luar sekolah dalam rangka mendapatkan dukungan ide, sumber belajar, dan pembiayaan sekolah/madrasah.'),
+(86, 2, 16, '1. Bertindak sesuai dengan visi dan misi sekolah/madrasah.'),
+(87, 2, 16, '2. Merumuskan tujuan yang menantang diri  sendiri dan orang lain untuk mencapai standard yang tinggi.'),
+(88, 2, 16, '3. Mengembangkan sekolah/madrasah menuju organisasi pembelajar (learning)'),
+(89, 2, 16, '4. Menciptakan budaya dan iklim sekolah/madrasah yang kondusif dan inovatif bagi pembelajaran.'),
+(90, 2, 16, '5. Memegang teguh tujuan sekolah dengan menjadi contoh dan bertindak sebagai pemimpin pembelajaran.'),
+(91, 2, 16, '6. Melaksanakan kepemimpinan yang inspiratif.'),
+(92, 2, 16, '7. Membangun rasa saling percaya dan memfasilitasi kerjasama dalam rangka untuk menciptakan kolaborasi yang kuat diantara warga sekolah/madrasah.'),
+(93, 2, 16, '8. Bekerja keras untuk mencapai keberhasilan sekolah/madrasah sebagai organisasi pembelajar yang efektif.'),
+(94, 2, 16, '9. Mengembangan kurikulum dan kegiatan pembelajaran sesuai dengan visi, misi, dan tujuan sekolah.'),
+(95, 2, 16, '10. Mengelola peserta didik dalam rangka pengembangan kapasitasnya secara optimal.'),
+(96, 2, 17, '1. Menyusun rencana pengembangan sekolah/madrasah jangka panjang, menengah, dan pendek dalam rangka mencapai visi, misi, dan tujuan sekolah/madrasah.'),
+(97, 2, 17, '2. Mengembangkan struktur organisasi sekolah/ madrasah yang efektif dan efisien sesuai dengan kebutuhan.'),
+(98, 2, 17, '3. Melaksanakan pengembangan sekolah/ madrasah sesuai dengan rencana jangka panjang, menengah, dan jangka pendek sekolah menuju tercapainya visi, misi, dan tujuan sekolah.'),
+(99, 2, 17, '4. Mewujudkan peningkatan kinerja sekolah yang signifikan sesuai dengan visi, misi, tujuan.'),
+(100, 2, 17, '5. Melakukan monitoring, evaluasi, dan pelaporan pelaksanaan program kegiatan sekolah/madrasah dengan prosedur yang tepat.'),
+(101, 2, 17, '6. Merencanakan dan menindaklanjuti hasil monitoring, evaluasi, dan pelaporan.'),
+(102, 2, 17, '7. Melaksanakan penelitian tindakan sekolah dalam rangka meningkatkan kinerja sekolah/madrasah.'),
+(103, 2, 18, '1. Mengelola dan mendayagunakan pendidik dan tenaga kependidikan secara optimal.'),
+(104, 2, 18, '2. Mengelola dan mendayagunakan sarana dan prasarana sekolah/madrasah secara optimal untuk kepentingan pembelajaran.'),
+(105, 2, 18, '3. Mengelola keuangan sekolah/madrasah sesuai dengan prinsip-prinsip efisiensi, transparansi, dan akuntabilitas.'),
+(106, 2, 18, '4. Mengelola lingkungan sekolah yang menjamin keamanan, keselamatan, dan kesehatan.'),
+(107, 2, 18, '5. Mengelola ketatausahaan sekolah/madrasah dalam mendukung pencapaian tujuan sekolah/ madrasah.'),
+(108, 2, 18, '6. Mengelola sistem informasi sekolah/madrasah dalam mendukung penyusunan program'),
+(109, 2, 18, '7.  Mengelola layanan-layanan khusus sekolah/madrasah dalam mendukung kegiatan pembelajaran dan kegiatan peserta didik di sekolah/madrasah.'),
+(110, 2, 18, '8. Memanfaatkan teknologi secara efektif dalam kegiatan pembelajaran dan manajemen sekolah/madrasah.'),
+(111, 2, 19, '1. Menciptakan inovasi yang bermanfaat bagi pengembangan sekolah/ madrasah.'),
+(112, 2, 19, '2. Memiliki motivasi yang kuat untuk sukses dalam melaksanakan tugas pokok dan fungsinya sebagai pemimpin pembelajaran.'),
+(113, 2, 19, '3. Memotivasi warga sekolah untuk sukses dalam melaksanakan tugas pokok dan fungsinya masing-masing.'),
+(114, 2, 19, '4. Pantang menyerah dan selalu mencari solusi terbaik dalam menghadapi kendala yang'),
+(115, 2, 19, '5. Menerapkan nilai dan prinsip-prinsip kewirausahaan dalam mengembangkan sekolah/madrasah.'),
+(116, 2, 20, '1. Menyusun program supervisi akademik dalam rangka peningkatan profesionalisme guru.'),
+(117, 2, 20, '2. Melaksanakan supervisi akademik terhadap guru dengan menggunakan pendekatan dan teknik supervisi yang tepat.'),
+(118, 2, 20, '3. Menilai dan menindaklanjuti kegiatan supervisi akademik dalam rangka peningkatan profesionalisme guru.');
+
 -- --------------------------------------------------------
 
 --
@@ -94,6 +227,37 @@ CREATE TABLE `tbl_kompetensi` (
   `id_tenaga_pendidik` int(5) DEFAULT NULL,
   `nama_kompetensi` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_kompetensi`
+--
+
+INSERT INTO `tbl_kompetensi` (`id_kompetensi`, `id_tenaga_pendidik`, `nama_kompetensi`) VALUES
+(1, 1, '1. Mengenal karakteristik peserta didik'),
+(2, 1, '2. Menguasai teori belajar dan prinsip-prinsip pembelajaran  yang mendidik'),
+(3, 1, '3. Pengembangan kurikulum'),
+(4, 1, '4. Kegiatan Pembelajaran yang Mendidik '),
+(5, 1, '5. Memahami dan mengembangkan potensi'),
+(6, 1, '6. Komunikasi dengan peserta didik'),
+(7, 1, '7. Penilaian dan evaluasi'),
+(8, 1, '8. Bertindak sesuai dengan norma agama, hukum, sosial dan kebudayaan nasional Indonesia'),
+(9, 1, '9. Menunjukkan pribadi yang dewasa dan teladan'),
+(10, 1, '10. Etos kerja, tanggung jawab yang tinggi, dan rasa  bangga menjadi guru.'),
+(11, 1, '11. Bersikap inklusif, bertindak objektif, serta tidak  Diskriminatif'),
+(12, 1, '12. Komunikasi  dengan  sesama  guru,  tenaga  pendidikan,  orang tua peserta didik, dan masyarakat'),
+(13, 1, '13. Penguasaan materi struktur konsep dan pola pikir keilmuan yang mendukung mata pelajaran yang dimampu'),
+(14, 1, '14. Mengembangkan keprofesian melalui tindakan reflektif'),
+(15, 2, '1. Kepribadian dan Sosial (PKKS 1)'),
+(16, 2, '2. Kepemimpinan (PKKS 2)'),
+(17, 2, '3. Pengembangan Sekolah/ Madrasah (PKKS 3)'),
+(18, 2, '4. Pengelolaan Sumber Daya (PKKS 4)'),
+(19, 2, '5. Kewirausahaan (PKKS 5)'),
+(20, 2, '6. Supervisi (PKKS 6)'),
+(21, 3, '1. Kepribadian dan Sosial (PKWKS 1)'),
+(22, 3, '2. Kepemimpinan (PKWKS 2)'),
+(23, 3, '3. Pengembangan Sekolah (PKWKS 3)'),
+(24, 3, '4. Kewirausahaan (PKWKS 4)'),
+(25, 3, '5. Bidang Tugas Wakasek (PKWKS 5)');
 
 -- --------------------------------------------------------
 
@@ -148,11 +312,11 @@ CREATE TABLE `tbl_tenaga_pendidik` (
 --
 
 INSERT INTO `tbl_tenaga_pendidik` (`id_tenaga_pendidik`, `jenis_tenaga_pendidik`) VALUES
-(1, 'Kepala Lab Komputer'),
+(1, 'Guru Mata Pelajaran'),
 (2, 'Kepala Sekolah'),
-(3, 'Perpustakaan'),
-(4, 'Wakil Kepala Sekolah'),
-(5, 'Guru Mata Pelajaran');
+(3, 'Wakil Kepala Sekolah'),
+(4, 'Kepala Lab Komputer'),
+(5, 'Kepala Perpustakaan');
 
 -- --------------------------------------------------------
 
@@ -190,8 +354,7 @@ INSERT INTO `tbl_user` (`id_user`, `id_guru`, `nama_lengkap`, `username`, `passw
 --
 ALTER TABLE `tbl_guru`
   ADD PRIMARY KEY (`id_guru`),
-  ADD KEY `id_sekolah` (`id_sekolah`),
-  ADD KEY `id_tenaga_pendidik` (`id_tenaga_pendidik`);
+  ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
 -- Indexes for table `tbl_indikator`
@@ -243,19 +406,19 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_guru`
 --
 ALTER TABLE `tbl_guru`
-  MODIFY `id_guru` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_indikator`
 --
 ALTER TABLE `tbl_indikator`
-  MODIFY `id_indikator` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_indikator` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT for table `tbl_kompetensi`
 --
 ALTER TABLE `tbl_kompetensi`
-  MODIFY `id_kompetensi` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_kompetensi` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `tbl_sekolah`
@@ -280,6 +443,29 @@ ALTER TABLE `tbl_tenaga_pendidik`
 --
 ALTER TABLE `tbl_user`
   MODIFY `id_user` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_guru`
+--
+ALTER TABLE `tbl_guru`
+  ADD CONSTRAINT `tbl_guru_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `tbl_sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_indikator`
+--
+ALTER TABLE `tbl_indikator`
+  ADD CONSTRAINT `tbl_indikator_ibfk_1` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tenaga_pendidik` (`id_tenaga_pendidik`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_indikator_ibfk_2` FOREIGN KEY (`id_kompetensi`) REFERENCES `tbl_kompetensi` (`id_kompetensi`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_kompetensi`
+--
+ALTER TABLE `tbl_kompetensi`
+  ADD CONSTRAINT `tbl_kompetensi_ibfk_1` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tenaga_pendidik` (`id_tenaga_pendidik`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

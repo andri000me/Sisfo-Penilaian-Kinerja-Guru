@@ -8,6 +8,12 @@
         ?>
     </div>
 </div>
+<style>
+/* I suggest to hide  all selected tags from drop down list */
+.select2-results__option[aria-selected="true"] {
+  display: none;
+}
+</style>
 <div class="row">
     <div class="col-sm-12">
         <div class="informasi"></div>

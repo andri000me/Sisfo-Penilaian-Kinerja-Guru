@@ -26,7 +26,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Tenaga Pendidik</label>
                                     <div class="col-md-3">
-                                        <select name="id_tenaga_pendidik" class="form-control" required>
+                                        <select name="id_tenaga_pendidik" class="form-control id_tenaga_pendidik" required>
                                             <option value="">Pilih--</option>
                                             <?php
                                             if ($this->uri->segment(2) == "edit") {
@@ -48,11 +48,29 @@
                                 </div>  
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Nama Kompetensi</label>
-                                    <div class="col-md-5">
-                                        <textarea class="form-control" name="nama_kompetensi" rows="4" placeholder="Nama Kompetensi" required><?= $this->uri->segment(2) == "edit" ? $data->nama_kompetensi : "" ?></textarea>
+                                    <div class="col-md-6">
+                                        <select name="id_kompetensi" class="form-control id_kompetensi" required>
+                                            <?php
+                                            if ($this->uri->segment(2) == "edit") { 
+                                                $qry = $this->db->get_where('tbl_kompetensi',['id_tenaga_pendidik' => $data->id_tenaga_pendidik]);
+                                                foreach ($qry->result() as $row) {
+                                                    if ($data->id_kompetensi == $row->id_kompetensi) {
+                                                        echo "<option value='" . $row->id_kompetensi . "' selected>$row->nama_kompetensi</option>";
+                                                    } else {
+                                                        echo "<option value='" . $row->id_kompetensi . "'>$row->nama_kompetensi</option>";
+                                                    }
+                                                }
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
-                                
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Nama Indikator</label>
+                                    <div class="col-md-5">
+                                        <textarea class="form-control" name="nama_indikator" rows="4" placeholder="Nama Indikator" required><?= $this->uri->segment(2) == "edit" ? $data->nama_indikator : "" ?></textarea>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label"></label>
                                     <div class="col-md-9">
