@@ -23,6 +23,7 @@
                         <th width="25%" style="text-align: center; font-size:12px;">Nama Lengkap</th>
                         <th width="15%" style="text-align: center; font-size:12px;">Username</th>
                         <th width="10%" style="text-align: center; font-size:12px;">Foto</th>
+                        <th width="10%" style="text-align: center; font-size:12px;">Role</th>
                         <th width="10%"  style="text-align: center; font-size:12px;">Aksi</th>
                     </tr>
                 </thead>

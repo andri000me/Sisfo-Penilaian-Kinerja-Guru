@@ -136,7 +136,15 @@
                             <a href="/data-skor/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-skor" ? "active" : ""; ?>">
                                 <i class="fe-users"></i><span> Data Skor</span></a>
                         </li>
+                        <li>
+                            <a href="/data-user/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-user" ? "active" : ""; ?>">
+                                <i class="fe-user"></i><span> Data User</span></a>
+                        </li>
                         <?php } elseif ($this->session->userdata('sess_pkguru_role') == "Tim Penilai") { ?>
+                        <li>
+                            <a href="/data-penilaian/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-penilaian" ? "active" : ""; ?>">
+                                <i class="fe-check-square"></i><span> Data Penilaian</span></a>
+                        </li>
                         <li>
                             <a href="/data-laporan/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-laporan" ? "active" : ""; ?>">
                                 <i class="fe-printer"></i><span> Data Laporan</span></a>

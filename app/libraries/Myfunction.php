@@ -19,6 +19,24 @@ class Myfunction
 			}
 		}
 	}
+	public function _inputRole()
+	{
+		$arr = array('Tim Penilai', 'Pengawas');
+		for ($i = 0; $i < count($arr); $i++) {
+			echo "<option value='$arr[$i]'>$arr[$i]</option>";
+		}
+	}
+	public function _editRole($data)
+	{
+		$arr = array('Tim Penilai', 'Pengawas');
+		for ($i = 0; $i < count($arr); $i++) {
+			if ($arr[$i] == $data) {
+				echo "<option value='$arr[$i]' selected>$arr[$i]</option>";
+			} else {
+				echo "<option value='$arr[$i]'>$arr[$i]</option>";
+			}
+		}
+	}
 	function _inputAgama(){
 		$ag = array('Islam','Hindu','Budha','Kristen','Kristen Protestan','Kristen Katolik','Konghucu');
 		for($i=0; $i<count($ag); $i++){

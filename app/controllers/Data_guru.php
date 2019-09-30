@@ -60,8 +60,8 @@ class Data_guru extends CI_Controller {
             $data['tmt_pangkat_golongan']       = $this->input->post('tmt_pangkat_golongan', TRUE);
             $data['tmt_sebagai_guru']           = $this->input->post('tmt_sebagai_guru', TRUE);
             $data['masa_kerja_sebagai_guru']    = $this->input->post('masa_kerja_sebagai_guru', TRUE);
-            $data['tmt_tugas_tambahan']         = $this->input->post('tmt_tugas_tambahan', TRUE);
-            $data['masa_kerja_tugas_tambahan']  = $this->input->post('masa_kerja_tugas_tambahan', TRUE);
+            $data['tmt_tugas_tambahan']         = $this->input->post('tmt_tugas_tambahan', TRUE) == "" ? NULL : $this->input->post('tmt_tugas_tambahan', TRUE);
+            $data['masa_kerja_tugas_tambahan']  = $this->input->post('masa_kerja_tugas_tambahan', TRUE) == "" ? NULL : $this->input->post('masa_kerja_tugas_tambahan', TRUE);
             $data['pendidikan']                 = $this->input->post('pendidikan', TRUE);
             $data['guru_mapel']                 = $this->input->post('guru_mapel', TRUE);
             $data['level_guru']                 = $this->input->post('level_guru', TRUE);
@@ -82,8 +82,8 @@ class Data_guru extends CI_Controller {
             $data['tmt_pangkat_golongan']       = $this->input->post('tmt_pangkat_golongan', TRUE);
             $data['tmt_sebagai_guru']           = $this->input->post('tmt_sebagai_guru', TRUE);
             $data['masa_kerja_sebagai_guru']    = $this->input->post('masa_kerja_sebagai_guru', TRUE);
-            $data['tmt_tugas_tambahan']         = $this->input->post('tmt_tugas_tambahan', TRUE);
-            $data['masa_kerja_tugas_tambahan']  = $this->input->post('masa_kerja_tugas_tambahan', TRUE);
+            $data['tmt_tugas_tambahan']         = $this->input->post('tmt_tugas_tambahan', TRUE)  == "" ? NULL : $this->input->post('tmt_tugas_tambahan', TRUE);
+            $data['masa_kerja_tugas_tambahan']  = $this->input->post('masa_kerja_tugas_tambahan', TRUE)  == "" ? NULL : $this->input->post('masa_kerja_tugas_tambahan', TRUE);
             $data['pendidikan']                 = $this->input->post('pendidikan', TRUE);
             $data['guru_mapel']                 = $this->input->post('guru_mapel', TRUE);
             $data['level_guru']                 = $this->input->post('level_guru', TRUE);

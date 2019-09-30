@@ -25,6 +25,11 @@ class Dropdown extends CI_Controller {
         $id   = $this->uri->segment(2); 
         $this->model_dropdown->_getKompetensi($term,$id);
     }
+    public function guru()
+    {
+        $term = $this->input->get('search');
+        $this->model_dropdown->_getGuru($term);
+    }
 }
  
 /* End of file Dropdown.php */

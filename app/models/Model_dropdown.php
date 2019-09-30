@@ -29,6 +29,26 @@ class Model_dropdown extends CI_Model {
         }
         echo json_encode($data);
     }
+    public function _getGuru($term)
+    {
+        $query = $this->db->select('*')
+                          ->from('tbl_guru')
+                          ->like('nama_guru', $term)
+                          ->where('level_guru !=', 'Guru Mata Pelajaran')
+                          ->order_by('id_guru', 'ASC')
+                          ->get();
+        $total = $query->num_rows();
+        $data  = [];
+        if ($total > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = [
+                    'id'    => $row->id_guru,
+                    'name_' => $row->nama_guru. ' - ' . $row->level_guru
+                ];
+            }
+        }
+        echo json_encode($data);
+    }
 }
  
 /* End of file Model_dropdown.php */

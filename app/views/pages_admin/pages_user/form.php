@@ -25,22 +25,37 @@
                     <div class="col-lg-12">
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Nama Relawan</label>
+                                <label class="col-md-2 control-label">Role</label>
+                                <div class="col-md-2">
+                                   <select name="role" class="form-control role" required>
+                                        <option value="">Pilih--</option>
+                                        <?php
+                                            if ($this->uri->segment(2) == "edit") {
+                                                $this->myfunction->_editRole($data->role);
+                                            } else {
+                                                $this->myfunction->_inputRole();
+                                            }
+                                            ?>
+                                    </select>     
+                                </div>
+                            </div>
+                            <div class="form-group field-guru" style="display:none;">
+                                <label class="col-md-2 control-label">Nama Guru</label>
                                 <div class="col-md-3">
-                                   <select name="id_relawan" class="form-control id_relawan" required>
+                                   <select name="id_guru" class="form-control id_guru">
                                         <option value="">Pilih--</option>
                                         <?php
                                           if($this->uri->segment(2) == "edit"){
-                                            foreach ($select['nama_relawan']->result() as $row) {
-                                                if ($data->id_relawan == $row->id_relawan) {
-                                                    echo "<option value='" . $row->id_relawan . "' selected>$row->nama_lengkap</option>";
+                                            foreach ($select['nama_guru']->result() as $row) {
+                                                if ($data->id_guru == $row->id_guru) {
+                                                    echo "<option value='" . $row->id_guru . "' selected>$row->nama_guru</option>";
                                                 } else {
-                                                    echo "<option value='" . $row->id_relawan . "'>$row->nama_lengkap</option>";
+                                                    echo "<option value='" . $row->id_guru . "'>$row->nama_guru</option>";
                                                 }
                                             }
                                           }else{
-                                             foreach ($select['nama_relawan']->result() as $row) {
-                                                echo "<option value='".$row->id_relawan."'>$row->nama_lengkap</option>";
+                                             foreach ($select['nama_guru']->result() as $row) {
+                                                echo "<option value='".$row->id_guru."'>$row->nama_guru</option>";
                                             }
                                           }
                                         ?>
@@ -77,10 +92,10 @@
                                 <div class="col-md-3">
                                     <?php
                                       $foto = $data->foto != NULL ? $data->foto : 'null.jpg';
-                                      if((file_exists('lib/assets/images/user/'.$foto) == FALSE) || $data->foto == NULL ){
-                                          $file = base_url('lib/assets/images/user/null.jpg'); 
+                                      if((file_exists('lib/images/user/'.$foto) == FALSE) || $data->foto == NULL ){
+                                          $file = base_url('lib/images/user/null.jpg'); 
                                       }else{
-                                          $file = base_url('lib/assets/images/user/'.$data->foto); 
+                                          $file = base_url('lib/images/user/'.$data->foto); 
                                       }
                                     ?>
                                     <img src="<?php echo $file;?>" class="img-square"style="width:150px; height: 150px;" alt="...">

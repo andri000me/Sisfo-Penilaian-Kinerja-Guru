@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2019 at 11:01 AM
+-- Generation Time: Sep 30, 2019 at 09:49 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -77,7 +77,9 @@ CREATE TABLE `tbl_guru` (
 --
 
 INSERT INTO `tbl_guru` (`id_guru`, `id_sekolah`, `id_tenaga_pendidik`, `nip`, `nama_guru`, `jenis_kelamin`, `tempat_lahir`, `tgl_lahir`, `nomor_seri`, `nuptk`, `nrg`, `jabatan`, `tmt_pangkat_golongan`, `tmt_sebagai_guru`, `masa_kerja_sebagai_guru`, `tmt_tugas_tambahan`, `masa_kerja_tugas_tambahan`, `pendidikan`, `guru_mapel`, `level_guru`) VALUES
-(2, 1, '1,5', '123456879789564333', 'Iztys', 'Laki-Laki', 'Gorontalo', '2019-09-26', '234232344', '32423434', '23423424', 'Tes', 'tes', 'tes', '1 Thaun 2 Bulan', '34', '1 Thaun 2 Bulan', 'S1', 'PKN', 'Kepala Sekolah');
+(2, 1, '1,2', '123456879789564333', 'Iztys', 'Laki-Laki', 'Gorontalo', '2019-09-26', '234232344', '32423434', '23423424', 'Tes', 'tes', 'tes', '1 Thaun 2 Bulan', '34', '1 Thaun 2 Bulan', 'S1', 'PKN', 'Kepala Sekolah'),
+(3, 1, '1', '123456897845644655', 'Rahman Datu', 'Laki-Laki', 'Gorontalo', '2019-09-23', '342342344', '343423', '42424', '1', '3', '3', '1 Tahun 2 bulan', '', '', 'S1', 'Matematika', 'Guru Senior'),
+(4, 1, '1', '123456498797893333', 'Wanda', 'Perempuan', 'Gorontalo', '2019-09-01', '23424234', '24234342', '34234234234', '23434', '343', '22', '1 Tahun 2 Bulan', NULL, NULL, '1 Tahun 2 Bulan', 'TIK', 'Guru Mata Pelajaran');
 
 -- --------------------------------------------------------
 
@@ -362,7 +364,9 @@ CREATE TABLE `tbl_user` (
 INSERT INTO `tbl_user` (`id_user`, `id_guru`, `nama_lengkap`, `username`, `password`, `foto`, `role`, `created_at`, `updated_at`) VALUES
 (1, NULL, 'Rezky Pradana Budihartono', 'admin', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-673584.jpg', 'Administrator', '2018-11-19 21:14:57', '2019-09-24 06:57:13'),
 (2, 1, 'Zulharman Paputungan', 'zul', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-159342.jpg', 'Tim Penilai', '2019-07-16 05:00:47', '2019-09-24 06:34:55'),
-(3, 2, 'Fandi Iman', 'fandi', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-898956.jpg', 'Tim Penilai', '2019-09-23 04:37:01', '2019-09-24 06:34:58');
+(3, 2, 'Fandi Iman', 'fandi', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-898956.jpg', 'Tim Penilai', '2019-09-23 04:37:01', '2019-09-24 06:34:58'),
+(4, 2, 'Iztys', 'isti', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'PROFIL-768895.jpg', 'Tim Penilai', '2019-09-30 06:51:30', '2019-09-30 06:51:30'),
+(5, NULL, 'Pengawas', 'pengawas1', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'PROFIL-408001.jpg', 'Pengawas', '2019-09-30 06:51:56', '2019-09-30 06:51:56');
 
 --
 -- Indexes for dumped tables
@@ -436,7 +440,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_guru`
 --
 ALTER TABLE `tbl_guru`
-  MODIFY `id_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_indikator`
@@ -478,7 +482,7 @@ ALTER TABLE `tbl_tenaga_pendidik`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id_user` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

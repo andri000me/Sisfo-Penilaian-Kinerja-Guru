@@ -29,30 +29,35 @@ class Model_user extends CI_Model {
 	}
 	public function data_select_form()
     {
-        $data['nama_relawan'] = $this->db->get('tbl_relawan');
+        $data['nama_guru'] = $this->db->get('tbl_guru');
         return $data;
     }
 	private function data_list()
 	{
-		$query  = $this->db->select('*')->from($this->table)->join('tbl_relawan','tbl_relawan.id_relawan = tbl_user.id_relawan')->where('role','Relawan')->order_by($this->id_name, 'DESC')->get();
+		$query  = $this->db->select('*')
+						   ->from($this->table)
+						   ->where('role !=','Administrator')
+						   ->order_by($this->id_name, 'DESC')
+						   ->get();
 		$total  = $query->num_rows();
 		if($total > 0){
 			$no = 1;
 			foreach($query->result() as $row) {
 				$foto = $row->foto != NULL ? $row->foto : 'null.jpg';
-                if((file_exists('lib/assets/images/user/'.$foto) == FALSE) || $row->foto == NULL ){
-                    $file = base_url('lib/assets/images/user/null.jpg'); 
+                if((file_exists('lib/images/user/'.$foto) == FALSE) || $row->foto == NULL ){
+                    $file = base_url('lib/images/user/null.jpg'); 
                 }else{
-                    $file = base_url('lib/assets/images/user/'.$row->foto); 
+                    $file = base_url('lib/images/user/'.$row->foto); 
                 }
                 $foto   = '<img width="50" height="50" src="'.$file.'">';
-				$edit   = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="'.base_url(''.$this->uri->segment(1).'/edit/'.$this->myfunction->_encdec('enc',$row->id_user)).'/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
-				$delt   = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\''.$row->username.'\')" data-href="'.base_url(''.$this->uri->segment(1).'/proses/d/'.$this->myfunction->_encdec('enc',$row->id_user)).'/" ><i class="fa fa-trash"></i></a></span>';
+				$aksi   = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="'.base_url(''.$this->uri->segment(1).'/edit/'.$this->myfunction->_encdec('enc',$row->id_user)).'/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
+				$aksi  .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\''.$row->username.'\')" data-href="'.base_url(''.$this->uri->segment(1).'/proses/d/'.$this->myfunction->_encdec('enc',$row->id_user)).'/" ><i class="fa fa-trash"></i></a></span>';
 				$data[] = ['no'	  => $no, 
 						   'nama' => $row->nama_lengkap,
 			               'user' => $row->username,
 			               'foto' => $foto,
-			           	   'aksi' => $edit.$delt];
+			               'role' => $row->role,
+			           	   'aksi' => $aksi];
 				$no++;
 			}
 			$this->_data_list['data']  = $data;
