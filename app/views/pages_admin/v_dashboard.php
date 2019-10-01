@@ -133,10 +133,6 @@
                                 <i class="fe-layers"></i><span> Data Indikator</span></a>
                         </li>
                         <li>
-                            <a href="/data-skor/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-skor" ? "active" : ""; ?>">
-                                <i class="fe-users"></i><span> Data Skor</span></a>
-                        </li>
-                        <li>
                             <a href="/data-user/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-user" ? "active" : ""; ?>">
                                 <i class="fe-user"></i><span> Data User</span></a>
                         </li>
