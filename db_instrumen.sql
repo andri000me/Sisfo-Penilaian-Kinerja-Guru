@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2019 at 11:10 AM
+-- Generation Time: Oct 04, 2019 at 09:02 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -42,6 +42,36 @@ CREATE TABLE `app_config` (
 
 INSERT INTO `app_config` (`app_name`, `author`, `description`, `developer`, `site_title`) VALUES
 ('Sistem Informasi Penilaian Kinerja Guru', 'Rezky P. Budihartono', 'Sistem Informasi Penilaian Kinerja Guru Kabupaten Sleman', '010 Developer', 'Sistem Informasi Penilaian Kinerja Guru');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_golongan`
+--
+
+CREATE TABLE `tbl_golongan` (
+  `id_golongan` int(5) NOT NULL,
+  `kenaikan_ke` varchar(50) DEFAULT NULL,
+  `akk` int(5) DEFAULT NULL,
+  `pd` int(5) DEFAULT NULL,
+  `pi` int(5) DEFAULT NULL,
+  `ki` int(5) DEFAULT NULL,
+  `akp` int(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_golongan`
+--
+
+INSERT INTO `tbl_golongan` (`id_golongan`, `kenaikan_ke`, `akk`, `pd`, `pi`, `ki`, `akp`) VALUES
+(1, 'III a ke III b', 50, 3, 0, 0, 5),
+(2, 'III b ke III c', 50, 3, 4, 0, 5),
+(3, 'III c ke III d', 100, 3, 6, 0, 10),
+(4, 'III d ke IV a', 100, 4, 8, 0, 10),
+(5, 'IV a ke IV b', 150, 4, 12, 0, 15),
+(6, 'IV b ke IV c', 150, 4, 12, 0, 15),
+(7, 'IV c ke IV d', 150, 5, 14, 0, 15),
+(8, 'IV d ke IV e', 200, 5, 20, 0, 20);
 
 -- --------------------------------------------------------
 
@@ -373,6 +403,12 @@ INSERT INTO `tbl_user` (`id_user`, `id_guru`, `nama_lengkap`, `username`, `passw
 --
 
 --
+-- Indexes for table `tbl_golongan`
+--
+ALTER TABLE `tbl_golongan`
+  ADD PRIMARY KEY (`id_golongan`);
+
+--
 -- Indexes for table `tbl_guru`
 --
 ALTER TABLE `tbl_guru`
@@ -435,6 +471,12 @@ ALTER TABLE `tbl_user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `tbl_golongan`
+--
+ALTER TABLE `tbl_golongan`
+  MODIFY `id_golongan` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_guru`
