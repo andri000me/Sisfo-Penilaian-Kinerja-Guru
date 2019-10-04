@@ -133,6 +133,10 @@
                                 <i class="fe-layers"></i><span> Data Indikator</span></a>
                         </li>
                         <li>
+                            <a href="/data-golongan/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-golongan" ? "active" : ""; ?>">
+                                <i class="fe-grid"></i><span> Data Golongan</span></a>
+                        </li>
+                        <li>
                             <a href="/data-user/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-user" ? "active" : ""; ?>">
                                 <i class="fe-user"></i><span> Data User</span></a>
                         </li>
