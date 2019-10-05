@@ -47,7 +47,7 @@ class Data_guru extends CI_Controller {
         $act = $this->uri->segment(3);
         if ($act == 'i') {
             $data['id_sekolah']                 = $this->input->post('id_sekolah', TRUE);
-            $data['id_tenaga_pendidik']         = implode(",",$this->input->post('id_tenaga_pendidik', TRUE));
+            
             $data['nip']                        = $this->input->post('nip', TRUE);
             $data['nama_guru']                  = $this->input->post('nama_guru', TRUE);
             $data['jenis_kelamin']              = $this->input->post('jenis_kelamin', TRUE);
@@ -66,6 +66,13 @@ class Data_guru extends CI_Controller {
             $data['guru_mapel']                 = $this->input->post('guru_mapel', TRUE);
             $data['level_guru']                 = $this->input->post('level_guru', TRUE);
             $this->model_guru->data_insert($data);
+            $id_guru                            = $this->db->insert_id();
+            $id_tenaga_pendidik                 = $this->input->post('id_tenaga_pendidik', TRUE);
+            $data_1 = [];
+            for($i=0;$i<count($id_tenaga_pendidik);$i++){
+                $data_1[] = ['id_guru' => $id_guru, 'id_tenaga_pendidik' => $id_tenaga_pendidik[$i]];
+            }
+            $this->db->insert_batch('tbl_guru_pendidik',$data_1);
         } elseif ($act == 'e') {
             $id                                 = $this->myfunction->_encdec('dec', $this->input->post('id'));
             $data['id_sekolah']                 = $this->input->post('id_sekolah', TRUE);

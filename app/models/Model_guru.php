@@ -46,18 +46,13 @@ class Model_guru extends CI_Model {
         if ($total > 0) {
             $no = 1;
             foreach ($query->result() as $row) {
-                $id_tp           = explode(',',$row->id_tenaga_pendidik);
-                $tenaga_pendidik = '';
-                for ($i=0; $i<count($id_tp); $i++) {
-                    $qry_1 = $this->db->get_where('tbl_tenaga_pendidik',['id_tenaga_pendidik'=>$id_tp[$i]])->row();
-                    $tenaga_pendidik .= "<span class='label label-primary'>".$qry_1->jenis_tenaga_pendidik."</span> &nbsp;";
-                }
+                 
                 $aksi    = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
                 $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->nama_guru . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
                 $data[] = [
                     'no'           => $no,
                     'nama_sekolah' => $row->nama_sekolah,
-                    'jenis_tp'     => $tenaga_pendidik,
+                    'jenis_tp'     => $row->nama_guru,
                     'nip'          => $row->nip,
                     'nama_guru'    => $row->nama_guru,
                     'guru_mapel'   => $row->guru_mapel,
