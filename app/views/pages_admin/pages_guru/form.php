@@ -59,17 +59,14 @@
                                             <?php
                                             if ($this->uri->segment(2) == "edit") {
                                                 $explode = explode(',',$data->id_tenaga_pendidik);
-                                                for ($i=0; $i<count($explode); $i++) {
-                                                    $qry = $this->db->get_where('tbl_tenaga_pendidik',['id_tenaga_pendidik'=>$explode[$i]])->row();
-                                                        if($qry->jenis_tenaga_pendidik == "Guru Mata Pelajaran"){
-                                                            echo "<option value='" . $qry->id_tenaga_pendidik . "' selected locked='locked' disable>$qry->jenis_tenaga_pendidik </option>";
-                                                        }else{
-                                                            echo "<option value='" . $qry->id_tenaga_pendidik . "' selected>$qry->jenis_tenaga_pendidik </option>";
-                                                        }
-                                                }
-                                                $qry = $this->db->select("*")->from('tbl_tenaga_pendidik')->where_not_in('id_tenaga_pendidik', $explode)->get();
+                                                 
+                                                $qry = $this->db->select("*")
+                                                                ->from('tbl_guru_pendidik')
+                                                                ->join('tbl_tenaga_pendidik','tbl_guru_pendidik.id_tenaga_pendidik = tbl_tenaga_pendidik.id_tenaga_pendidik')
+                                                                ->where('tbl_guru_pendidik.id_guru', $data->id_guru)
+                                                                ->get();
                                                 foreach ($qry->result() as $row) {
-                                                    echo "<option value='" . $row->id_tenaga_pendidik . "'>$row->jenis_tenaga_pendidik</option>";
+                                                    echo "<option value='" . $row->id_tenaga_pendidik . "' selected  locked='locked'>$row->jenis_tenaga_pendidik</option>";
                                                 }
                                             } else {
                                                 foreach ($select['jenis_tp']->result() as $row) {
@@ -165,6 +162,7 @@
                                         <input type="text" name="masa_kerja_sebagai_guru" class="form-control" placeholder="0 Tahun 0 Bulan" required value="<?= $this->uri->segment(2) == "edit" ? $data->masa_kerja_sebagai_guru : "" ?>">
                                     </div>
                                 </div>
+                                <?php if($this->uri->segment(2) == "input"){?>
                                 <div class="tugas-tambahan" style="display:none;">
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">TMT Tugas Tambahan</label>
@@ -179,6 +177,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php }elseif($this->uri->segment(2) == "edit" && $data->tmt_tugas_tambahan != NULL){ ?>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">TMT Tugas Tambahan</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="tmt_tugas_tambahan" class="form-control tmt_tugas_tambahan" placeholder="TMT Tugas Tambahan" value="<?= $this->uri->segment(2) == "edit" ? $data->tmt_tugas_tambahan : "" ?>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Masa Kerja Tugas Tambahan</label>
+                                    <div class="col-md-4">
+                                        <input type="text" name="masa_kerja_tugas_tambahan" class="form-control masa_kerja_tugas_tambahan" placeholder="0 Tahun 0 Bulan" value="<?= $this->uri->segment(2) == "edit" ? $data->masa_kerja_tugas_tambahan : "" ?>">
+                                    </div>
+                                </div>
+                                <?php } ?>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Pendidikan Terakhir</label>
                                     <div class="col-md-4">
