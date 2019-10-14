@@ -1,27 +1,27 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Data_tenaga_pendidik extends CI_Controller {
+class Data_tugas extends CI_Controller {
  
     /**
         * @author      	: Rezky P. Budihartono
         * @contact 		: rh3zky@gmail.com
-        * @description 	: Data_tenaga_pendidik controller for administrator
+        * @description 	: Data_tugas controller for administrator
     **/
  
-    public $control = 'data-tenaga-pendidik';
-    public $konten  = 'pages_admin/pages_tenaga_pendidik/';
+    public $control = 'data-tugas';
+    public $konten  = 'pages_admin/pages_tugas/';
     public $view    = 'pages_admin/v_dashboard';
  
     public function __construct()
     {
         parent::__construct();
         $this->model_other->_SessionCheck();
-        $this->load->model('model_tenaga_pendidik');
+        $this->load->model('model_tugas');
     }
     public function get()
     {
-        $this->model_tenaga_pendidik->_getData();
+        $this->model_tugas->_getData();
     }
     public function index()
     {
@@ -37,22 +37,24 @@ class Data_tenaga_pendidik extends CI_Controller {
     {
         $id              = $this->myfunction->_encdec('dec', $this->uri->segment(3));
         $data['konten']  = $this->konten . 'form';
-        $data['data']    = $this->model_tenaga_pendidik->data_get($id)->row();
+        $data['data']    = $this->model_tugas->data_get($id)->row();
         $this->load->view($this->view, $data);
     }
     public function proses()
     {
         $act = $this->uri->segment(3);
         if ($act == 'i') {
-            $data['jenis_tenaga_pendidik'] = $this->input->post('jenis_tenaga_pendidik', TRUE);
-            $this->model_tenaga_pendidik->data_insert($data);
+            $data['tugas']       = $this->input->post('tugas', TRUE);
+            $data['jenis_tugas'] = $this->input->post('jenis_tugas', TRUE);
+            $this->model_tugas->data_insert($data);
         } elseif ($act == 'e') {
-            $id                            = $this->myfunction->_encdec('dec', $this->input->post('id'));
-            $data['jenis_tenaga_pendidik'] = $this->input->post('jenis_tenaga_pendidik', TRUE);
-            $this->model_tenaga_pendidik->data_update($data, $id);
+            $id                  = $this->myfunction->_encdec('dec', $this->input->post('id'));
+            $data['tugas']       = $this->input->post('tugas', TRUE);
+            $data['jenis_tugas'] = $this->input->post('jenis_tugas', TRUE);
+            $this->model_tugas->data_update($data, $id);
         } elseif ($act == 'd') {
             $id = $this->myfunction->_encdec('dec', $this->uri->segment(4));
-            $this->model_tenaga_pendidik->data_delete($id);
+            $this->model_tugas->data_delete($id);
         }
         redirect($this->control . '/');
     }

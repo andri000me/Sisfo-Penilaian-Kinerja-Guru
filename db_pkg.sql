@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2019 at 10:26 AM
--- Server version: 10.1.39-MariaDB
--- PHP Version: 7.3.5
+-- Generation Time: Oct 14, 2019 at 07:56 PM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `app_config` (
+  `id` int(5) NOT NULL,
   `app_name` text NOT NULL,
   `author` text NOT NULL,
   `description` text NOT NULL,
@@ -40,8 +41,8 @@ CREATE TABLE `app_config` (
 -- Dumping data for table `app_config`
 --
 
-INSERT INTO `app_config` (`app_name`, `author`, `description`, `developer`, `site_title`) VALUES
-('Sistem Informasi Penilaian Kinerja Guru', 'Rezky P. Budihartono', 'Sistem Informasi Penilaian Kinerja Guru Kabupaten Sleman', '010 Developer', 'Sistem Informasi Penilaian Kinerja Guru');
+INSERT INTO `app_config` (`id`, `app_name`, `author`, `description`, `developer`, `site_title`) VALUES
+(1, 'Sistem Informasi Penilaian Kinerja Guru', 'Rezky P. Budihartono', 'Sistem Informasi Penilaian Kinerja Guru Kabupaten Sleman', '010 Developer', 'SIPKG');
 
 -- --------------------------------------------------------
 
@@ -93,9 +94,9 @@ CREATE TABLE `tbl_guru` (
   `jabatan` varchar(15) DEFAULT NULL,
   `tmt_pangkat_golongan` varchar(15) DEFAULT NULL,
   `tmt_sebagai_guru` varchar(15) DEFAULT NULL,
-  `masa_kerja_sebagai_guru` text,
+  `masa_kerja_sebagai_guru` text DEFAULT NULL,
   `tmt_tugas_tambahan` varchar(15) DEFAULT NULL,
-  `masa_kerja_tugas_tambahan` text,
+  `masa_kerja_tugas_tambahan` text DEFAULT NULL,
   `pendidikan` varchar(15) DEFAULT NULL,
   `guru_mapel` varchar(25) DEFAULT NULL,
   `level_guru` enum('Kepala Sekolah','Guru Senior','Guru Mata Pelajaran') DEFAULT NULL
@@ -140,7 +141,7 @@ CREATE TABLE `tbl_indikator` (
   `id_indikator` int(5) NOT NULL,
   `id_tenaga_pendidik` int(5) DEFAULT NULL,
   `id_kompetensi` int(5) DEFAULT NULL,
-  `nama_indikator` text
+  `nama_indikator` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -276,7 +277,7 @@ INSERT INTO `tbl_indikator` (`id_indikator`, `id_tenaga_pendidik`, `id_kompetens
 CREATE TABLE `tbl_kompetensi` (
   `id_kompetensi` int(5) NOT NULL,
   `id_tenaga_pendidik` int(5) DEFAULT NULL,
-  `nama_kompetensi` text
+  `nama_kompetensi` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -382,24 +383,25 @@ INSERT INTO `tbl_sekolah` (`id_sekolah`, `nama_sekolah`, `no_telp`, `provinsi`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_tenaga_pendidik`
+-- Table structure for table `tbl_tugas`
 --
 
-CREATE TABLE `tbl_tenaga_pendidik` (
-  `id_tenaga_pendidik` int(5) NOT NULL,
-  `jenis_tenaga_pendidik` varchar(25) DEFAULT NULL
+CREATE TABLE `tbl_tugas` (
+  `id_tugas` int(5) NOT NULL,
+  `tugas` varchar(25) DEFAULT NULL,
+  `jenis_tugas` enum('Pokok','Tambahan') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tbl_tenaga_pendidik`
+-- Dumping data for table `tbl_tugas`
 --
 
-INSERT INTO `tbl_tenaga_pendidik` (`id_tenaga_pendidik`, `jenis_tenaga_pendidik`) VALUES
-(1, 'Guru Mata Pelajaran'),
-(2, 'Kepala Sekolah'),
-(3, 'Wakil Kepala Sekolah'),
-(4, 'Kepala Lab Komputer'),
-(5, 'Kepala Perpustakaan');
+INSERT INTO `tbl_tugas` (`id_tugas`, `tugas`, `jenis_tugas`) VALUES
+(1, 'Guru Mata Pelajaran', 'Pokok'),
+(2, 'Kepala Sekolah', 'Tambahan'),
+(3, 'Wakil Kepala Sekolah', 'Tambahan'),
+(4, 'Kepala Lab Komputer', 'Tambahan'),
+(5, 'Kepala Perpustakaan', 'Tambahan');
 
 -- --------------------------------------------------------
 
@@ -415,8 +417,8 @@ CREATE TABLE `tbl_user` (
   `password` varchar(50) DEFAULT NULL,
   `foto` varchar(100) DEFAULT NULL,
   `role` enum('Administrator','Tim Penilai','Pengawas') DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -433,6 +435,12 @@ INSERT INTO `tbl_user` (`id_user`, `id_guru`, `nama_lengkap`, `username`, `passw
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `app_config`
+--
+ALTER TABLE `app_config`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_golongan`
@@ -502,10 +510,10 @@ ALTER TABLE `tbl_sekolah`
   ADD PRIMARY KEY (`id_sekolah`);
 
 --
--- Indexes for table `tbl_tenaga_pendidik`
+-- Indexes for table `tbl_tugas`
 --
-ALTER TABLE `tbl_tenaga_pendidik`
-  ADD PRIMARY KEY (`id_tenaga_pendidik`);
+ALTER TABLE `tbl_tugas`
+  ADD PRIMARY KEY (`id_tugas`);
 
 --
 -- Indexes for table `tbl_user`
@@ -517,6 +525,12 @@ ALTER TABLE `tbl_user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `app_config`
+--
+ALTER TABLE `app_config`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_golongan`
@@ -573,10 +587,10 @@ ALTER TABLE `tbl_sekolah`
   MODIFY `id_sekolah` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `tbl_tenaga_pendidik`
+-- AUTO_INCREMENT for table `tbl_tugas`
 --
-ALTER TABLE `tbl_tenaga_pendidik`
-  MODIFY `id_tenaga_pendidik` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `tbl_tugas`
+  MODIFY `id_tugas` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
@@ -599,26 +613,26 @@ ALTER TABLE `tbl_guru`
 --
 ALTER TABLE `tbl_guru_pendidik`
   ADD CONSTRAINT `tbl_guru_pendidik_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `tbl_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_guru_pendidik_ibfk_2` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tenaga_pendidik` (`id_tenaga_pendidik`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_guru_pendidik_ibfk_2` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tugas` (`id_tugas`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_indikator`
 --
 ALTER TABLE `tbl_indikator`
-  ADD CONSTRAINT `tbl_indikator_ibfk_1` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tenaga_pendidik` (`id_tenaga_pendidik`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_indikator_ibfk_1` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tugas` (`id_tugas`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tbl_indikator_ibfk_2` FOREIGN KEY (`id_kompetensi`) REFERENCES `tbl_kompetensi` (`id_kompetensi`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_kompetensi`
 --
 ALTER TABLE `tbl_kompetensi`
-  ADD CONSTRAINT `tbl_kompetensi_ibfk_1` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tenaga_pendidik` (`id_tenaga_pendidik`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_kompetensi_ibfk_1` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tugas` (`id_tugas`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_penilaian_kompetensi`
 --
 ALTER TABLE `tbl_penilaian_kompetensi`
-  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_3` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tenaga_pendidik` (`id_tenaga_pendidik`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_3` FOREIGN KEY (`id_tenaga_pendidik`) REFERENCES `tbl_tugas` (`id_tugas`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_4` FOREIGN KEY (`id_kompetensi`) REFERENCES `tbl_kompetensi` (`id_kompetensi`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_5` FOREIGN KEY (`id_indikator`) REFERENCES `tbl_indikator` (`id_indikator`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;

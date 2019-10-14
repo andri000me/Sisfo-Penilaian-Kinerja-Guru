@@ -32,7 +32,6 @@ class Model_guru extends CI_Model {
     public function data_select_form()
     { 
         $data['nama_sekolah'] = $this->db->get('tbl_sekolah');
-        $data['jenis_tp']     = $this->db->get('tbl_tenaga_pendidik');
         return $data;
     }
     private function data_list()

@@ -16,11 +16,12 @@
                 </h3>
             </div>
             <div class="panel-body table-responsive">
-                <table class="table table-striped table-bordered dt-responsive nowrap table-tenaga-pendidik">
+                <table class="table table-striped table-bordered dt-responsive nowrap table-tugas">
                     <thead>
                         <tr>
                             <th width="1%" style="text-align: center; font-size:12px;">No</th>
-                            <th width="35%" style="text-align: center; font-size:12px;">Jenis Tenaga Pendidik</th>
+                            <th width="35%" style="text-align: center; font-size:12px;">Kategori Tugas</th>
+                            <th width="35%" style="text-align: center; font-size:12px;">Jenis Tugas</th>
                             <th width="10%" style="text-align: center; font-size:12px;">Aksi</th>
                         </tr>
                     </thead>

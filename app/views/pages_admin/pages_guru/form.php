@@ -53,32 +53,43 @@
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Tenaga Pendidik</label>
+                                    <label class="col-md-3 control-label">Tugas Pokok</label>
                                     <div class="col-md-6">
-                                        <select name="id_tenaga_pendidik[]" multiple="multiple" readonly class="form-control select2 tenaga-pendidik" required> 
-                                            <?php
-                                            if ($this->uri->segment(2) == "edit") {
-                                                $explode = explode(',',$data->id_tenaga_pendidik);
-                                                 
-                                                $qry = $this->db->select("*")
-                                                                ->from('tbl_guru_pendidik')
-                                                                ->join('tbl_tenaga_pendidik','tbl_guru_pendidik.id_tenaga_pendidik = tbl_tenaga_pendidik.id_tenaga_pendidik')
-                                                                ->where('tbl_guru_pendidik.id_guru', $data->id_guru)
-                                                                ->get();
-                                                foreach ($qry->result() as $row) {
-                                                    echo "<option value='" . $row->id_tenaga_pendidik . "' selected  locked='locked'>$row->jenis_tenaga_pendidik</option>";
-                                                }
-                                            } else {
-                                                foreach ($select['jenis_tp']->result() as $row) {
-                                                    if ($row->jenis_tenaga_pendidik == "Guru Mata Pelajaran") {
-                                                        echo "<option value='" . $row->id_tenaga_pendidik . "' selected locked='locked' disable>$row->jenis_tenaga_pendidik</option>";
-                                                    }else{
-                                                        echo "<option value='" . $row->id_tenaga_pendidik . "'>$row->jenis_tenaga_pendidik</option>";
-                                                    }
-                                                }
-                                            }
-                                            ?>
-                                        </select>
+                                            <?php if($this->uri->segment(3) == "edit"){?>
+                                                <div class="radio radio-info radio-inline">
+                                                    <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked>
+                                                    <label for="inlineRadio1"> Inline One </label>
+                                                </div>
+                                            <?php }else{ ?>
+                                                <?php 
+                                                    $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Pokok']);
+                                                    foreach ($qry->result() as $row) { ?>
+                                                        <div class="radio radio-info radio-inline">
+                                                            <input type="radio" id="inlineRadio1" value="<?=$row->tugas;?>" name="tugas[]">
+                                                            <label for="inlineRadio1"> <?=$row->tugas;?></label>
+                                                        </div>
+                                                    <?php } ?> 
+                                            <?php } ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Tugas Tambahan</label>
+                                    <div class="col-md-6">
+                                            <?php if($this->uri->segment(3) == "edit"){?>
+                                                <div class="radio radio-info radio-inline">
+                                                    <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked>
+                                                    <label for="inlineRadio1"> Inline One </label>
+                                                </div>
+                                            <?php }else{ ?>
+                                                <?php 
+                                                    $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Tambahan']);
+                                                    foreach ($qry->result() as $row) { ?>
+                                                        <div class="radio radio-info radio-inline">
+                                                            <input type="radio" id="inlineRadio<?=$row->id_tugas;?>" value="option1" name="tugas[]">
+                                                            <label for="inlineRadio<?=$row->id_tugas;?>"> <?=$row->tugas;?></label>
+                                                        </div>
+                                                    <?php } ?> 
+                                            <?php } ?>
                                     </div>
                                 </div>
                                 <div class="form-group">

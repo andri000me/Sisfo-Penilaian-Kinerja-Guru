@@ -37,6 +37,24 @@ class Myfunction
 			}
 		}
 	}
+	public function _inputJenisTugas()
+	{
+		$arr = array('Pokok', 'Tambahan');
+		for ($i = 0; $i < count($arr); $i++) {
+			echo "<option value='$arr[$i]'>$arr[$i]</option>";
+		}
+	}
+	public function _editJenisTugas($data)
+	{
+		$arr = array('Pokok', 'Tambahan');
+		for ($i = 0; $i < count($arr); $i++) {
+			if ($arr[$i] == $data) {
+				echo "<option value='$arr[$i]' selected>$arr[$i]</option>";
+			} else {
+				echo "<option value='$arr[$i]'>$arr[$i]</option>";
+			}
+		}
+	}
 	function _inputAgama(){
 		$ag = array('Islam','Hindu','Budha','Kristen','Kristen Protestan','Kristen Katolik','Konghucu');
 		for($i=0; $i<count($ag); $i++){
@@ -363,6 +381,14 @@ class Myfunction
 		$t = ucwords($h);
 		$k = ' ';
 		$x = str_replace($k,'-',$t);
+		return $x;
+	}
+	function hapus_underscore_min1($h){
+		$d = '-';
+		$h = str_replace($d,' ',$h);
+		$t = ucwords($h);
+		$k = ' ';
+		$x = str_replace($k,' ',$t);
 		return $x;
 	}
 	function rupiah($angka){

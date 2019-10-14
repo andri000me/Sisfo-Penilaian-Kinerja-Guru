@@ -24,9 +24,24 @@
                         <div class="col-lg-12">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Jenis Tenaga Pendidik</label>
+                                    <label class="col-md-2 control-label">Kategori Tugas</label>
                                     <div class="col-md-5">
-                                        <input type="text" name="jenis_tenaga_pendidik" class="form-control" placeholder="Jenis Tenaga Pendidik" required value="<?= $this->uri->segment(2) == "edit" ? $data->jenis_tenaga_pendidik : "" ?>">
+                                        <input type="text" name="tugas" class="form-control" placeholder="Kategori Tugas" required value="<?= $this->uri->segment(2) == "edit" ? $data->tugas : "" ?>">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Jenis Tugas</label>
+                                    <div class="col-md-3">
+                                        <select name="jenis_tugas" class="form-control" required>
+                                            <option value="">Pilih--</option>
+                                            <?php
+                                            if ($this->uri->segment(2) == "edit") {
+                                                $this->myfunction->_editJenisTugas($data->jenis_tugas);
+                                            } else {         
+                                                $this->myfunction->_inputJenisTugas();
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div> 
                                  

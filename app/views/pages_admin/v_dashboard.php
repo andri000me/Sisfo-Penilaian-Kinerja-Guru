@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title><?=$this->app->_item('site_title');?></title>
+    <title><?=$this->app->_item('site_title');?> | <?=$this->uri->segment(2) != "" ? $this->myfunction->hapus_underscore_min1($this->uri->segment(2)) : "";?> <?=$this->myfunction->hapus_underscore_min1($this->uri->segment(1));?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<?=$this->app->_item('description');?>">
@@ -57,7 +57,7 @@
             <!-- LOGO -->
             <div class="topbar-left">
                 <div class="text-center">
-                    <a href="./" class="logo" style="font-size:27px;"><i class="fe-file-text"></i> <span>Administrator</span> </a>
+                    <a href="./" class="logo" style="font-size:27px;"><i class="fe-file-text"></i> <span>SI-PKG</span> </a>
                 </div>
             </div>
             <!-- Navbar -->
@@ -117,8 +117,8 @@
                                 <i class="fe-briefcase"></i><span> Data Sekolah</span></a>
                         </li>
                         <li>
-                            <a href="/data-tenaga-pendidik/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-tenaga-pendidik" ? "active" : ""; ?>">
-                                <i class="fe-user-plus"></i><span> Data Tenaga Pendidik</span></a>
+                            <a href="/data-tugas/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-tugas" ? "active" : ""; ?>">
+                                <i class="fe-user-plus"></i><span> Data Tugas</span></a>
                         </li>
                         <li>
                             <a href="/data-guru/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-guru" ? "active" : ""; ?>">

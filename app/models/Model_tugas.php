@@ -1,19 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Model_tenaga_pendidik extends CI_Model {
+class Model_tugas extends CI_Model {
  
     /**
         * @author      	: Rezky P. Budihartono
         * @contact 		: rh3zky@gmail.com
-        * @description 	: Model_tenaga_pendidik model for administrator
+        * @description 	: Model_tugas_guru model for administrator
     **/
  
-    private $table       = 'tbl_tenaga_pendidik';
-    private $id_table    = 'id_tenaga_pendidik';
-    private $field_exist = 'jenis_tenaga_pendidik';
-    private $data_notif  = 'tenaga pendidik';
-    private $data_name   = 'jenis_tenaga_pendidik';
+    private $table       = 'tbl_tugas';
+    private $id_table    = 'id_tugas';
+    private $field_exist = 'tugas';
+    private $data_notif  = 'tugas';
+    private $data_name   = 'tugas';
     private $_data_list  = array();
     
     public function __construct()
@@ -38,18 +38,15 @@ class Model_tenaga_pendidik extends CI_Model {
             $no = 1;
             
             foreach ($query->result() as $row) {
-                $aksi = '';
-                if($row->jenis_tenaga_pendidik != "Guru Mata Pelajaran"){
-                    $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_tenaga_pendidik)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
-                    $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->jenis_tenaga_pendidik . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_tenaga_pendidik)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
-                }else{
-                    $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" disabled title="Default system"><i class="fa fa-edit"></i></a></span>&nbsp;';
-                    $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" title="Default system" disabled><i class="fa fa-trash-o"></i></a></span>';
-                }
+                $aksi = ''; 
+                $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_tugas)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
+                $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->tugas . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_tugas)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
+                 
                 $data[] = [
-                    'no'              => $no,
-                    'tenaga_pendidik' => $row->jenis_tenaga_pendidik, 
-                    'aksi'            => $aksi
+                    'no'          => $no,
+                    'tugas'       => $row->tugas, 
+                    'jenis_tugas' => $row->jenis_tugas, 
+                    'aksi'        => $aksi
                 ];
                 $no++;
             }
