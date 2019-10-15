@@ -24,22 +24,22 @@
                         <div class="col-lg-12">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Tenaga Pendidik</label>
+                                    <label class="col-md-2 control-label">Tugas Pokok / Tambahan</label>
                                     <div class="col-md-3">
-                                        <select name="id_tenaga_pendidik" class="form-control" required>
+                                        <select name="id_tugas" class="form-control" required>
                                             <option value="">Pilih--</option>
                                             <?php
                                             if ($this->uri->segment(2) == "edit") {
-                                                foreach ($select['jenis_tp']->result() as $row) {
-                                                    if ($data->id_tenaga_pendidik == $row->id_tenaga_pendidik) {
-                                                        echo "<option value='" . $row->id_tenaga_pendidik . "' selected>$row->jenis_tenaga_pendidik</option>";
+                                                foreach ($select['tugas']->result() as $row) {
+                                                    if ($data->id_tugas == $row->id_tugas) {
+                                                        echo "<option value='" . $row->id_tugas . "' selected>$row->tugas</option>";
                                                     } else {
-                                                        echo "<option value='" . $row->id_tenaga_pendidik . "'>$row->jenis_tenaga_pendidik</option>";
+                                                        echo "<option value='" . $row->id_tugas . "'>$row->tugas</option>";
                                                     }
                                                 }
                                             } else {
-                                                foreach ($select['jenis_tp']->result() as $row) {
-                                                    echo "<option value='" . $row->id_tenaga_pendidik . "'>$row->jenis_tenaga_pendidik</option>";
+                                                foreach ($select['tugas']->result() as $row) {
+                                                    echo "<option value='" . $row->id_tugas . "'>$row->tugas</option>";
                                                 }
                                             }
                                             ?>

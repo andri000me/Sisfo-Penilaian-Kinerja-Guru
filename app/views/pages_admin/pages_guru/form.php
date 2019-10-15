@@ -55,18 +55,34 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Tugas Pokok</label>
                                     <div class="col-md-6">
-                                            <?php if($this->uri->segment(3) == "edit"){?>
-                                                <div class="radio radio-info radio-inline">
-                                                    <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked>
-                                                    <label for="inlineRadio1"> Inline One </label>
-                                                </div>
-                                            <?php }else{ ?>
+                                            <?php if($this->uri->segment(2) == "edit"){?>
                                                 <?php 
                                                     $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Pokok']);
+                                                    $sql = $this->db->select('*')
+                                                                    ->from("tbl_tugas_guru")
+                                                                    ->join('tbl_tugas','tbl_tugas_guru.id_tugas = tbl_tugas.id_tugas') 
+                                                                    ->where('id_guru',$data->id_guru)
+                                                                    ->where('tbl_tugas.jenis_tugas', 'Pokok')
+                                                                    ->get()->row(); 
+                                                    foreach ($qry->result() as $row) { 
+                                                        if($sql->id_tugas == $row->id_tugas){
+                                                            $checked = "checked";
+                                                        }else{
+                                                            $checked = "";
+                                                        }
+                                                ?>
+                                                        <div class="radio radio-primary  ">
+                                                            <input type="radio" id="inlineRadio<?=$row->id_tugas;?>" value="<?=$row->id_tugas;?>" <?=$checked ;?> name="tugas_pokok[]" required>
+                                                            <label for="inlineRadio<?=$row->id_tugas;?>"> <?=$row->tugas;?></label>
+                                                        </div>
+                                                <?php } ?>
+                                            <?php }else{ ?>
+                                                    <?php 
+                                                    $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Pokok']);
                                                     foreach ($qry->result() as $row) { ?>
-                                                        <div class="radio radio-info radio-inline">
-                                                            <input type="radio" id="inlineRadio1" value="<?=$row->tugas;?>" name="tugas[]">
-                                                            <label for="inlineRadio1"> <?=$row->tugas;?></label>
+                                                        <div class="radio radio-primary">
+                                                            <input type="radio" id="inlineRadio<?=$row->id_tugas;?>" value="<?=$row->id_tugas;?>"  name="tugas_pokok[]" required>
+                                                            <label for="inlineRadio<?=$row->id_tugas;?>"> <?=$row->tugas;?></label>
                                                         </div>
                                                     <?php } ?> 
                                             <?php } ?>
@@ -75,21 +91,42 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Tugas Tambahan</label>
                                     <div class="col-md-6">
-                                            <?php if($this->uri->segment(3) == "edit"){?>
-                                                <div class="radio radio-info radio-inline">
-                                                    <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked>
-                                                    <label for="inlineRadio1"> Inline One </label>
-                                                </div>
-                                            <?php }else{ ?>
+                                        <?php if($this->uri->segment(2) == "edit"){?>
                                                 <?php 
-                                                    $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Tambahan']);
-                                                    foreach ($qry->result() as $row) { ?>
-                                                        <div class="radio radio-info radio-inline">
-                                                            <input type="radio" id="inlineRadio<?=$row->id_tugas;?>" value="option1" name="tugas[]">
-                                                            <label for="inlineRadio<?=$row->id_tugas;?>"> <?=$row->tugas;?></label>
-                                                        </div>
-                                                    <?php } ?> 
-                                            <?php } ?>
+                                                $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Tambahan']);
+                                                $sql = $this->db->select('*')
+                                                                ->from("tbl_tugas_guru")
+                                                                ->join('tbl_tugas','tbl_tugas_guru.id_tugas = tbl_tugas.id_tugas') 
+                                                                ->where('id_guru',$data->id_guru)
+                                                                ->where('tbl_tugas.jenis_tugas', 'Tambahan')
+                                                                ->get();
+                                                $rows = $sql->num_rows();
+                                                $dta = $sql->row(); 
+                                                $checked = "";
+                                                foreach ($qry->result() as $row) { 
+                                                    if($rows > 0){
+                                                        if($dta->id_tugas == $row->id_tugas){
+                                                            $checked = "checked";
+                                                        }else{
+                                                            $checked = "";
+                                                        }
+                                                    }
+                                                ?>
+                                                    <div class="radio radio-primary">
+                                                        <input type="radio" id="inlineRadio<?=$row->id_tugas;?>" value="<?=$row->id_tugas;?>" <?=$checked ;?> name="tugas_tambahan[]">
+                                                        <label for="inlineRadio<?=$row->id_tugas;?>"> <?=$row->tugas;?></label>
+                                                    </div>
+                                                <?php } ?>
+                                        <?php }else{ ?>
+                                            <?php 
+                                                $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Tambahan']);
+                                                foreach ($qry->result() as $row) { ?>
+                                                    <div class="radio radio-primary  ">
+                                                        <input type="radio" id="inlineRadio<?=$row->id_tugas;?>"  value="<?=$row->id_tugas;?>" name="tugas_tambahan[]">
+                                                        <label for="inlineRadio<?=$row->id_tugas;?>"> <?=$row->tugas;?></label>
+                                                    </div>
+                                                <?php } ?> 
+                                        <?php } ?>
                                     </div>
                                 </div>
                                 <div class="form-group">

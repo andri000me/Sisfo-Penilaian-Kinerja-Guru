@@ -29,14 +29,14 @@ class Model_kompetensi extends CI_Model {
     }
     public function data_select_form()
     {
-        $data['jenis_tp'] = $this->db->get('tbl_tenaga_pendidik');
+        $data['tugas'] = $this->db->get('tbl_tugas');
         return $data;
     }
     private function data_list()
     {
         $query  = $this->db->select('*')
                            ->from($this->table)
-                           ->join('tbl_tenaga_pendidik','tbl_kompetensi.id_tenaga_pendidik = tbl_tenaga_pendidik.id_tenaga_pendidik')
+                           ->join('tbl_tugas','tbl_kompetensi.id_tugas = tbl_tugas.id_tugas')
                            ->order_by('tbl_kompetensi.id_kompetensi', 'ASC')
                            ->get();
         $total  = $query->num_rows();
@@ -46,8 +46,8 @@ class Model_kompetensi extends CI_Model {
                 $aksi    = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_kompetensi)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
                 $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->nama_kompetensi . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_kompetensi)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
                 $data[] = [
-                    'no'              => $no, 
-                    'jenis_tp'        => $row->jenis_tenaga_pendidik,
+                    'no'              => $no,
+                    'tugas'           => $row->tugas,
                     'nama_kompetensi' => $row->nama_kompetensi,
                     'aksi'            => $aksi
                 ];

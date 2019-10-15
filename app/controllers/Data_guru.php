@@ -66,12 +66,17 @@ class Data_guru extends CI_Controller {
             $data['level_guru']                 = $this->input->post('level_guru', TRUE);
             $this->model_guru->data_insert($data);
             $id_guru                            = $this->db->insert_id();
-            $id_tenaga_pendidik                 = $this->input->post('id_tenaga_pendidik', TRUE);
-            $data_1 = [];
-            for($i=0;$i<count($id_tenaga_pendidik);$i++){
-                $data_1[] = ['id_guru' => $id_guru, 'id_tenaga_pendidik' => $id_tenaga_pendidik[$i]];
+            $tugas_pokok                        = $this->input->post('tugas_pokok', TRUE);
+            $tugas_tambahan                     = $this->input->post('tugas_tambahan', TRUE);
+            $data_1                             = [];
+            $data_2                             = [];
+            for($i=0;$i<count($tugas_pokok);$i++){
+                $data_1[] = ['id_guru' => $id_guru, 'id_tugas' => $tugas_pokok[$i]];
             }
-            $this->db->insert_batch('tbl_guru_pendidik',$data_1);
+            for($i=0;$i<count($tugas_tambahan);$i++){
+                $data_1[] = ['id_guru' => $id_guru, 'id_tugas' => $tugas_tambahan[$i]];
+            }
+            $this->db->insert_batch('tbl_tugas_guru',$data_1);
         } elseif ($act == 'e') {
             $id                                 = $this->myfunction->_encdec('dec', $this->input->post('id'));
             $data['id_sekolah']                 = $this->input->post('id_sekolah', TRUE);

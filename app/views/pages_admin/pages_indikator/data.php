@@ -20,7 +20,7 @@
                     <thead>
                         <tr>
                             <th width="1%" style="text-align: center; font-size:12px;">No</th>
-                            <th width="15%" style="text-align: center; font-size:12px;">Tenaga Pendidik</th>
+                            <th width="15%" style="text-align: center; font-size:12px;">Tugas Pokok / Tambahan</th>
                             <th width="25%" style="text-align: center; font-size:12px;">Nama Kompetensi</th>
                             <th width="25%" style="text-align: center; font-size:12px;">Nama Indikator</th>
                             <th width="10%" style="text-align: center; font-size:12px;">Aksi</th>

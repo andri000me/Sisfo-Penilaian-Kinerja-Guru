@@ -24,22 +24,22 @@
                         <div class="col-lg-12">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Tenaga Pendidik</label>
+                                    <label class="col-md-2 control-label">Tugas Pokok / Tambahan</label>
                                     <div class="col-md-3">
-                                        <select name="id_tenaga_pendidik" class="form-control id_tenaga_pendidik" required>
+                                        <select name="id_tugas" class="form-control id_tugas" required>
                                             <option value="">Pilih--</option>
                                             <?php
                                             if ($this->uri->segment(2) == "edit") {
-                                                foreach ($select['jenis_tp']->result() as $row) {
-                                                    if ($data->id_tenaga_pendidik == $row->id_tenaga_pendidik) {
-                                                        echo "<option value='" . $row->id_tenaga_pendidik . "' selected>$row->jenis_tenaga_pendidik</option>";
+                                                foreach ($select['tugas']->result() as $row) {
+                                                    if ($data->id_tugas == $row->id_tugas) {
+                                                        echo "<option value='" . $row->id_tugas . "' selected>$row->tugas</option>";
                                                     } else {
-                                                        echo "<option value='" . $row->id_tenaga_pendidik . "'>$row->jenis_tenaga_pendidik</option>";
+                                                        echo "<option value='" . $row->id_tugas . "'>$row->tugas</option>";
                                                     }
                                                 }
                                             } else {
-                                                foreach ($select['jenis_tp']->result() as $row) {
-                                                    echo "<option value='" . $row->id_tenaga_pendidik . "'>$row->jenis_tenaga_pendidik</option>";
+                                                foreach ($select['tugas']->result() as $row) {
+                                                    echo "<option value='" . $row->id_tugas . "'>$row->tugas</option>";
                                                 }
                                             }
                                             ?>
@@ -52,7 +52,7 @@
                                         <select name="id_kompetensi" class="form-control id_kompetensi" required>
                                             <?php
                                             if ($this->uri->segment(2) == "edit") { 
-                                                $qry = $this->db->get_where('tbl_kompetensi',['id_tenaga_pendidik' => $data->id_tenaga_pendidik]);
+                                                $qry = $this->db->get_where('tbl_kompetensi',['id_tugas' => $data->id_tugas]);
                                                 foreach ($qry->result() as $row) {
                                                     if ($data->id_kompetensi == $row->id_kompetensi) {
                                                         echo "<option value='" . $row->id_kompetensi . "' selected>$row->nama_kompetensi</option>";

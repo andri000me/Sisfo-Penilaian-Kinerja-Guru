@@ -14,7 +14,7 @@ class Model_dropdown extends CI_Model {
         $query = $this->db->select('*')
                           ->from('tbl_kompetensi')
                           ->like('nama_kompetensi', $term)
-                          ->where('id_tenaga_pendidik', $id)
+                          ->where('id_tugas', $id)
                           ->order_by('id_kompetensi', 'ASC')
                           ->get();
         $total = $query->num_rows();

@@ -29,7 +29,7 @@ class Model_indikator extends CI_Model {
     }
     public function data_select_form()
     {
-        $data['jenis_tp']   = $this->db->get('tbl_tenaga_pendidik');
+        $data['tugas']      = $this->db->get('tbl_tugas');
         $data['kompetensi'] = $this->db->get('tbl_kompetensi');
         return $data;
     }
@@ -37,7 +37,7 @@ class Model_indikator extends CI_Model {
     {
         $query  = $this->db->select('*')
                            ->from($this->table)
-                           ->join('tbl_tenaga_pendidik','tbl_indikator.id_tenaga_pendidik = tbl_tenaga_pendidik.id_tenaga_pendidik')
+                           ->join('tbl_tugas','tbl_indikator.id_tugas = tbl_tugas.id_tugas')
                            ->join('tbl_kompetensi','tbl_indikator.id_kompetensi = tbl_kompetensi.id_kompetensi')
                            ->order_by('tbl_indikator.id_indikator', 'ASC')
                            ->get();
@@ -49,7 +49,7 @@ class Model_indikator extends CI_Model {
                 $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->nama_indikator . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_indikator)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
                 $data[] = [
                     'no'              => $no, 
-                    'jenis_tp'        => $row->jenis_tenaga_pendidik,
+                    'tugas'           => $row->tugas,
                     'nama_kompetensi' => $row->nama_kompetensi,
                     'nama_indikator'  => $row->nama_indikator,
                     'aksi'            => $aksi
