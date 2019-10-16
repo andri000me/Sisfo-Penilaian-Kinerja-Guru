@@ -270,51 +270,22 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-        
-        <div id="form-penilaian" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div id="confirm-asesor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
             <div class="modal-dialog">
-                <form id="form-ubah-berkas" action=""  method="post" enctype="multipart/form-data" data-parsley-validate novalidate>                        
-                    <div class="modal-content p-0 b-0">
-                        <div class="panel panel-color panel-color-primary">
-                            <div class="panel-heading">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h3 class="panel-title" id="myModalLabel">Form Penilaian</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="form-group  ">
-                                    <label for="field-7" class="control-label" style="font-size:15px;">Level Guru </label>
-                                    <select name="level_guru" class="form-control level_guru" required>
-                                        <option value="">Pilih--</option>
-                                        <option value="Kepala Sekolah">Kepala Sekolah</option>
-                                        <option value="Guru Mata Pelajaran">Guru Mata Pelajaran</option>
-                                    </select>
-                                </div>
-                                <div class="form-group  ">
-                                    <label for="field-7" class="control-label" style="font-size:15px;">Nama Guru </label>
-                                    <select name="id_sekolah" class="form-control id_sekolah" required>
-                                        <option value="">Pilih--</option>
-                                        <?php
-                                            $qry = $this->db->get('tbl_guru');
-                                            foreach ($qry->result() as $row) {
-                                                echo "<option value='" . $row->id_guru. "'>$row->nama_guru</option>";
-                                            }
-                                        
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group  ">
-                                    <label for="field-7" class="control-label">Upload Dokumen</label>
-                                    <input type="file" name="file_dokumen" accept=".pdf" class="form-control" required placeholder="File">
-                                    <input type="hidden" name="file_lama" class="file_lama">
-                                    <input type="hidden" name="nama_dokumen_c" id="nama_dokumen">
-                                </div>   
-                            </div>
-                            <div class="modal-footer" style="padding:10px;">
-                                <button type="submit" class="btn btn btn-color-primary waves-effect waves-light">Submit</button>  
-                            </div>
+                <div class="modal-content p-0 b-0">
+                    <div class="panel panel-color panel-color-primary">
+                        <div class="panel-heading">
+                            <button type="button" class="close  " data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 class="panel-title" id="myModalLabel">Konfirmasi Sebagai Asesor</h3>
                         </div>
-                    </div><!-- /.modal-content -->
-                </form>
+                        <div class="panel-body">
+                            <p>Anda akan menjadikan guru ini <span style="font-weight:bold;" class="data-get"></span> sebagai asesor. Apakah anda yakin ?</p>
+                        </div>
+                        <div class="modal-footer" style="padding:10px;">
+                            <a class="btn btn-primary waves-effect waves-light btn-asesor">Set Asesor</a>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         

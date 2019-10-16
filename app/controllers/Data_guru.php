@@ -69,7 +69,6 @@ class Data_guru extends CI_Controller {
             $tugas_pokok                        = $this->input->post('tugas_pokok', TRUE);
             $tugas_tambahan                     = $this->input->post('tugas_tambahan', TRUE);
             $data_1                             = [];
-            $data_2                             = [];
             for($i=0;$i<count($tugas_pokok);$i++){
                 $data_1[] = ['id_guru' => $id_guru, 'id_tugas' => $tugas_pokok[$i]];
             }
@@ -97,7 +96,26 @@ class Data_guru extends CI_Controller {
             $data['pendidikan']                 = $this->input->post('pendidikan', TRUE);
             $data['guru_mapel']                 = $this->input->post('guru_mapel', TRUE);
             $data['level_guru']                 = $this->input->post('level_guru', TRUE);
+ 
             $this->model_guru->data_update($data, $id);
+
+            $tugas_pokok                     = $this->input->post('tugas_pokok', TRUE);
+            for($i=0;$i<count($tugas_pokok);$i++){
+                $data_1['id_guru']  = $id;
+                $data_1['id_tugas'] = $tugas_pokok[$i];
+                //$this->db->update("tbl_tugas_guru", $data_1, array('id_guru' => $id, 'id_tugas'=> $this->input->post('id_tugas_p', TRUE), $id));
+                $array = array('id_guru' => $id, 'id_tugas'=> $this->input->post('id_tugas_p', TRUE));
+                $this->model_guru->data_update_tugas('tbl_tugas_guru',$data_1, $array, $id);
+            }
+
+            $tugas_tambahan                     = $this->input->post('tugas_tambahan', TRUE);
+            for($i=0;$i<count($tugas_tambahan);$i++){
+                $data_1['id_guru']  = $id;
+                $data_1['id_tugas'] = $tugas_tambahan[$i];
+                $array = array('id_guru' => $id, 'id_tugas'=> $this->input->post('id_tugas_t', TRUE));
+                $this->model_guru->data_update_tugas('tbl_tugas_guru',$data_1, $array, $id);
+            }
+            
         } elseif ($act == 'd') {
             $id = $this->myfunction->_encdec('dec', $this->uri->segment(4));
             $this->model_guru->data_delete($id);

@@ -45,8 +45,12 @@ class Model_guru extends CI_Model {
         if ($total > 0) {
             $no = 1;
             foreach ($query->result() as $row) {
-                 
-                $aksi    = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
+                if($row->level_guru != "Guru Mata Pelajaran"){
+                    $aksi    = '<span data-toggle="tooltip" data-placement="top" title="Set Asesor" ><a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirm-asesor" onClick="_confirmAsesor(\'' . $row->nama_guru . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa  fa-user-plus"></i></a></span>&nbsp;';
+                }else{
+                    $aksi    = '<span data-toggle="tooltip" data-placement="top" title="Set Asesor" ><a class="btn btn-sm btn-primary" disabled ><i class="fa  fa-user-plus"></i></a></span>&nbsp;';
+                }
+                $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
                 $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->nama_guru . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
                 $data[] = [
                     'no'           => $no,
@@ -107,6 +111,16 @@ class Model_guru extends CI_Model {
             $this->session->set_flashdata('notification', $this->myfunction->notification('success', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> berhasil di hapus.'));
         } else {
             $this->session->set_flashdata('notification', $this->myfunction->notification('danger', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> gagal di hapus.'));
+        }
+    }
+    public function data_update_tugas($table, $data, $array, $id)
+    {
+        $get = $this->data_get($id)->row_array();
+        $this->db->update($table, $data, $array);
+        if ($this->db->affected_rows()) {
+            $this->session->set_flashdata('notification', $this->myfunction->notification('success', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> berhasil di update.'));
+        } else {
+            $this->session->set_flashdata('notification', $this->myfunction->notification('danger', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> gagal di update.'));
         }
     }
     protected function data_cek($action, $value, $id)

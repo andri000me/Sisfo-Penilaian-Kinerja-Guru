@@ -59,13 +59,16 @@
                                                 <?php 
                                                     $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Pokok']);
                                                     $sql = $this->db->select('*')
-                                                                    ->from("tbl_tugas_guru")
-                                                                    ->join('tbl_tugas','tbl_tugas_guru.id_tugas = tbl_tugas.id_tugas') 
-                                                                    ->where('id_guru',$data->id_guru)
-                                                                    ->where('tbl_tugas.jenis_tugas', 'Pokok')
-                                                                    ->get()->row(); 
+                                                                ->from("tbl_tugas_guru")
+                                                                ->join('tbl_tugas','tbl_tugas_guru.id_tugas = tbl_tugas.id_tugas') 
+                                                                ->where('id_guru',$data->id_guru)
+                                                                ->where('tbl_tugas.jenis_tugas', 'Pokok')
+                                                                ->get();
+                                                    $rows = $sql->num_rows();
+                                                    $dta  = $sql->row(); 
+                                                    $checked = ""; 
                                                     foreach ($qry->result() as $row) { 
-                                                        if($sql->id_tugas == $row->id_tugas){
+                                                        if($dta->id_tugas == $row->id_tugas){
                                                             $checked = "checked";
                                                         }else{
                                                             $checked = "";
@@ -76,6 +79,7 @@
                                                             <label for="inlineRadio<?=$row->id_tugas;?>"> <?=$row->tugas;?></label>
                                                         </div>
                                                 <?php } ?>
+                                                <input type="hidden" value="<?=$dta->id_tugas;?>" name="id_tugas_p">
                                             <?php }else{ ?>
                                                     <?php 
                                                     $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Pokok']);
@@ -101,7 +105,7 @@
                                                                 ->where('tbl_tugas.jenis_tugas', 'Tambahan')
                                                                 ->get();
                                                 $rows = $sql->num_rows();
-                                                $dta = $sql->row(); 
+                                                $dta  = $sql->row(); 
                                                 $checked = "";
                                                 foreach ($qry->result() as $row) { 
                                                     if($rows > 0){
@@ -117,12 +121,13 @@
                                                         <label for="inlineRadio<?=$row->id_tugas;?>"> <?=$row->tugas;?></label>
                                                     </div>
                                                 <?php } ?>
+                                                <input type="hidden" value="<?=$dta->id_tugas;?>" name="id_tugas_t">
                                         <?php }else{ ?>
                                             <?php 
                                                 $qry = $this->db->get_where('tbl_tugas',['jenis_tugas' => 'Tambahan']);
                                                 foreach ($qry->result() as $row) { ?>
                                                     <div class="radio radio-primary  ">
-                                                        <input type="radio" id="inlineRadio<?=$row->id_tugas;?>"  value="<?=$row->id_tugas;?>" name="tugas_tambahan[]">
+                                                        <input type="radio" id="inlineRadio<?=$row->id_tugas;?>"  value="<?=$row->id_tugas;?>" name="tugas_tambahan[]" >
                                                         <label for="inlineRadio<?=$row->id_tugas;?>"> <?=$row->tugas;?></label>
                                                     </div>
                                                 <?php } ?> 
@@ -210,22 +215,7 @@
                                         <input type="text" name="masa_kerja_sebagai_guru" class="form-control" placeholder="0 Tahun 0 Bulan" required value="<?= $this->uri->segment(2) == "edit" ? $data->masa_kerja_sebagai_guru : "" ?>">
                                     </div>
                                 </div>
-                                <?php if($this->uri->segment(2) == "input"){?>
-                                <div class="tugas-tambahan" style="display:none;">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">TMT Tugas Tambahan</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="tmt_tugas_tambahan" class="form-control tmt_tugas_tambahan" placeholder="TMT Tugas Tambahan" value="<?= $this->uri->segment(2) == "edit" ? $data->tmt_tugas_tambahan : "" ?>">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Masa Kerja Tugas Tambahan</label>
-                                        <div class="col-md-4">
-                                            <input type="text" name="masa_kerja_tugas_tambahan" class="form-control masa_kerja_tugas_tambahan" placeholder="0 Tahun 0 Bulan" value="<?= $this->uri->segment(2) == "edit" ? $data->masa_kerja_tugas_tambahan : "" ?>">
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php }elseif($this->uri->segment(2) == "edit" && $data->tmt_tugas_tambahan != NULL){ ?>
+                                 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">TMT Tugas Tambahan</label>
                                     <div class="col-md-3">
@@ -238,7 +228,7 @@
                                         <input type="text" name="masa_kerja_tugas_tambahan" class="form-control masa_kerja_tugas_tambahan" placeholder="0 Tahun 0 Bulan" value="<?= $this->uri->segment(2) == "edit" ? $data->masa_kerja_tugas_tambahan : "" ?>">
                                     </div>
                                 </div>
-                                <?php } ?>
+                                 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Pendidikan Terakhir</label>
                                     <div class="col-md-4">
