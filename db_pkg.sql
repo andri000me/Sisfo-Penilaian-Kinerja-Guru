@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2019 at 11:00 AM
+-- Generation Time: Oct 17, 2019 at 11:06 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -100,7 +100,7 @@ CREATE TABLE `tbl_guru` (
   `pendidikan` varchar(15) DEFAULT NULL,
   `guru_mapel` varchar(25) DEFAULT NULL,
   `level_guru` enum('Kepala Sekolah','Guru Senior','Guru Mata Pelajaran') DEFAULT NULL,
-  `asesor` enum('Ya','Tidak') DEFAULT NULL
+  `asesor` enum('N','Y') DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -108,10 +108,28 @@ CREATE TABLE `tbl_guru` (
 --
 
 INSERT INTO `tbl_guru` (`id_guru`, `id_sekolah`, `nip`, `nama_guru`, `jenis_kelamin`, `tempat_lahir`, `tgl_lahir`, `nomor_seri`, `nuptk`, `nrg`, `jabatan`, `tmt_pangkat_golongan`, `tmt_sebagai_guru`, `masa_kerja_sebagai_guru`, `tmt_tugas_tambahan`, `masa_kerja_tugas_tambahan`, `pendidikan`, `guru_mapel`, `level_guru`, `asesor`) VALUES
-(3, 1, '123456897845644655', 'Rahman Datu', 'Laki-Laki', 'Gorontalo', '2019-09-23', '342342344', '343423', '42424', '1', '3', '3', '1 Tahun 2 bulan', '', '', 'S1', 'Matematika', 'Guru Senior', NULL),
-(4, 1, '123456498797893333', 'Wanda', 'Perempuan', 'Gorontalo', '2019-09-01', '23424234', '24234342', '34234234234', '23434', '343', '22', '1 Tahun 2 Bulan', NULL, NULL, '1 Tahun 2 Bulan', 'TIK', 'Guru Mata Pelajaran', NULL),
-(10, 1, '123242342342342333', 'Tes', 'Laki-Laki', 'Gorontalo', '2019-10-08', '343242432', '434', '234234', 'Tes', '3', '3', '1 tahun 2 bulan', '3', '1 tahun 2 bulan', 'S1', 'MM', 'Kepala Sekolah', NULL),
-(12, 1, '123123123123333223', 'Ramdan', 'Laki-Laki', 'Gtlo', '2019-10-15', '23423423', '23423', '44234', '2342', '23423', '423423', '3', NULL, NULL, 'S1', 'MM', 'Guru Mata Pelajaran', NULL);
+(10, 1, '123242342342342333', 'isti', 'Perempuan', 'Gorontalo', '2019-10-08', '343242432', '434', '234234', 'Tes', '3', '3', '1 tahun 2 bulan', '3', '1 tahun 2 bulan', 'S1', 'MM', 'Kepala Sekolah', 'Y'),
+(12, 1, '123123123123333223', 'Ramdan', 'Laki-Laki', 'Gtlo', '2019-10-15', '23423423', '23423', '44234', '2342', '23423', '423423', '1 tahun 3 Bulan', 'Tugas Tambahan', '2 Tahun 3 Bulan', 'S1', 'MM', 'Guru Senior', 'N'),
+(13, 1, '132456889989789792', 'Fandi', 'Laki-Laki', 'Gorontalo', '2019-10-17', '12345648789', '432889515', '28951238', '2', '2', 'Tes', '1 Tahun 2 Bulan', 'Tugas', '1 Tahun 3 Bulan', 'S1', 'TIK', 'Guru Mata Pelajaran', 'N');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_guru_dinilai`
+--
+
+CREATE TABLE `tbl_guru_dinilai` (
+  `id_guru_dinilai` int(5) NOT NULL,
+  `id_guru_asesor` int(5) DEFAULT NULL,
+  `id_guru_nilai` int(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_guru_dinilai`
+--
+
+INSERT INTO `tbl_guru_dinilai` (`id_guru_dinilai`, `id_guru_asesor`, `id_guru_nilai`) VALUES
+(4, 10, 12);
 
 -- --------------------------------------------------------
 
@@ -390,7 +408,8 @@ INSERT INTO `tbl_tugas_guru` (`id_tugas_guru`, `id_guru`, `id_tugas`) VALUES
 (8, 10, 1),
 (9, 10, 2),
 (11, 12, 1),
-(12, 12, 3);
+(12, 12, 4),
+(13, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -443,6 +462,14 @@ ALTER TABLE `tbl_golongan`
 ALTER TABLE `tbl_guru`
   ADD PRIMARY KEY (`id_guru`),
   ADD KEY `id_sekolah` (`id_sekolah`);
+
+--
+-- Indexes for table `tbl_guru_dinilai`
+--
+ALTER TABLE `tbl_guru_dinilai`
+  ADD PRIMARY KEY (`id_guru_dinilai`),
+  ADD KEY `id_guru_asesor` (`id_guru_asesor`),
+  ADD KEY `id_guru_nilai` (`id_guru_nilai`);
 
 --
 -- Indexes for table `tbl_indikator`
@@ -523,7 +550,13 @@ ALTER TABLE `tbl_golongan`
 -- AUTO_INCREMENT for table `tbl_guru`
 --
 ALTER TABLE `tbl_guru`
-  MODIFY `id_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `tbl_guru_dinilai`
+--
+ALTER TABLE `tbl_guru_dinilai`
+  MODIFY `id_guru_dinilai` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_indikator`
@@ -565,7 +598,7 @@ ALTER TABLE `tbl_tugas`
 -- AUTO_INCREMENT for table `tbl_tugas_guru`
 --
 ALTER TABLE `tbl_tugas_guru`
-  MODIFY `id_tugas_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_tugas_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
@@ -582,6 +615,13 @@ ALTER TABLE `tbl_user`
 --
 ALTER TABLE `tbl_guru`
   ADD CONSTRAINT `tbl_guru_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `tbl_sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_guru_dinilai`
+--
+ALTER TABLE `tbl_guru_dinilai`
+  ADD CONSTRAINT `tbl_guru_dinilai_ibfk_1` FOREIGN KEY (`id_guru_asesor`) REFERENCES `tbl_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_guru_dinilai_ibfk_2` FOREIGN KEY (`id_guru_nilai`) REFERENCES `tbl_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_indikator`
