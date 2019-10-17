@@ -42,6 +42,13 @@ class Data_guru extends CI_Controller {
         $data['select'] = $this->model_guru->data_select_form();
         $this->load->view($this->view, $data);
     }
+    public function tambah_guru()
+    {
+        $id             = $this->myfunction->_encdec('dec', $this->uri->segment(3));
+        $data['konten'] = $this->konten . 'form_guru';
+        $data['data']   = $this->model_guru->data_get($id)->row(); 
+        $this->load->view($this->view, $data);
+    }
     public function proses()
     {
         $act = $this->uri->segment(3);
@@ -98,25 +105,38 @@ class Data_guru extends CI_Controller {
             $data['level_guru']                 = $this->input->post('level_guru', TRUE);
  
             $this->model_guru->data_update($data, $id);
-
-            $tugas_pokok                     = $this->input->post('tugas_pokok', TRUE);
+            $tugas_pokok = $this->input->post('tugas_pokok', TRUE);
             for($i=0;$i<count($tugas_pokok);$i++){
                 $data_1['id_guru']  = $id;
                 $data_1['id_tugas'] = $tugas_pokok[$i];
-                //$this->db->update("tbl_tugas_guru", $data_1, array('id_guru' => $id, 'id_tugas'=> $this->input->post('id_tugas_p', TRUE), $id));
                 $array = array('id_guru' => $id, 'id_tugas'=> $this->input->post('id_tugas_p', TRUE));
                 $this->model_guru->data_update_tugas('tbl_tugas_guru',$data_1, $array, $id);
             }
-
-            $tugas_tambahan                     = $this->input->post('tugas_tambahan', TRUE);
+            $tugas_tambahan = $this->input->post('tugas_tambahan', TRUE);
             for($i=0;$i<count($tugas_tambahan);$i++){
                 $data_1['id_guru']  = $id;
                 $data_1['id_tugas'] = $tugas_tambahan[$i];
                 $array = array('id_guru' => $id, 'id_tugas'=> $this->input->post('id_tugas_t', TRUE));
                 $this->model_guru->data_update_tugas('tbl_tugas_guru',$data_1, $array, $id);
             }
-            
-        } elseif ($act == 'd') {
+        }elseif ($act == "a") {
+			$id	        = $this->myfunction->_encdec('dec', $this->uri->segment(5));
+			$set_asesor	= $this->uri->segment(4);
+			$this->model_guru->data_set($act,$set_asesor,$id);
+		}elseif ($act == "g") {
+            $action	= $this->uri->segment(4);
+            if($action == "i"){
+                $data['id_guru_nilai']	= $this->myfunction->_encdec('dec', $this->uri->segment(6));
+                $data['id_guru_asesor']	= $this->myfunction->_encdec('dec', $this->uri->segment(5));
+                $this->model_guru->data_guru($action,$data);
+            }elseif($action == "d"){
+                $data['id_guru_asesor']	= $this->myfunction->_encdec('dec', $this->uri->segment(5));
+                print_r($data);
+                die;
+                $this->model_guru->data_guru($action,$data);
+            }            
+            redirect($this->agent->referrer());
+		}elseif ($act == 'd') {
             $id = $this->myfunction->_encdec('dec', $this->uri->segment(4));
             $this->model_guru->data_delete($id);
         }

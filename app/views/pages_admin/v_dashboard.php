@@ -276,13 +276,13 @@
                     <div class="panel panel-color panel-color-primary">
                         <div class="panel-heading">
                             <button type="button" class="close  " data-dismiss="modal" aria-hidden="true">×</button>
-                            <h3 class="panel-title" id="myModalLabel">Konfirmasi Sebagai Asesor</h3>
+                            <h3 class="panel-title" id="myModalLabel">Konfirmasi <span  class="asesor-value"></span> Asesor</h3>
                         </div>
                         <div class="panel-body">
-                            <p>Anda akan menjadikan guru ini <span style="font-weight:bold;" class="data-get"></span> sebagai asesor. Apakah anda yakin ?</p>
+                            <p>Anda akan <span style="font-weight:bold;" class="asesor-value"></span> nama guru <span style="font-weight:bold;" class="data-get"></span> sebagai asesor. Apakah anda yakin ?</p>
                         </div>
                         <div class="modal-footer" style="padding:10px;">
-                            <a class="btn btn-primary waves-effect waves-light btn-asesor">Set Asesor</a>
+                            <a class="btn btn-primary waves-effect waves-light btn-asesor">Submit</a>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->

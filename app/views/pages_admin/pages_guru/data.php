@@ -21,7 +21,6 @@
                         <tr>
                             <th width="1%" style="text-align: center; font-size:12px;">No</th>
                             <th width="15%" style="text-align: center; font-size:12px;">Nama Sekolah</th>
-                            <th width="15%" style="text-align: center; font-size:12px;">Jenis Tenaga Pendidik</th>
                             <th width="15%" style="text-align: center; font-size:12px;">NIP</th>
                             <th width="15%" style="text-align: center; font-size:12px;">Nama Guru</th>
                             <th width="15%" style="text-align: center; font-size:12px;">Guru Mapel</th>

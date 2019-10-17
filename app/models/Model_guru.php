@@ -46,16 +46,24 @@ class Model_guru extends CI_Model {
             $no = 1;
             foreach ($query->result() as $row) {
                 if($row->level_guru != "Guru Mata Pelajaran"){
-                    $aksi    = '<span data-toggle="tooltip" data-placement="top" title="Set Asesor" ><a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirm-asesor" onClick="_confirmAsesor(\'' . $row->nama_guru . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa  fa-user-plus"></i></a></span>&nbsp;';
+                    if($row->asesor == "N"){
+                        $aksi    = '<span data-toggle="tooltip" data-placement="top" title="Aktifkan Asesor" ><a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirm-asesor" onClick="_confirmAsesor(\'' . $row->nama_guru . '\',\'mengaktifkan\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/a/y/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa  fa-bookmark-o"></i></a></span>&nbsp;';
+                    }else{
+                        $aksi    = '<span data-toggle="tooltip" data-placement="top" title="Nonaktifkan Asesor" ><a class="btn btn-sm btn-pink" data-toggle="modal" data-target="#confirm-asesor" onClick="_confirmAsesor(\'' . $row->nama_guru . '\',\'menonaktifkan\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/a/n/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa  fa-bookmark-o"></i></a></span>&nbsp;';
+                    }
                 }else{
-                    $aksi    = '<span data-toggle="tooltip" data-placement="top" title="Set Asesor" ><a class="btn btn-sm btn-primary" disabled ><i class="fa  fa-user-plus"></i></a></span>&nbsp;';
+                    $aksi    = '<span data-toggle="tooltip" data-placement="top" title="Asesor hanya untuk level guru senior dan kepsek" ><a class="btn btn-sm btn-primary" disabled ><i class="fa  fa-bookmark-o"></i></a></span>&nbsp;';
+                }
+                if($row->asesor == "Y"){
+                    $aksi    .= '<span data-toggle="tooltip" data-placement="top" title="Tambah guru yang akan dinilai" ><a class="btn btn-sm btn-success" href="' . base_url('' . $this->uri->segment(1) . '/tambah-guru/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa  fa-user-plus"></i></a></span>&nbsp;';
+                }else{
+                    $aksi    .= '<span data-toggle="tooltip" data-placement="top" title="Tambah guru jika sebagai asesor" ><a class="btn btn-sm btn-success" disabled ><i class="fa  fa-user-plus"></i></a></span>&nbsp;';
                 }
                 $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
                 $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->nama_guru . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
                 $data[] = [
                     'no'           => $no,
-                    'nama_sekolah' => $row->nama_sekolah,
-                    'jenis_tp'     => $row->nama_guru,
+                    'nama_sekolah' => $row->nama_sekolah, 
                     'nip'          => $row->nip,
                     'nama_guru'    => $row->nama_guru,
                     'guru_mapel'   => $row->guru_mapel,
@@ -73,6 +81,22 @@ class Model_guru extends CI_Model {
     public function data_get($id)
     {
         return $this->db->get_where($this->table, array($this->id_table => $id));
+    }
+    public function data_guru($action, $data)
+    {
+        $get = $this->data_get($data['id_guru_nilai'])->row_array();
+        if($action = "i"){
+            $this->db->insert("tbl_guru_dinilai", $data);
+            $text = "berhasil di tambahkan";
+        }elseif($action = "d"){
+            $this->db->delete("tbl_guru_dinilai", array('id_guru_asesor' => $data['id_guru_asesor']));
+            $text = "berhasil di kurang";
+        }
+        if ($this->db->affected_rows()) {
+            $this->session->set_flashdata('notification', $this->myfunction->notification('success', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> '.$text.'.'));
+        } else {
+            $this->session->set_flashdata('notification', $this->myfunction->notification('danger', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> '.$text.'.'));
+        }
     }
     public function data_insert($data)
     {
@@ -117,12 +141,20 @@ class Model_guru extends CI_Model {
     {
         $get = $this->data_get($id)->row_array();
         $this->db->update($table, $data, $array);
-        if ($this->db->affected_rows()) {
-            $this->session->set_flashdata('notification', $this->myfunction->notification('success', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> berhasil di update.'));
-        } else {
-            $this->session->set_flashdata('notification', $this->myfunction->notification('danger', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> gagal di update.'));
-        }
+        $this->session->set_flashdata('notification', $this->myfunction->notification('success', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> berhasil di update.'));
+       
     }
+    public function data_set($act,$asesor,$id)
+	{
+		$get = $this->data_get($id)->row_array();
+        $this->db->update($this->table, array('asesor' => $asesor == "y" ? "Y" : "N"), array($this->id_table => $id));
+        $text = $asesor == "y" ? "diaktifkan sebagai" : "dinonaktifkan sebagai";
+		if($this->db->affected_rows()){
+			$this->session->set_flashdata('notification', $this->myfunction->notification('success','Data '.$this->data_notif.' <strong>'.$this->myfunction->_xss($get[$this->data_name]).'</strong> berhasil di '.$text.' asesor.'));
+		}else{
+			$this->session->set_flashdata('notification', $this->myfunction->notification('danger','Data '.$this->data_notif.' <strong>'.$this->myfunction->_xss($get[$this->data_name]).'</strong> gagal di jadikan sebagai asesor.'));
+		}
+	}
     protected function data_cek($action, $value, $id)
     {
         if ($action == "input") {
