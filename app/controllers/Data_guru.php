@@ -128,12 +128,12 @@ class Data_guru extends CI_Controller {
             if($action == "i"){
                 $data['id_guru_nilai']	= $this->myfunction->_encdec('dec', $this->uri->segment(6));
                 $data['id_guru_asesor']	= $this->myfunction->_encdec('dec', $this->uri->segment(5));
-                $this->model_guru->data_guru($action,$data);
+                $this->model_guru->data_guru_i($action,$data);
             }elseif($action == "d"){
+                $data['id_guru_nilai']	= $this->myfunction->_encdec('dec', $this->uri->segment(6));
                 $data['id_guru_asesor']	= $this->myfunction->_encdec('dec', $this->uri->segment(5));
-                print_r($data);
-                die;
-                $this->model_guru->data_guru($action,$data);
+                
+                $this->model_guru->data_guru_d($action,$data);
             }            
             redirect($this->agent->referrer());
 		}elseif ($act == 'd') {

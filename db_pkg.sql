@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2019 at 11:06 AM
+-- Generation Time: Oct 18, 2019 at 11:14 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -108,8 +108,8 @@ CREATE TABLE `tbl_guru` (
 --
 
 INSERT INTO `tbl_guru` (`id_guru`, `id_sekolah`, `nip`, `nama_guru`, `jenis_kelamin`, `tempat_lahir`, `tgl_lahir`, `nomor_seri`, `nuptk`, `nrg`, `jabatan`, `tmt_pangkat_golongan`, `tmt_sebagai_guru`, `masa_kerja_sebagai_guru`, `tmt_tugas_tambahan`, `masa_kerja_tugas_tambahan`, `pendidikan`, `guru_mapel`, `level_guru`, `asesor`) VALUES
-(10, 1, '123242342342342333', 'isti', 'Perempuan', 'Gorontalo', '2019-10-08', '343242432', '434', '234234', 'Tes', '3', '3', '1 tahun 2 bulan', '3', '1 tahun 2 bulan', 'S1', 'MM', 'Kepala Sekolah', 'Y'),
-(12, 1, '123123123123333223', 'Ramdan', 'Laki-Laki', 'Gtlo', '2019-10-15', '23423423', '23423', '44234', '2342', '23423', '423423', '1 tahun 3 Bulan', 'Tugas Tambahan', '2 Tahun 3 Bulan', 'S1', 'MM', 'Guru Senior', 'N'),
+(10, 1, '123242342342342333', 'Firda ', 'Perempuan', 'Gorontalo', '2019-10-08', '343242432', '434', '234234', 'Tes', '3', '3', '1 tahun 2 bulan', '3', '1 tahun 2 bulan', 'S1', 'MM', 'Kepala Sekolah', 'Y'),
+(12, 1, '123123123123333223', 'Ramdan', 'Laki-Laki', 'Gtlo', '2019-10-15', '23423423', '23423', '44234', '2342', '23423', '423423', '1 tahun 3 Bulan', 'Tugas Tambahan', '2 Tahun 3 Bulan', 'S1', 'MM', 'Guru Senior', 'Y'),
 (13, 1, '132456889989789792', 'Fandi', 'Laki-Laki', 'Gorontalo', '2019-10-17', '12345648789', '432889515', '28951238', '2', '2', 'Tes', '1 Tahun 2 Bulan', 'Tugas', '1 Tahun 3 Bulan', 'S1', 'TIK', 'Guru Mata Pelajaran', 'N');
 
 -- --------------------------------------------------------
@@ -129,7 +129,8 @@ CREATE TABLE `tbl_guru_dinilai` (
 --
 
 INSERT INTO `tbl_guru_dinilai` (`id_guru_dinilai`, `id_guru_asesor`, `id_guru_nilai`) VALUES
-(4, 10, 12);
+(17, 10, 12),
+(18, 12, 13);
 
 -- --------------------------------------------------------
 
@@ -331,7 +332,6 @@ CREATE TABLE `tbl_pengawas` (
 
 CREATE TABLE `tbl_penilaian_kompetensi` (
   `id_penilaian_kompetensi` int(5) NOT NULL,
-  `id_user` int(5) DEFAULT NULL,
   `id_guru` int(5) DEFAULT NULL,
   `id_tugas` int(5) DEFAULT NULL,
   `id_kompetensi` int(5) DEFAULT NULL,
@@ -363,7 +363,8 @@ CREATE TABLE `tbl_sekolah` (
 --
 
 INSERT INTO `tbl_sekolah` (`id_sekolah`, `nama_sekolah`, `no_telp`, `provinsi`, `kabupaten`, `kecamatan`, `kelurahan`) VALUES
-(1, 'SMA Negeri 1', '085340778770', 'Gorontalo', 'Kota Gorontalo', 'Sipatana', 'Tapa');
+(1, 'SMA Negeri 1', '085340778770', 'Gorontalo', 'Kota Gorontalo', 'Sipatana', 'Tapa'),
+(2, 'SMA 2 Negeri Gorontalo', '085340778770', 'Gorontalo', 'Kota Gorontalo', 'Dungingi', 'Tapa');
 
 -- --------------------------------------------------------
 
@@ -435,10 +436,7 @@ CREATE TABLE `tbl_user` (
 
 INSERT INTO `tbl_user` (`id_user`, `id_guru`, `nama_lengkap`, `username`, `password`, `foto`, `role`, `created_at`, `updated_at`) VALUES
 (1, NULL, 'Rezky Pradana Budihartono', 'admin', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-673584.jpg', 'Administrator', '2018-11-19 21:14:57', '2019-09-24 06:57:13'),
-(2, 1, 'Zulharman Paputungan', 'zul', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-159342.jpg', '', '2019-07-16 05:00:47', '2019-09-24 06:34:55'),
-(3, 2, 'Fandi Iman', 'fandi', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-898956.jpg', '', '2019-09-23 04:37:01', '2019-09-24 06:34:58'),
-(4, 2, 'Iztys', 'isti', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'PROFIL-768895.jpg', '', '2019-09-30 06:51:30', '2019-09-30 06:51:30'),
-(5, NULL, 'Pengawas', 'pengawas1', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'PROFIL-408001.jpg', '', '2019-09-30 06:51:56', '2019-09-30 06:51:56');
+(4, 10, 'Iztys', 'isti', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-809845.jpg', 'Guru', '2019-09-30 06:51:30', '2019-10-18 09:10:29');
 
 --
 -- Indexes for dumped tables
@@ -499,7 +497,6 @@ ALTER TABLE `tbl_penilaian_kompetensi`
   ADD PRIMARY KEY (`id_penilaian_kompetensi`),
   ADD KEY `id_kompetensi` (`id_kompetensi`),
   ADD KEY `id_indikator` (`id_indikator`),
-  ADD KEY `id_user` (`id_user`),
   ADD KEY `id_guru` (`id_guru`),
   ADD KEY `id_tugas` (`id_tugas`);
 
@@ -556,7 +553,7 @@ ALTER TABLE `tbl_guru`
 -- AUTO_INCREMENT for table `tbl_guru_dinilai`
 --
 ALTER TABLE `tbl_guru_dinilai`
-  MODIFY `id_guru_dinilai` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_guru_dinilai` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_indikator`
@@ -586,7 +583,7 @@ ALTER TABLE `tbl_penilaian_kompetensi`
 -- AUTO_INCREMENT for table `tbl_sekolah`
 --
 ALTER TABLE `tbl_sekolah`
-  MODIFY `id_sekolah` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_sekolah` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_tugas`
@@ -650,6 +647,12 @@ ALTER TABLE `tbl_penilaian_kompetensi`
 ALTER TABLE `tbl_tugas_guru`
   ADD CONSTRAINT `tbl_tugas_guru_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `tbl_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tbl_tugas_guru_ibfk_2` FOREIGN KEY (`id_tugas`) REFERENCES `tbl_tugas` (`id_tugas`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_user`
+--
+ALTER TABLE `tbl_user`
+  ADD CONSTRAINT `tbl_user_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `tbl_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

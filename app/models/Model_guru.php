@@ -82,16 +82,23 @@ class Model_guru extends CI_Model {
     {
         return $this->db->get_where($this->table, array($this->id_table => $id));
     }
-    public function data_guru($action, $data)
+    public function data_guru_i($action, $data)
     {
         $get = $this->data_get($data['id_guru_nilai'])->row_array();
-        if($action = "i"){
-            $this->db->insert("tbl_guru_dinilai", $data);
-            $text = "berhasil di tambahkan";
-        }elseif($action = "d"){
-            $this->db->delete("tbl_guru_dinilai", array('id_guru_asesor' => $data['id_guru_asesor']));
-            $text = "berhasil di kurang";
+        $this->db->insert("tbl_guru_dinilai", $data);
+        $text = "berhasil di tambahkan";
+        if ($this->db->affected_rows()) {
+            $this->session->set_flashdata('notification', $this->myfunction->notification('success', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> '.$text.'.'));
+        } else {
+            $this->session->set_flashdata('notification', $this->myfunction->notification('danger', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> '.$text.'.'));
         }
+    }
+    public function data_guru_d($action, $data)
+    {
+        $get = $this->data_get($data['id_guru_nilai'])->row_array();
+        $this->db->delete("tbl_guru_dinilai", array('id_guru_asesor' => $data['id_guru_asesor'] , 'id_guru_nilai' => $data['id_guru_nilai']));
+        $text = "berhasil di kurang";
+      
         if ($this->db->affected_rows()) {
             $this->session->set_flashdata('notification', $this->myfunction->notification('success', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($get[$this->data_name]) . '</strong> '.$text.'.'));
         } else {
@@ -150,6 +157,9 @@ class Model_guru extends CI_Model {
         $this->db->update($this->table, array('asesor' => $asesor == "y" ? "Y" : "N"), array($this->id_table => $id));
         $text = $asesor == "y" ? "diaktifkan sebagai" : "dinonaktifkan sebagai";
 		if($this->db->affected_rows()){
+            if($asesor == "n"){
+                $this->db->delete("tbl_guru_dinilai", array('id_guru_asesor' => $id));
+            }
 			$this->session->set_flashdata('notification', $this->myfunction->notification('success','Data '.$this->data_notif.' <strong>'.$this->myfunction->_xss($get[$this->data_name]).'</strong> berhasil di '.$text.' asesor.'));
 		}else{
 			$this->session->set_flashdata('notification', $this->myfunction->notification('danger','Data '.$this->data_notif.' <strong>'.$this->myfunction->_xss($get[$this->data_name]).'</strong> gagal di jadikan sebagai asesor.'));
