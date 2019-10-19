@@ -30,6 +30,11 @@ class Dropdown extends CI_Controller {
         $term = $this->input->get('search');
         $this->model_dropdown->_getGuru($term);
     }
+    public function pengawas()
+    {
+        $term = $this->input->get('search');
+        $this->model_dropdown->_getPengawas($term);
+    }
 }
  
 /* End of file Dropdown.php */

@@ -32,7 +32,7 @@ class Model_beranda extends CI_Model {
 	}
 	public function _dataUser()
 	{
-		return $this->db->get_where('tbl_user', array('id_user' =>  $this->session->userdata('sess_pkguru_id')))->row();
+		return $this->db->get_where('tbl_user', array('id_user' =>  $this->session->userdata('sess_pkg_id')))->row();
 	}
 }
 

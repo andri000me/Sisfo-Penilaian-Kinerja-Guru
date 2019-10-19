@@ -30,6 +30,7 @@ class Model_user extends CI_Model {
 	public function data_select_form()
     {
         $data['nama_guru'] = $this->db->get('tbl_guru');
+        $data['nama_pengawas'] = $this->db->get('tbl_pengawas');
         return $data;
     }
 	private function data_list()

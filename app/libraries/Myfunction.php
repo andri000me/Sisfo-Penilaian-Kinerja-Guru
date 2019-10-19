@@ -21,14 +21,14 @@ class Myfunction
 	}
 	public function _inputRole()
 	{
-		$arr = array('Tim Penilai', 'Pengawas');
+		$arr = array('Guru', 'Pengawas');
 		for ($i = 0; $i < count($arr); $i++) {
 			echo "<option value='$arr[$i]'>$arr[$i]</option>";
 		}
 	}
 	public function _editRole($data)
 	{
-		$arr = array('Tim Penilai', 'Pengawas');
+		$arr = array('Guru', 'Pengawas');
 		for ($i = 0; $i < count($arr); $i++) {
 			if ($arr[$i] == $data) {
 				echo "<option value='$arr[$i]' selected>$arr[$i]</option>";
@@ -210,51 +210,13 @@ class Myfunction
         }
         return $output;
 	}
-	public function _uploadFoto($name,$tmp_name,$photo_old)
-	{
-		$nama_file		= explode(".",$name);
-		$lokasi_file 	= $tmp_name;
-		$random 		= rand(1,999999). '.' .end($nama_file);
-		$avatar			= ("PAS-FOTO"."-".$random);
-		$vdir_upload 	= './lib/images/foto/';
-		$info_image		= getimagesize($tmp_name);
-		if(file_exists($vdir_upload.$photo_old) == TRUE){
-			unlink($vdir_upload.$photo_old);
-		}
-		switch ($info_image['mime']) {
-            case 'image/jpeg':
-            	$image_create_func 	= 'imagecreatefromjpeg';
-            	$image_save_func 	= 'imagejpeg';
-            break;
-            case 'image/png':
-            	$image_create_func 	= 'imagecreatefrompng';
-           		$image_save_func 	= 'imagepng';
-            break;
-            case 'image/gif':
-            	$image_create_func 	= 'imagecreatefromgif';
-            	$image_save_func 	= 'imagegif';
-            break;
-    	}
-		$vfile_upload 	= $vdir_upload . $avatar;
-		move_uploaded_file($tmp_name, $vfile_upload);
-		$im_src 		= $image_create_func($vfile_upload);
-		$src_width 		= imageSX($im_src);
-		$src_height 	= imageSY($im_src);
-		$dst_width 		= 250;
-		$dst_height 	= 325;
-		$im 			= imagecreatetruecolor($dst_width,$dst_height);
-		imagecopyresampled($im, $im_src, 0, 0, 0, 0, $dst_width, $dst_height, $src_width, $src_height);
-		$image_save_func($im, $vdir_upload.$avatar);
-		imagedestroy($im_src);
-		imagedestroy($im);
-		return $avatar;
-	}
+	
 	public function _uploadAvatar($name,$tmp_name,$photo_old)
 	{
 		$nama_file		= explode(".",$name);
 		$lokasi_file 	= $tmp_name;
 		$random 		= rand(1,999999). '.' .end($nama_file);
-		$avatar			= ("PROFIL"."-".$random);
+		$avatar			= ("AVATAR"."-".$random);
 		$vdir_upload 	= './lib/images/user/';
 		$info_image		= getimagesize($tmp_name);
 		if(file_exists($vdir_upload.$photo_old) == TRUE){

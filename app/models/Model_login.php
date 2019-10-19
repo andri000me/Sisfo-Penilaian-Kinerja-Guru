@@ -20,9 +20,11 @@ class Model_login extends CI_Model{
 		$total = $query->num_rows();
 		if($total > 0){
 			foreach($query->result() as $row) {
-				$sess = array('logged_in' 		 => 'Yes', 
-							  'sess_pkguru_id' 	 => $row->id_user,
-							  'sess_pkguru_role' => $row->role);
+				$sess = array('logged_in' 		 	 => 'Yes', 
+							  'sess_pkg_id' 	 	 => $row->id_user,
+							  'sess_pkg_id_guru' 	 => $row->id_guru,
+							  'sess_pkg_id_pengawas' => $row->id_pengawas,
+							  'sess_pkg_role' 	 	 => $row->role);
 				$this->session->set_userdata($sess);
 			}
 			$status = 'success';
@@ -35,7 +37,7 @@ class Model_login extends CI_Model{
 	
 	public function unlockAdmin($pass)
 	{
-		$id    = $this->session->userdata('sess_pkguru_id');
+		$id    = $this->session->userdata('sess_pkg_id');
 		$query = $this->db
 					  ->where('id_user',$id)
 					  ->where('password',$this->myfunction->_encdec('enc',$pass))
@@ -43,9 +45,11 @@ class Model_login extends CI_Model{
 		$total 	= $query->num_rows();
 		if($total > 0){
 			foreach ($query->result() as $row) {
-				$sess = array('logged_in' 	     => 'Yes', 
-							  'sess_pkguru_id'   => $row->id_user,
-							  'sess_pkguru_role' => $row->role);
+				$sess = array('logged_in' 	     	 => 'Yes', 
+							  'sess_pkg_id'   	 	 => $row->id_user,
+							  'sess_pkg_id_guru' 	 => $row->id_guru,
+							  'sess_pkg_id_pengawas' => $row->id_pengawas,
+							  'sess_pkg_role' 	 	 => $row->role);
 				$this->session->set_userdata($sess);
 			}
 			$status = 'success';

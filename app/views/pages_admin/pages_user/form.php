@@ -39,7 +39,7 @@
                                     </select>     
                                 </div>
                             </div>
-                            <div class="form-group field-guru" style="display:none;">
+                            <div class="form-group field-guru" style="display:<?=$this->uri->segment(2) == "edit" && $data->role == "Guru" ? 'block' : 'none' ;?>;">
                                 <label class="col-md-2 control-label">Nama Guru</label>
                                 <div class="col-md-3">
                                    <select name="id_guru" class="form-control id_guru">
@@ -56,6 +56,29 @@
                                           }else{
                                              foreach ($select['nama_guru']->result() as $row) {
                                                 echo "<option value='".$row->id_guru."'>$row->nama_guru</option>";
+                                            }
+                                          }
+                                        ?>
+                                    </select>     
+                                </div>
+                            </div>
+                            <div class="form-group field-pengawas" style="display:<?=$this->uri->segment(2) == "edit" && $data->role == "Pengawas" ? 'block' : 'none' ;?>;">
+                                <label class="col-md-2 control-label">Nama Pengawas</label>
+                                <div class="col-md-3">
+                                   <select name="id_pengawas" class="form-control id_pengawas">
+                                        <option value="">Pilih--</option>
+                                        <?php
+                                          if($this->uri->segment(2) == "edit"){
+                                            foreach ($select['nama_pengawas']->result() as $row) {
+                                                if ($data->id_pengawas == $row->id_pengawas) {
+                                                    echo "<option value='" . $row->id_pengawas . "' selected>$row->nama_pengawas</option>";
+                                                } else {
+                                                    echo "<option value='" . $row->id_pengawas . "'>$row->nama_pengawas</option>";
+                                                }
+                                            }
+                                          }else{
+                                             foreach ($select['nama_pengawas']->result() as $row) {
+                                                echo "<option value='".$row->id_pengawas."'>$row->nama_pengawas</option>";
                                             }
                                           }
                                         ?>

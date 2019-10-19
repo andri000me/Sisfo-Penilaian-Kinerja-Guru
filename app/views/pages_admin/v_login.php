@@ -54,8 +54,8 @@
                        <select name="role" class="form-control" id="role" required required="">
                             <option value="">Level User</option>
                             <option value="Administrator">Administrator</option>
-                            <option value="Tim Penilai">Tim Penilai</option>
-                            <option value="Pengawas">Pengawas</option> 
+                            <option value="Pengawas">Pengawas</option>
+                            <option value="Guru">Guru</option>
                         </select>
                         <i class="fe-layers form-control-feedback l-h-34"></i>
                     </div>

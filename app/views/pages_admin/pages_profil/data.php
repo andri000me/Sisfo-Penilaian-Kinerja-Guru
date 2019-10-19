@@ -22,7 +22,7 @@
                 ?>
                 <img src="<?php echo $file; ?>" alt="user-img" class="img-square" height="160px" width="160px" alt="">
                 <br>
-                <h3 class="font-400" style="padding-top: 8px;"><?= $this->session->userdata('sess_pkguru_role'); ?></h3>
+                <h3 class="font-400" style="padding-top: 8px;"><?= $this->session->userdata('sess_pkg_role'); ?></h3>
             </div>
         </div><!-- end col -->
     </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="panel-body table-responsive">
                 <form method="post" action="<?php echo base_url('profil/update/'); ?>" enctype="multipart/form-data" data-parsley-validate novalidate>
-                    <input type="hidden" value="<?php echo  $this->session->userdata('sess_pkguru_id'); ?>" name="id">
+                    <input type="hidden" value="<?php echo  $this->session->userdata('sess_pkg_id'); ?>" name="id">
                     <input type="hidden" value="<?php echo $userdata['foto']; ?>" name="foto_lama">
                     <div class="form-group">
                         <input type="text" class="form-control" value="<?php echo $userdata['username']; ?>" required name="username" placeholder="Username">

@@ -22,7 +22,7 @@ class Profil extends CI_Controller {
 	public function index()
 	{
 		$data['konten'] 	= $this->konten.'data';
-		$data['userdata']   = $this->db->get_where($this->table,array($this->id_name =>  $this->session->userdata('sess_pkguru_id')))->row_array();
+		$data['userdata']   = $this->db->get_where($this->table,array($this->id_name =>  $this->session->userdata('sess_pkg_id')))->row_array();
 		$this->load->view($this->view,$data);
 	}
 	public function update()

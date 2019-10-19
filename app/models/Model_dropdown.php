@@ -34,7 +34,6 @@ class Model_dropdown extends CI_Model {
         $query = $this->db->select('*')
                           ->from('tbl_guru')
                           ->like('nama_guru', $term)
-                          ->where('level_guru !=', 'Guru Mata Pelajaran')
                           ->order_by('id_guru', 'ASC')
                           ->get();
         $total = $query->num_rows();
@@ -44,6 +43,25 @@ class Model_dropdown extends CI_Model {
                 $data[] = [
                     'id'    => $row->id_guru,
                     'name_' => $row->nama_guru. ' - ' . $row->level_guru
+                ];
+            }
+        }
+        echo json_encode($data);
+    }
+    public function _getPengawas($term)
+    {
+        $query = $this->db->select('*')
+                          ->from('tbl_pengawas')
+                          ->like('nama_pengawas', $term)
+                          ->order_by('id_pengawas', 'ASC')
+                          ->get();
+        $total = $query->num_rows();
+        $data  = [];
+        if ($total > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = [
+                    'id'    => $row->id_pengawas,
+                    'name_' => $row->nama_pengawas
                 ];
             }
         }

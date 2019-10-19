@@ -46,7 +46,8 @@ class Data_user extends CI_Controller {
 	{
 		$act = $this->uri->segment(3);
 		if($act == "i"){ 
-			$data['id_guru']   	  = $this->input->post('id_guru',TRUE);
+			$data['id_guru']   	  = $this->input->post('id_guru',TRUE) == NULL ? NULL : $this->input->post('id_guru',TRUE);
+			$data['id_pengawas']  = $this->input->post('id_pengawas',TRUE) == NULL ? NULL : $this->input->post('id_pengawas',TRUE);
 			$data['nama_lengkap'] = $this->input->post('nama_lengkap',TRUE);
 			$data['username'] 	  = $this->input->post('username',TRUE);
 			$data['password'] 	  = $this->myfunction->_encdec('enc',$this->input->post('password',TRUE));
@@ -57,7 +58,8 @@ class Data_user extends CI_Controller {
 			$this->model_user->data_insert($data);
 		}elseif($act == "e"){
 			$id					  = $this->myfunction->_encdec('dec',$this->input->post('id')); 
-			$data['id_guru']      = $this->input->post('id_guru',TRUE);
+			$data['id_guru']   	  = $this->input->post('id_guru',TRUE) == NULL ? NULL : $this->input->post('id_guru',TRUE);
+			$data['id_pengawas']  = $this->input->post('id_pengawas',TRUE) == NULL ? NULL : $this->input->post('id_pengawas',TRUE);
 			$data['nama_lengkap'] = $this->input->post('nama_lengkap',TRUE);
 			$data['username'] 	  = $this->input->post('username',TRUE);
 			if(!empty($_POST['password'])){

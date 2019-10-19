@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title><?=$this->app->_item('site_title');?> | <?=$this->uri->segment(2) != "" ? $this->myfunction->hapus_underscore_min1($this->uri->segment(2)) : "";?> <?=$this->myfunction->hapus_underscore_min1($this->uri->segment(1));?></title>
+    <title><?=$this->app->_item('site_title');?> - <?=$this->uri->segment(2) != "" ? $this->myfunction->hapus_underscore_min1($this->uri->segment(2)) : "";?> <?=$this->myfunction->hapus_underscore_min1($this->uri->segment(1));?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="<?=$this->app->_item('description');?>">
@@ -48,7 +48,7 @@
     <script src="/lib/js/jquery.min.js"></script>
     <?= !empty($link_js) ? $link_js : ""; ?>
 </head>
-<?php $datauser = $this->db->get_where('tbl_user', array('id_user' =>  $this->session->userdata('sess_pkguru_id')))->row_array(); ?>
+<?php $datauser = $this->db->get_where('tbl_user', array('id_user' =>  $this->session->userdata('sess_pkg_id')))->row_array(); ?>
 
 <body class="fixed-left" onload="<?= !empty($load_js) ? $load_js : ""; ?>">
     <!-- Begin page -->
@@ -111,7 +111,7 @@
                             <a href="/beranda/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "beranda" ? "active" : ""; ?>">
                                 <i class="fe-home"></i><span> Beranda </span></a>
                         </li>
-                        <?php if ($this->session->userdata('sess_pkguru_role') == "Administrator") { ?>
+                        <?php if ($this->session->userdata('sess_pkg_role') == "Administrator") { ?>
                         <li>
                             <a href="/data-sekolah/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-sekolah" ? "active" : ""; ?>">
                                 <i class="fe-briefcase"></i><span> Data Sekolah</span></a>
@@ -125,6 +125,12 @@
                                 <i class="fe-users"></i><span> Data Guru</span></a>
                         </li>
                         <li>
+                            <a href="/data-pengawas/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-pengawas" ? "active" : ""; ?>">
+                                <i class="fe-user-check"></i><span> Data Pengawas</span></a>
+                        </li>
+                        
+                        
+                        <li>
                             <a href="/data-kompetensi/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-kompetensi" ? "active" : ""; ?>">
                                 <i class="fe-box"></i><span> Data Kompetensi</span></a>
                         </li>
@@ -136,23 +142,24 @@
                             <a href="/data-golongan/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-golongan" ? "active" : ""; ?>">
                                 <i class="fe-grid"></i><span> Data Golongan</span></a>
                         </li>
+                        
                         <li>
                             <a href="/data-user/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-user" ? "active" : ""; ?>">
                                 <i class="fe-user"></i><span> Data User</span></a>
                         </li>
-                        <?php } elseif ($this->session->userdata('sess_pkguru_role') == "Tim Penilai") { ?>
+                        <?php } elseif ($this->session->userdata('sess_pkg_role') == "Guru") { ?>
                         <li>
-                            <a href="/data-penilaian/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-penilaian" ? "active" : ""; ?>">
-                                <i class="fe-check-square"></i><span> Data Penilaian</span></a>
+                            <a href="/data-penilaian-guru/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-penilaian-guru" ? "active" : ""; ?>">
+                                <i class="fe-award"></i><span> Data Penilaian Guru</span></a>
                         </li>
                         <li>
                             <a href="/data-laporan/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-laporan" ? "active" : ""; ?>">
                                 <i class="fe-printer"></i><span> Data Laporan</span></a>
                         </li>
-                        <?php } elseif ($this->session->userdata('sess_pkguru_role') == "Pengawas") { ?>
+                        <?php } elseif ($this->session->userdata('sess_pkg_role') == "Pengawas") { ?>
                         <li>
-                            <a href="/data-laporan/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-laporan" ? "active" : ""; ?>">
-                                <i class="fe-printer"></i><span> Data Laporan</span></a>
+                            <a href="/data-penilaian-kepsek/" class="waves-effect waves-primary <?php echo $this->uri->segment(1) == "data-penilaian-kepsek" ? "active" : ""; ?>">
+                                <i class="fe-award"></i><span> Data Penilaian Kepsek</span></a>
                         </li>
                         <?php } ?>
                     </ul>

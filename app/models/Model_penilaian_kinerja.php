@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Model_penilaian extends CI_Model {
+class Model_penilaian_kinerja extends CI_Model {
  
     /**
         * @author      	: Rezky P. Budihartono
         * @contact 		: rh3zky@gmail.com
-        * @description 	: Model_penilaian model for administrator
+        * @description 	: Model_penilaian_kinerja model for administrator
     **/
  
     function __construct()
@@ -20,5 +20,5 @@ class Model_penilaian extends CI_Model {
     }
 }
  
-/* End of file Model_penilaian.php */
-/* Location: ./application/models/Model_penilaian.php */
+/* End of file Model_penilaian_kinerja.php */
+/* Location: ./application/models/Model_penilaian_kinerja.php */
