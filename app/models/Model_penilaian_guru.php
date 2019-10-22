@@ -39,13 +39,32 @@ class Model_penilaian_guru extends CI_Model {
         if ($total > 0) {
             $no = 1;
             foreach ($query->result() as $row) {
-                $aksi    = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
-                $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->nama_guru . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
+                $qry_1 = $this->db->select('*')
+                                  ->from("tbl_tugas_guru") 
+                                  ->join('tbl_tugas','tbl_tugas_guru.id_tugas = tbl_tugas.id_tugas')
+                                  ->where('tbl_tugas_guru.id_guru', $row->id_guru)
+                                  ->get();  
+                $tugas = [];
+                foreach ($qry_1->result() as $key) {
+                    if($key->jenis_tugas == "Pokok"){
+                        $tugas['pokok']    = $key->tugas; 
+                        $tugas['tambahan'] = '-'; 
+                    }elseif($key->jenis_tugas == "Tambahan"){
+                        $tugas['tambahan'] = $key->tugas; 
+                        $tugas['pokok']    = '-'; 
+                    }else{
+                        $tugas['tambahan'] = '-'; 
+                        $tugas['pokok']    = '-'; 
+                    }
+                }
+                $aksi    = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-success" href="' . base_url('' . $this->uri->segment(1) . '/daftar-nilai/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" >Nilai PKG</a></span>&nbsp;';
                 $data[] = [
-                    'no'            => $no, 
-                    'nip'           => $row->nip,
-                    'nama'          => $row->nama_guru, 
-                    'aksi'          => $aksi
+                    'no'             => $no, 
+                    'nip'            => $row->nip,
+                    'nama'           => $row->nama_guru, 
+                    'tugas_pokok'    => $tugas['pokok'], 
+                    'tugas_tambahan' => $tugas['tambahan'], 
+                    'aksi'           => $aksi
                 ];
                 $no++;
             }

@@ -28,9 +28,9 @@ class Data_penilaian_guru extends CI_Controller {
         $data['konten']  = $this->konten . 'data';
         $this->load->view($this->view, $data);
     }
-    public function input()
+    public function daftar_nilai()
     {
-        $data['konten']  = $this->konten . 'form';
+        $data['konten']  = $this->konten . 'nilai';
         $this->load->view($this->view, $data);
     }
     public function edit()
