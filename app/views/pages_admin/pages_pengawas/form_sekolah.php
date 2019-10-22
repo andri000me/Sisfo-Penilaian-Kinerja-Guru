@@ -11,7 +11,7 @@
     <div class="col-lg-12">
         <div class="panel panel-border panel-color-primary ">
             <div class="panel-heading">
-                <h3 class="panel-title"> Guru Yang Akan dinilai
+                <h3 class="panel-title"> Kepala Sekolah Yang Akan Dinilai
                      </h3>
             </div>
             <div class="panel-body table-responsive">
@@ -71,8 +71,11 @@
                             <td><?=$row->nama_guru;?></td> 
                             <td align="center">
                             <?php if($row_1 > 0){?> 
+                                <?php if($get->id_pengawas !=  $dta_1->id_pengawas){ ?>
+                                    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Kurang" disabled class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a></td>
+                                <?php }else{ ?>
                                     <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Kurang" href="<?=base_url('' . $this->uri->segment(1) . '/proses/g/d/'.$this->uri->segment(3). '/' . $this->myfunction->_encdec('enc',$row->id_sekolah));?>/" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a></td>
-                                
+                                <?php } ?>
                             <?php }else{ ?>
                                 <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Tambah" href="<?=base_url('' . $this->uri->segment(1) . '/proses/g/i/'.$this->uri->segment(3). '/' . $this->myfunction->_encdec('enc',$row->id_sekolah));?>/" class="btn btn-primary btn-sm"><i class="fa fa-check"></i></a></td>
                             <?php } ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2019 at 11:14 AM
+-- Generation Time: Oct 22, 2019 at 06:46 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -110,7 +110,9 @@ CREATE TABLE `tbl_guru` (
 INSERT INTO `tbl_guru` (`id_guru`, `id_sekolah`, `nip`, `nama_guru`, `jenis_kelamin`, `tempat_lahir`, `tgl_lahir`, `nomor_seri`, `nuptk`, `nrg`, `jabatan`, `tmt_pangkat_golongan`, `tmt_sebagai_guru`, `masa_kerja_sebagai_guru`, `tmt_tugas_tambahan`, `masa_kerja_tugas_tambahan`, `pendidikan`, `guru_mapel`, `level_guru`, `asesor`) VALUES
 (10, 1, '123242342342342333', 'Firda ', 'Perempuan', 'Gorontalo', '2019-10-08', '343242432', '434', '234234', 'Tes', '3', '3', '1 tahun 2 bulan', '3', '1 tahun 2 bulan', 'S1', 'MM', 'Kepala Sekolah', 'Y'),
 (12, 1, '123123123123333223', 'Ramdan', 'Laki-Laki', 'Gtlo', '2019-10-15', '23423423', '23423', '44234', '2342', '23423', '423423', '1 tahun 3 Bulan', 'Tugas Tambahan', '2 Tahun 3 Bulan', 'S1', 'MM', 'Guru Senior', 'Y'),
-(13, 1, '132456889989789792', 'Fandi', 'Laki-Laki', 'Gorontalo', '2019-10-17', '12345648789', '432889515', '28951238', '2', '2', 'Tes', '1 Tahun 2 Bulan', 'Tugas', '1 Tahun 3 Bulan', 'S1', 'TIK', 'Guru Mata Pelajaran', 'N');
+(13, 1, '132456889989789792', 'Fandi', 'Laki-Laki', 'Gorontalo', '2019-10-17', '12345648789', '432889515', '28951238', '2', '2', 'Tes', '1 Tahun 2 Bulan', 'Tugas', '1 Tahun 3 Bulan', 'S1', 'TIK', 'Guru Mata Pelajaran', 'N'),
+(14, 2, '131311231233234320', 'Uci Juliana', 'Perempuan', 'Gorontalo', '2019-10-21', '453534534', '23434234', '53453453', 'Tes', '3', '3', '2', '2', '2', 'S1', 'Bahasa', 'Kepala Sekolah', 'Y'),
+(15, 2, '123456789123456789', 'Sidik Luma', 'Laki-Laki', 'Gorontalo', '2019-10-22', '23424234', '4243', '44243', '3424', '423423', '234234', '34423', '4234234', '42342', 'S2', 'TIK', 'Guru Senior', 'N');
 
 -- --------------------------------------------------------
 
@@ -320,18 +322,46 @@ INSERT INTO `tbl_kompetensi` (`id_kompetensi`, `id_tugas`, `nama_kompetensi`) VA
 
 CREATE TABLE `tbl_pengawas` (
   `id_pengawas` int(5) NOT NULL,
-  `nip_pengawas` varchar(16) DEFAULT NULL,
+  `nip_pengawas` varchar(18) DEFAULT NULL,
   `nama_pengawas` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_pengawas`
+--
+
+INSERT INTO `tbl_pengawas` (`id_pengawas`, `nip_pengawas`, `nama_pengawas`) VALUES
+(1, '123322323122342322', 'Jafar'),
+(2, '123545687842364789', 'Ferry Laparaga');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_penilaian_kompetensi`
+-- Table structure for table `tbl_pengawas_kepsek`
 --
 
-CREATE TABLE `tbl_penilaian_kompetensi` (
-  `id_penilaian_kompetensi` int(5) NOT NULL,
+CREATE TABLE `tbl_pengawas_kepsek` (
+  `id_pengawas_kepsek` int(5) NOT NULL,
+  `id_pengawas` int(5) DEFAULT NULL,
+  `id_sekolah` int(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_pengawas_kepsek`
+--
+
+INSERT INTO `tbl_pengawas_kepsek` (`id_pengawas_kepsek`, `id_pengawas`, `id_sekolah`) VALUES
+(4, 2, 1),
+(5, 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_penilaian_guru`
+--
+
+CREATE TABLE `tbl_penilaian_guru` (
+  `id_penilaian_guru` int(5) NOT NULL,
   `id_guru` int(5) DEFAULT NULL,
   `id_tugas` int(5) DEFAULT NULL,
   `id_kompetensi` int(5) DEFAULT NULL,
@@ -339,7 +369,29 @@ CREATE TABLE `tbl_penilaian_kompetensi` (
   `skor_1` int(5) DEFAULT NULL,
   `skor_2` int(5) DEFAULT NULL,
   `skor_3` int(5) DEFAULT NULL,
-  `skor_4` int(5) DEFAULT NULL
+  `skor_4` int(5) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_penilaian_kepsek`
+--
+
+CREATE TABLE `tbl_penilaian_kepsek` (
+  `id_penilaian_kepsek` int(5) NOT NULL,
+  `id_pengawas` int(5) DEFAULT NULL,
+  `id_tugas` int(5) DEFAULT NULL,
+  `id_kompetensi` int(5) DEFAULT NULL,
+  `id_indikator` int(5) DEFAULT NULL,
+  `skor_1` int(5) DEFAULT NULL,
+  `skor_2` int(5) DEFAULT NULL,
+  `skor_3` int(5) DEFAULT NULL,
+  `skor_4` int(5) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -410,7 +462,11 @@ INSERT INTO `tbl_tugas_guru` (`id_tugas_guru`, `id_guru`, `id_tugas`) VALUES
 (9, 10, 2),
 (11, 12, 1),
 (12, 12, 4),
-(13, 13, 1);
+(13, 13, 1),
+(14, 14, 1),
+(15, 14, 2),
+(16, 15, 1),
+(17, 15, 3);
 
 -- --------------------------------------------------------
 
@@ -421,11 +477,12 @@ INSERT INTO `tbl_tugas_guru` (`id_tugas_guru`, `id_guru`, `id_tugas`) VALUES
 CREATE TABLE `tbl_user` (
   `id_user` int(5) NOT NULL,
   `id_guru` int(5) DEFAULT NULL,
+  `id_pengawas` int(5) DEFAULT NULL,
   `nama_lengkap` varchar(50) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   `foto` varchar(100) DEFAULT NULL,
-  `role` enum('Administrator','Guru') DEFAULT NULL,
+  `role` enum('Administrator','Guru','Pengawas') DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -434,9 +491,10 @@ CREATE TABLE `tbl_user` (
 -- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_user` (`id_user`, `id_guru`, `nama_lengkap`, `username`, `password`, `foto`, `role`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Rezky Pradana Budihartono', 'admin', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-673584.jpg', 'Administrator', '2018-11-19 21:14:57', '2019-09-24 06:57:13'),
-(4, 10, 'Iztys', 'isti', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-809845.jpg', 'Guru', '2019-09-30 06:51:30', '2019-10-18 09:10:29');
+INSERT INTO `tbl_user` (`id_user`, `id_guru`, `id_pengawas`, `nama_lengkap`, `username`, `password`, `foto`, `role`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, 'Rezky Pradana Budihartono', 'admin', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-673584.jpg', 'Administrator', '2018-11-19 21:14:57', '2019-09-24 06:57:13'),
+(4, 10, NULL, 'Iztys', 'isti', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-809845.jpg', 'Guru', '2019-09-30 06:51:30', '2019-10-18 09:10:29'),
+(5, NULL, 1, 'Jafar', 'jafar', 'YUR6L1ZHMUZBaWNNYkxxNkowSUhBdz09', 'AVATAR-464934.jpg', 'Pengawas', '2019-10-19 05:15:02', '2019-10-19 05:24:55');
 
 --
 -- Indexes for dumped tables
@@ -491,14 +549,32 @@ ALTER TABLE `tbl_pengawas`
   ADD PRIMARY KEY (`id_pengawas`);
 
 --
--- Indexes for table `tbl_penilaian_kompetensi`
+-- Indexes for table `tbl_pengawas_kepsek`
 --
-ALTER TABLE `tbl_penilaian_kompetensi`
-  ADD PRIMARY KEY (`id_penilaian_kompetensi`),
+ALTER TABLE `tbl_pengawas_kepsek`
+  ADD PRIMARY KEY (`id_pengawas_kepsek`),
+  ADD KEY `id_pengawas` (`id_pengawas`),
+  ADD KEY `id_sekolah` (`id_sekolah`);
+
+--
+-- Indexes for table `tbl_penilaian_guru`
+--
+ALTER TABLE `tbl_penilaian_guru`
+  ADD PRIMARY KEY (`id_penilaian_guru`),
   ADD KEY `id_kompetensi` (`id_kompetensi`),
   ADD KEY `id_indikator` (`id_indikator`),
   ADD KEY `id_guru` (`id_guru`),
   ADD KEY `id_tugas` (`id_tugas`);
+
+--
+-- Indexes for table `tbl_penilaian_kepsek`
+--
+ALTER TABLE `tbl_penilaian_kepsek`
+  ADD PRIMARY KEY (`id_penilaian_kepsek`),
+  ADD KEY `id_kompetensi` (`id_kompetensi`),
+  ADD KEY `id_indikator` (`id_indikator`),
+  ADD KEY `id_tugas` (`id_tugas`),
+  ADD KEY `id_pengawas` (`id_pengawas`);
 
 --
 -- Indexes for table `tbl_sekolah`
@@ -525,7 +601,8 @@ ALTER TABLE `tbl_tugas_guru`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`id_user`),
-  ADD KEY `id_guru` (`id_guru`);
+  ADD KEY `id_guru` (`id_guru`),
+  ADD KEY `id_pengawas` (`id_pengawas`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -547,7 +624,7 @@ ALTER TABLE `tbl_golongan`
 -- AUTO_INCREMENT for table `tbl_guru`
 --
 ALTER TABLE `tbl_guru`
-  MODIFY `id_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_guru_dinilai`
@@ -571,13 +648,25 @@ ALTER TABLE `tbl_kompetensi`
 -- AUTO_INCREMENT for table `tbl_pengawas`
 --
 ALTER TABLE `tbl_pengawas`
-  MODIFY `id_pengawas` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengawas` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tbl_penilaian_kompetensi`
+-- AUTO_INCREMENT for table `tbl_pengawas_kepsek`
 --
-ALTER TABLE `tbl_penilaian_kompetensi`
-  MODIFY `id_penilaian_kompetensi` int(5) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tbl_pengawas_kepsek`
+  MODIFY `id_pengawas_kepsek` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbl_penilaian_guru`
+--
+ALTER TABLE `tbl_penilaian_guru`
+  MODIFY `id_penilaian_guru` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_penilaian_kepsek`
+--
+ALTER TABLE `tbl_penilaian_kepsek`
+  MODIFY `id_penilaian_kepsek` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_sekolah`
@@ -595,7 +684,7 @@ ALTER TABLE `tbl_tugas`
 -- AUTO_INCREMENT for table `tbl_tugas_guru`
 --
 ALTER TABLE `tbl_tugas_guru`
-  MODIFY `id_tugas_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_tugas_guru` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
@@ -634,12 +723,19 @@ ALTER TABLE `tbl_kompetensi`
   ADD CONSTRAINT `tbl_kompetensi_ibfk_1` FOREIGN KEY (`id_tugas`) REFERENCES `tbl_tugas` (`id_tugas`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tbl_penilaian_kompetensi`
+-- Constraints for table `tbl_pengawas_kepsek`
 --
-ALTER TABLE `tbl_penilaian_kompetensi`
-  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_3` FOREIGN KEY (`id_tugas`) REFERENCES `tbl_tugas` (`id_tugas`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_4` FOREIGN KEY (`id_kompetensi`) REFERENCES `tbl_kompetensi` (`id_kompetensi`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_penilaian_kompetensi_ibfk_5` FOREIGN KEY (`id_indikator`) REFERENCES `tbl_indikator` (`id_indikator`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_pengawas_kepsek`
+  ADD CONSTRAINT `tbl_pengawas_kepsek_ibfk_1` FOREIGN KEY (`id_pengawas`) REFERENCES `tbl_pengawas` (`id_pengawas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_pengawas_kepsek_ibfk_2` FOREIGN KEY (`id_sekolah`) REFERENCES `tbl_pengawas` (`id_pengawas`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_penilaian_guru`
+--
+ALTER TABLE `tbl_penilaian_guru`
+  ADD CONSTRAINT `tbl_penilaian_guru_ibfk_3` FOREIGN KEY (`id_tugas`) REFERENCES `tbl_tugas` (`id_tugas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_penilaian_guru_ibfk_4` FOREIGN KEY (`id_kompetensi`) REFERENCES `tbl_kompetensi` (`id_kompetensi`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_penilaian_guru_ibfk_5` FOREIGN KEY (`id_indikator`) REFERENCES `tbl_indikator` (`id_indikator`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_tugas_guru`
@@ -652,7 +748,8 @@ ALTER TABLE `tbl_tugas_guru`
 -- Constraints for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  ADD CONSTRAINT `tbl_user_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `tbl_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_user_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `tbl_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_user_ibfk_2` FOREIGN KEY (`id_pengawas`) REFERENCES `tbl_pengawas` (`id_pengawas`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

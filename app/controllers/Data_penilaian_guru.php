@@ -21,7 +21,7 @@ class Data_penilaian_guru extends CI_Controller {
     }
     public function get()
     {
-        $this->model_penilaian->_getData();
+        $this->model_penilaian_guru->_getData();
     }
     public function index()
     {

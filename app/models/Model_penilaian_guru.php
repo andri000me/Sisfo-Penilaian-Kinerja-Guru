@@ -1,19 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Model_penilaian_kepsek extends CI_Model {
+class Model_penilaian_guru extends CI_Model {
  
     /**
         * @author      	: Rezky P. Budihartono
         * @contact 		: rh3zky@gmail.com
-        * @description 	: Model_penilaian_kepsek model for administrator
+        * @description 	: Model_penilaian_guru model for administrator
     **/
  
-    private $table       = 'tbl_penilaian_kepsek';
-    private $id_table    = 'id_penilaian_kepsek';
-    private $field_exist = 'nama_indikator';
-    private $data_notif  = 'indikator';
-    private $data_name   = 'nama_indikator';
+    private $table       = 'tbl_guru';
+    private $id_table    = 'id_guru';
+    private $field_exist = 'nip';
+    private $data_notif  = 'guru';
+    private $data_name   = 'nama_guru';
     private $_data_list  = array();
     
     public function __construct()
@@ -29,24 +29,23 @@ class Model_penilaian_kepsek extends CI_Model {
     }
     private function data_list()
     {
-        $qry_1 = $this->db->get_where('tbl_pengawas',['id_pengawas' => $this->session->userdata('sess_pkg_id_pengawas')])->row();
         $query = $this->db->select('*')
-                          ->from("tbl_guru") 
-                          ->where('id_sekolah',$qry_1->id_sekolah)
-                          ->order_by('tbl_indikator.id_indikator', 'ASC')
+                          ->from($this->table) 
+                          ->join('tbl_guru_dinilai','tbl_guru.id_guru = tbl_guru_dinilai.id_guru_nilai')
+                          ->where('tbl_guru_dinilai.id_guru_asesor', $this->session->userdata('sess_pkg_id_guru'))
+                          ->order_by('tbl_guru.id_guru', 'ASC')
                           ->get();
         $total  = $query->num_rows();
         if ($total > 0) {
             $no = 1;
             foreach ($query->result() as $row) {
-                $aksi    = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_indikator)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
-                $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->nama_indikator . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_indikator)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
+                $aksi    = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-warning" href="' . base_url('' . $this->uri->segment(1) . '/edit/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-edit"></i></a></span>&nbsp;';
+                $aksi   .= '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus"><a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirm-delete" onClick="_get(\'' . $row->nama_guru . '\')" data-href="' . base_url('' . $this->uri->segment(1) . '/proses/d/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" ><i class="fa fa-trash-o"></i></a></span>';
                 $data[] = [
-                    'no'              => $no, 
-                    'tugas'           => $row->tugas,
-                    'nama_kompetensi' => $row->nama_kompetensi,
-                    'nama_indikator'  => $row->nama_indikator,
-                    'aksi'            => $aksi
+                    'no'            => $no, 
+                    'nip'           => $row->nip,
+                    'nama'          => $row->nama_guru, 
+                    'aksi'          => $aksi
                 ];
                 $no++;
             }
@@ -130,5 +129,5 @@ class Model_penilaian_kepsek extends CI_Model {
     }
 }
  
-/* End of file Model_penilaian_kepsek.php */
-/* Location: ./application/models/Model_penilaian_kepsek.php */
+/* End of file Model_penilaian_guru.php */
+/* Location: ./application/models/Model_penilaian_guru.php */
