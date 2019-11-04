@@ -46,13 +46,13 @@ class Data_indikator extends CI_Controller {
     {
         $act = $this->uri->segment(3);
         if ($act == 'i') {
-            $data['id_tenaga_pendidik'] = $this->input->post('id_tenaga_pendidik', TRUE);
+            $data['id_tugas']           = $this->input->post('id_tugas', TRUE);
             $data['id_kompetensi']      = $this->input->post('id_kompetensi', TRUE);
             $data['nama_indikator']     = trim($this->input->post('nama_indikator', TRUE));
             $this->model_indikator->data_insert($data);
         } elseif ($act == 'e') {
             $id                         = $this->myfunction->_encdec('dec', $this->input->post('id'));
-            $data['id_tenaga_pendidik'] = $this->input->post('id_tenaga_pendidik', TRUE);
+            $data['id_tugas']           = $this->input->post('id_tugas', TRUE);
             $data['id_kompetensi']      = $this->input->post('id_kompetensi', TRUE);
             $data['nama_indikator']     = trim($this->input->post('nama_indikator', TRUE));
             $this->model_indikator->data_update($data, $id);

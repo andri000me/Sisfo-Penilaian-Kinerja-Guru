@@ -28,9 +28,20 @@ class Data_penilaian_guru extends CI_Controller {
         $data['konten']  = $this->konten . 'data';
         $this->load->view($this->view, $data);
     }
+    public function daftar_tugas()
+    {
+        $data['konten']     = $this->konten . 'tugas';
+        $data['add_js_app'] = "<script>$('.circliful-chart').circliful();</script>";
+        $this->load->view($this->view, $data);
+    }
+    public function daftar_kompetensi()
+    {
+        $data['konten']     = $this->konten . 'kompetensi'; 
+        $this->load->view($this->view, $data);
+    }
     public function daftar_nilai()
     {
-        $data['konten']  = $this->konten . 'nilai';
+        $data['konten']     = $this->konten . 'nilai'; 
         $this->load->view($this->view, $data);
     }
     public function edit()

@@ -4,6 +4,7 @@
         if ($this->session->flashdata('notification')) {
             echo $this->session->flashdata('notification');
         }
+        $sql_level = $this->db->get_where('tbl_guru',['id_guru' => $this->session->userdata('sess_pkg_id_guru')])->row();
         ?>
     </div>
     <div class="col-sm-3">
@@ -23,6 +24,9 @@
                 <img src="<?php echo $file; ?>" alt="user-img" class="img-square" height="160px" width="160px" alt="">
                 <br>
                 <h3 class="font-400" style="padding-top: 8px;"><?= $this->session->userdata('sess_pkg_role'); ?></h3>
+                <?php if($this->session->userdata('sess_pkg_role') != "Administrator"){ ?>
+                <h5 class="font-400" ><?=$sql_level->level_guru;?></h4>
+                <?php } ?>
             </div>
         </div><!-- end col -->
     </div>

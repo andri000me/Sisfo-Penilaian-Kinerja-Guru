@@ -55,7 +55,7 @@ class Model_penilaian_guru extends CI_Model {
                                   ->get() ;
                 $row_2 = $qry_2->num_rows();
                 $dta_2 = $qry_2->row();
-                $aksi   = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-success" href="' . base_url('' . $this->uri->segment(1) . '/daftar-nilai/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" >Nilai PKG</a></span>&nbsp;';
+                $aksi   = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-success" href="' . base_url('' . $this->uri->segment(1) . '/daftar-tugas/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" >Nilai PKG</a></span>&nbsp;';
                 $data[] = [
                     'no'             => $no, 
                     'nip'            => $row->nip,

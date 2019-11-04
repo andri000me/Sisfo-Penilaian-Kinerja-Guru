@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2019 at 06:46 AM
+-- Generation Time: Nov 04, 2019 at 09:54 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -269,7 +269,52 @@ INSERT INTO `tbl_indikator` (`id_indikator`, `id_tugas`, `id_kompetensi`, `nama_
 (115, 2, 19, '5. Menerapkan nilai dan prinsip-prinsip kewirausahaan dalam mengembangkan sekolah/madrasah.'),
 (116, 2, 20, '1. Menyusun program supervisi akademik dalam rangka peningkatan profesionalisme guru.'),
 (117, 2, 20, '2. Melaksanakan supervisi akademik terhadap guru dengan menggunakan pendekatan dan teknik supervisi yang tepat.'),
-(118, 2, 20, '3. Menilai dan menindaklanjuti kegiatan supervisi akademik dalam rangka peningkatan profesionalisme guru.');
+(118, 2, 20, '3. Menilai dan menindaklanjuti kegiatan supervisi akademik dalam rangka peningkatan profesionalisme guru.'),
+(119, 4, 26, 'Berprilaku arif dalam bertindak dan memecahkan masalah'),
+(120, 4, 26, 'Berperilaku jujur atas semua informasi kedinasan'),
+(121, 4, 26, 'Menunjukkan kemandirian dalam bekerja dibidangnya'),
+(122, 4, 26, 'Menunjukkan rasa percaya diri atas keputusan yang diambil'),
+(123, 4, 26, 'Berupaya meningkatkan kemampuan diri dibidangnya'),
+(124, 4, 26, 'Bertindak secara konsisten sesuai dengan norma agama, hukum, sosial, dan budaya nasional Indonesia'),
+(125, 4, 26, 'Berperilaku disiplin atas waktu dan aturan'),
+(126, 4, 26, 'Bertanggung jawab terhadap tugas'),
+(127, 4, 26, 'Tekun, teliti, dan hati-hati dalam melaksanakan tugas'),
+(128, 4, 26, 'Kreatif dalam memecahkan masalah yang berkaitan dengan tugas profesinya'),
+(129, 4, 26, 'Berorientasi pada kualitas dan kepuasan layanan pemakai laboratorium/ bengkel'),
+(130, 4, 27, 'Menciptakan inovasi yang bermanfaat bagi pengembangan sekolah/ madrasah.'),
+(131, 4, 27, 'Memiliki motivasi yang kuat untuk sukses dalam melaksanakan tugas pokok dan fungsinya sebagai pemimpin pembelajaran.'),
+(132, 4, 27, 'Memotivasi warga sekolah untuk sukses dalam melaksanakan tugas pokok dan fungsinya masing-masing.'),
+(133, 4, 27, 'Pantang menyerah dan selalu mencari solusi terbaik dalam menghadapi kendala yang'),
+(134, 4, 27, 'Menerapkan nilai dan prinsip-prinsip kewirausahaan dalam mengembangkan sekolah/madrasah.'),
+(135, 4, 28, 'Mengkoordinasikan kegiatan praktikum dengan guru'),
+(136, 4, 28, 'Merumuskan rincian tugas teknisi dan laboran'),
+(137, 4, 28, 'Menentukan jadwal kerja teknisi dan laboran'),
+(138, 4, 28, 'Mensupervisi teknisi dan laboran'),
+(139, 4, 28, 'Menilai hasil kerja teknisi dan laboran'),
+(140, 4, 28, 'Menilai kinerja teknisi dan laboran laboratorium'),
+(141, 4, 29, 'Menyusun program pengelolaan laboratorium'),
+(142, 4, 29, 'Menyusun jadwal kegiatan laboratorium'),
+(143, 4, 29, 'Menyusun rencana pengembangan laboratorium'),
+(144, 4, 29, 'Menyusun prosedur operasi standar (POS) kerja laboratorium'),
+(145, 4, 29, 'Mengembangkan sistem administrasi laboratorium'),
+(146, 4, 29, 'Menyusun laporan kegiatan laboratorium'),
+(147, 4, 30, 'Memantau kondisi dan keamanan bahan serta alat laboratorium'),
+(148, 4, 30, 'Memantau kondisi dan keamanan bangunan laboratorium'),
+(149, 4, 30, 'Memantau pelaksanaan kegiatan laboratorium'),
+(150, 4, 30, 'Membuat laporan bulanan dan tahunan tentang kondisi dan pemanfaatan laboratorium'),
+(151, 4, 30, 'Membuat laporan secara periodic'),
+(152, 4, 30, 'Mengevaluasi program laboratorium untuk perbaikan selanjutnya'),
+(153, 4, 30, 'Menilai kegiatan laboratorium'),
+(154, 4, 31, 'Mengikuti perkembangan pemikiran tentang pemanfaatan kegiatan laboratorium sebagai wahana pendidikan'),
+(155, 4, 31, 'Menerapkan hasil inovasi atau kajian laboratorium'),
+(156, 4, 31, 'Merancang kegiatan laboratorium untuk pendidikan dan pelatihan'),
+(157, 4, 31, 'Melaksanakan kegiatan laboratorium untuk kepentingan pendidikan dan pelatihan'),
+(158, 4, 31, 'Mempublikasikan karya tulis imliah hasil kajian/ inovasi laboratorium'),
+(159, 4, 32, 'Menyusun panduan/ penuntun (manual) praktikum'),
+(160, 4, 32, 'Menetapkan ketentuan mengenai kesehatan dan keselamatan kerja (K3)'),
+(161, 4, 32, 'Menerapkan ketentuan mengenai kesehatan dan keselamatan kerja (K3)'),
+(162, 4, 32, 'Menerapkan prosedur penangan bahan berbahaya dan beracun'),
+(163, 4, 32, 'Memantau bahan berbahaya dan beracun, serta peralatan keselamatan kerja');
 
 -- --------------------------------------------------------
 
@@ -288,31 +333,38 @@ CREATE TABLE `tbl_kompetensi` (
 --
 
 INSERT INTO `tbl_kompetensi` (`id_kompetensi`, `id_tugas`, `nama_kompetensi`) VALUES
-(1, 1, '1. Mengenal karakteristik peserta didik'),
-(2, 1, '2. Menguasai teori belajar dan prinsip-prinsip pembelajaran  yang mendidik'),
-(3, 1, '3. Pengembangan kurikulum'),
-(4, 1, '4. Kegiatan Pembelajaran yang Mendidik '),
-(5, 1, '5. Memahami dan mengembangkan potensi'),
-(6, 1, '6. Komunikasi dengan peserta didik'),
-(7, 1, '7. Penilaian dan evaluasi'),
-(8, 1, '8. Bertindak sesuai dengan norma agama, hukum, sosial dan kebudayaan nasional Indonesia'),
-(9, 1, '9. Menunjukkan pribadi yang dewasa dan teladan'),
-(10, 1, '10. Etos kerja, tanggung jawab yang tinggi, dan rasa  bangga menjadi guru.'),
-(11, 1, '11. Bersikap inklusif, bertindak objektif, serta tidak  Diskriminatif'),
-(12, 1, '12. Komunikasi  dengan  sesama  guru,  tenaga  pendidikan,  orang tua peserta didik, dan masyarakat'),
-(13, 1, '13. Penguasaan materi struktur konsep dan pola pikir keilmuan yang mendukung mata pelajaran yang dimampu'),
-(14, 1, '14. Mengembangkan keprofesian melalui tindakan reflektif'),
-(15, 2, '1. Kepribadian dan Sosial (PKKS 1)'),
-(16, 2, '2. Kepemimpinan (PKKS 2)'),
-(17, 2, '3. Pengembangan Sekolah/ Madrasah (PKKS 3)'),
-(18, 2, '4. Pengelolaan Sumber Daya (PKKS 4)'),
-(19, 2, '5. Kewirausahaan (PKKS 5)'),
-(20, 2, '6. Supervisi (PKKS 6)'),
-(21, 3, '1. Kepribadian dan Sosial (PKWKS 1)'),
-(22, 3, '2. Kepemimpinan (PKWKS 2)'),
-(23, 3, '3. Pengembangan Sekolah (PKWKS 3)'),
-(24, 3, '4. Kewirausahaan (PKWKS 4)'),
-(25, 3, '5. Bidang Tugas Wakasek (PKWKS 5)');
+(1, 1, 'Mengenal karakteristik peserta didik'),
+(2, 1, 'Menguasai teori belajar dan prinsip-prinsip pembelajaran  yang mendidik'),
+(3, 1, 'Pengembangan kurikulum'),
+(4, 1, 'Kegiatan Pembelajaran yang Mendidik '),
+(5, 1, 'Memahami dan mengembangkan potensi'),
+(6, 1, 'Komunikasi dengan peserta didik'),
+(7, 1, 'Penilaian dan evaluasi'),
+(8, 1, 'Bertindak sesuai dengan norma agama, hukum, sosial dan kebudayaan nasional Indonesia'),
+(9, 1, 'Menunjukkan pribadi yang dewasa dan teladan'),
+(10, 1, 'Etos kerja, tanggung jawab yang tinggi, dan rasa  bangga menjadi guru.'),
+(11, 1, 'Bersikap inklusif, bertindak objektif, serta tidak  Diskriminatif'),
+(12, 1, 'Komunikasi  dengan  sesama  guru,  tenaga  pendidikan,  orang tua peserta didik, dan masyarakat'),
+(13, 1, 'Penguasaan materi struktur konsep dan pola pikir keilmuan yang mendukung mata pelajaran yang dimampu'),
+(14, 1, 'Mengembangkan keprofesian melalui tindakan reflektif'),
+(15, 2, 'Kepribadian dan Sosial (PKKS 1)'),
+(16, 2, 'Kepemimpinan (PKKS 2)'),
+(17, 2, 'Pengembangan Sekolah/ Madrasah (PKKS 3)'),
+(18, 2, 'Pengelolaan Sumber Daya (PKKS 4)'),
+(19, 2, 'Kewirausahaan (PKKS 5)'),
+(20, 2, 'Supervisi (PKKS 6)'),
+(21, 3, 'Kepribadian dan Sosial (PKWKS 1)'),
+(22, 3, 'Kepemimpinan (PKWKS 2)'),
+(23, 3, 'Pengembangan Sekolah (PKWKS 3)'),
+(24, 3, 'Kewirausahaan (PKWKS 4)'),
+(25, 3, 'Bidang Tugas Wakasek (PKWKS 5)'),
+(26, 4, 'Kepribadian'),
+(27, 4, 'Sosial'),
+(28, 4, 'Pengorganisasian Guru/ Laboran/ Teknisi'),
+(29, 4, 'Pengelolaan dan Administrasi'),
+(30, 4, 'Pengelolaan Pemantauan dan Evaluasi'),
+(31, 4, 'Pengembangan dan Inovasi'),
+(32, 4, 'Pengelolaan lingkungan dan P3');
 
 -- --------------------------------------------------------
 
@@ -636,13 +688,13 @@ ALTER TABLE `tbl_guru_dinilai`
 -- AUTO_INCREMENT for table `tbl_indikator`
 --
 ALTER TABLE `tbl_indikator`
-  MODIFY `id_indikator` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id_indikator` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
 
 --
 -- AUTO_INCREMENT for table `tbl_kompetensi`
 --
 ALTER TABLE `tbl_kompetensi`
-  MODIFY `id_kompetensi` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_kompetensi` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `tbl_pengawas`

@@ -46,12 +46,12 @@ class Data_kompetensi extends CI_Controller {
     {
         $act = $this->uri->segment(3);
         if ($act == 'i') {
-            $data['id_tenaga_pendidik'] = $this->input->post('id_tenaga_pendidik', TRUE);
+            $data['id_tugas'] 			= $this->input->post('id_tugas', TRUE);
             $data['nama_kompetensi']    = trim($this->input->post('nama_kompetensi', TRUE));
             $this->model_kompetensi->data_insert($data);
         } elseif ($act == 'e') {
             $id                         = $this->myfunction->_encdec('dec', $this->input->post('id'));
-            $data['id_tenaga_pendidik'] = $this->input->post('id_tenaga_pendidik', TRUE);
+            $data['id_tugas'] 			= $this->input->post('id_tugas', TRUE);
             $data['nama_kompetensi']    = trim($this->input->post('nama_kompetensi', TRUE));
             $this->model_kompetensi->data_update($data, $id);
         } elseif ($act == 'd') {
