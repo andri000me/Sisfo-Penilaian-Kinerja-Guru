@@ -28,7 +28,7 @@
     <link href="/lib/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
     <link href="/lib/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" />
     <link href="/lib/plugins/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
-
+    <link href="/lib/plugins/jquery-circliful/css/jquery.circliful.css" rel="stylesheet" type="text/css" />
     <!-- DataTables -->
     <link href="/lib/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
     <link href="/lib/plugins/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -345,7 +345,10 @@
     <script src="/lib/plugins/waypoints/lib/jquery.waypoints.js"></script>
     <script src="/lib/plugins/counterup/jquery.counterup.min.js"></script>
     <script src="/lib/plugins/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-
+    
+    <!-- Circliful -->
+    <script src="/lib/plugins/jquery-circliful/js/jquery.circliful.min.js"></script>
+    
     <!-- App js -->
     <script src="/lib/js/jquery.core.js"></script>
     <script src="/lib/js/jquery.app.js"></script>

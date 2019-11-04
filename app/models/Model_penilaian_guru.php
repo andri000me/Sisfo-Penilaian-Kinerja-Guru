@@ -43,27 +43,25 @@ class Model_penilaian_guru extends CI_Model {
                                   ->from("tbl_tugas_guru") 
                                   ->join('tbl_tugas','tbl_tugas_guru.id_tugas = tbl_tugas.id_tugas')
                                   ->where('tbl_tugas_guru.id_guru', $row->id_guru)
-                                  ->get();  
-                $tugas = [];
-                foreach ($qry_1->result() as $key) {
-                    if($key->jenis_tugas == "Pokok"){
-                        $tugas['pokok']    = $key->tugas; 
-                        $tugas['tambahan'] = '-'; 
-                    }elseif($key->jenis_tugas == "Tambahan"){
-                        $tugas['tambahan'] = $key->tugas; 
-                        $tugas['pokok']    = '-'; 
-                    }else{
-                        $tugas['tambahan'] = '-'; 
-                        $tugas['pokok']    = '-'; 
-                    }
-                }
-                $aksi    = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-success" href="' . base_url('' . $this->uri->segment(1) . '/daftar-nilai/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" >Nilai PKG</a></span>&nbsp;';
+                                  ->where('tbl_tugas.jenis_tugas', 'Pokok')
+                                  ->get() ;
+                $row_1 = $qry_1->num_rows();
+                $dta_1 = $qry_1->row();
+                $qry_2 = $this->db->select('*')
+                                  ->from("tbl_tugas_guru") 
+                                  ->join('tbl_tugas','tbl_tugas_guru.id_tugas = tbl_tugas.id_tugas')
+                                  ->where('tbl_tugas_guru.id_guru', $row->id_guru)
+                                  ->where('tbl_tugas.jenis_tugas', 'Tambahan')
+                                  ->get() ;
+                $row_2 = $qry_2->num_rows();
+                $dta_2 = $qry_2->row();
+                $aksi   = '<span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><a class="btn btn-sm btn-success" href="' . base_url('' . $this->uri->segment(1) . '/daftar-nilai/' . $this->myfunction->_encdec('enc', $row->id_guru)) . '/" >Nilai PKG</a></span>&nbsp;';
                 $data[] = [
                     'no'             => $no, 
                     'nip'            => $row->nip,
                     'nama'           => $row->nama_guru, 
-                    'tugas_pokok'    => $tugas['pokok'], 
-                    'tugas_tambahan' => $tugas['tambahan'], 
+                    'tugas_pokok'    => $row_1 > 0 ? $dta_1->tugas : "-",
+                    'tugas_tambahan' => $row_2 > 0 ? $dta_2->tugas : "-",
                     'aksi'           => $aksi
                 ];
                 $no++;
