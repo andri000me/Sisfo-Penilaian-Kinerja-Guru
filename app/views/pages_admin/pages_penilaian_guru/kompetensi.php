@@ -1,4 +1,13 @@
 <div class="row">
+    <div class="col-sm-12">
+        <?php
+        if ($this->session->flashdata('notification')) {
+            echo $this->session->flashdata('notification');
+        }
+        ?>
+    </div>
+</div>
+<div class="row">
     <?php 
         $tugas   = $this->db->get_where('tbl_tugas',array('id_tugas'=> $this->myfunction->_encdec('dec', $this->uri->segment(4))))->row();
         $get     = $this->db->get_where('tbl_guru',array('id_guru'=> $this->myfunction->_encdec('dec', $this->uri->segment(3))))->row();

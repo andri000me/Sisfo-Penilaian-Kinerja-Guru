@@ -65,7 +65,7 @@ class Data_penilaian_guru extends CI_Controller {
                           ];
             }
             $this->model_penilaian_guru->data_insert($data, $id);
-            
+            redirect($this->control . '/daftar-kompetensi/'.$this->myfunction->_encdec('enc',$this->input->post('id_guru', TRUE)).'/'.$this->myfunction->_encdec('enc',$this->input->post('id_kompetensi', TRUE)));
         } elseif ($act == 'e') {
             $id                      = $this->myfunction->_encdec('dec', $this->input->post('id'));
             $data['nama_sekolah']    = $this->input->post('nama_sekolah', TRUE);
