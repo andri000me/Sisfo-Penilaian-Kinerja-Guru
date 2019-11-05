@@ -49,13 +49,23 @@
                     $no = 1;
                     $qry_1 = $this->db->get_where('tbl_kompetensi',['id_tugas' => $this->myfunction->_encdec('dec',$this->uri->segment(4))]);
                     foreach ($qry_1->result() as $row) {
+                        $qry_2 = $this->db->get_where('tbl_penilaian_guru',['id_kompetensi' => $row->id_kompetensi]);
+                        $row_2 = $qry_2->num_rows();
+                        $qry_3 = $this->db->query("SELECT SUM(skor) as skor_jumlah FROM tbl_penilaian_guru WHERE id_kompetensi = '$row->id_kompetensi' AND YEAR(created_at) = YEAR(CURDATE())")->row();
+                        
                 ?>
                     <tr>
                         <td style="text-align:center;"><?=$no;?></td>
                         <td><?=$row->nama_kompetensi;?></td>
-                        <td style="text-align:center;"><strong class="text-primary">4</strong></td>
-                        <td style="text-align:center;"><i class="fa fa-times text-danger"></i></td>
-                        <td style="text-align:center;"><a href="/<?=$this->uri->segment(1) . '/daftar-nilai/' . $this->uri->segment(3). '/'. $this->myfunction->_encdec('enc', $row->id_kompetensi) ;?>" class="btn btn-success btn-sm btn-block">Isi Nilai</a></td>
+                        <td style="text-align:center;"><strong class="text-primary"><?=$qry_3->skor_jumlah == "" ? 0 : $qry_3->skor_jumlah;?></strong></td>
+                        <td style="text-align:center;"><?=$row_2 > 0 ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-times text-danger"></i>';?>  </td>
+                        <td style="text-align:center;">
+                        <?php if($row_2 > 0){ ?>
+                        <a href="/<?=$this->uri->segment(1) . '/update-nilai/' . $this->uri->segment(3). '/'. $this->myfunction->_encdec('enc', $row->id_kompetensi) ;?>" class="btn btn-warning btn-sm btn-block">Update</a>
+                        <?php }else{ ?>
+                        <a href="/<?=$this->uri->segment(1) . '/tambah-nilai/' . $this->uri->segment(3). '/'. $this->myfunction->_encdec('enc', $row->id_kompetensi) ;?>" class="btn btn-success btn-sm btn-block">Isi Nilai</a>
+                        <?php } ?>
+                        </td>
                     </tr>
                     <?php $no++; } ?>
                 </tbody>

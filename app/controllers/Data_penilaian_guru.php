@@ -39,29 +39,33 @@ class Data_penilaian_guru extends CI_Controller {
         $data['konten']     = $this->konten . 'kompetensi'; 
         $this->load->view($this->view, $data);
     }
-    public function daftar_nilai()
+    public function tambah_nilai()
     {
         $data['konten']     = $this->konten . 'nilai'; 
         $this->load->view($this->view, $data);
     }
-    public function edit()
+    public function update_nilai()
     {
-        $id              = $this->myfunction->_encdec('dec', $this->uri->segment(3));
-        $data['konten']  = $this->konten . 'form';
-        $data['data']    = $this->model_penilaian_guru->data_get($id)->row();
+        $data['konten']     = $this->konten . 'nilai'; 
         $this->load->view($this->view, $data);
     }
+    
     public function proses()
     {
         $act = $this->uri->segment(3);
         if ($act == 'i') {
-            $data['nama_sekolah']    = $this->input->post('nama_sekolah', TRUE);
-            $data['no_telp']         = $this->input->post('no_telp', TRUE);
-            $data['provinsi']        = $this->input->post('provinsi', TRUE);
-            $data['kabupaten']       = $this->input->post('kabupaten', TRUE);
-            $data['kecamatan']       = $this->input->post('kecamatan', TRUE);
-            $data['kelurahan']       = $this->input->post('kelurahan', TRUE);
-            $this->model_penilaian_guru->data_insert($data);
+            $jumlah = $this->input->post('jumlah', TRUE);
+            for ($i=1; $i<=$jumlah; $i++) {
+                $data[] = [ 
+                            'id_guru'       => $this->input->post('id_guru', TRUE),
+                            'id_tugas'      => $this->input->post('id_tugas', TRUE),
+                            'id_kompetensi' => $this->input->post('id_kompetensi', TRUE),
+                            'id_indikator'  => $_POST['id_indikator_'.$i],
+                            'skor'          => $_POST['skor_'.$i]
+                          ];
+            }
+            $this->model_penilaian_guru->data_insert($data, $id);
+            
         } elseif ($act == 'e') {
             $id                      = $this->myfunction->_encdec('dec', $this->input->post('id'));
             $data['nama_sekolah']    = $this->input->post('nama_sekolah', TRUE);

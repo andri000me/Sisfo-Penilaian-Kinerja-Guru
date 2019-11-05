@@ -78,16 +78,11 @@ class Model_penilaian_guru extends CI_Model {
     }
     public function data_insert($data)
     {
-        $check = $this->data_cek('input', $data, $id = "");
-        if ($check['status'] == TRUE) {
-            $this->db->insert($this->table, $data);
-            if ($this->db->affected_rows()) {
-                $this->session->set_flashdata('notification', $this->myfunction->notification('success', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($data[$this->data_name]) . '</strong> berhasil di simpan.'));
-            } else {
-                $this->session->set_flashdata('notification', $this->myfunction->notification('danger', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($data[$this->data_name]) . '</strong> gagal di simpan.'));
-            }
+        $this->db->insert_batch('tbl_penilaian_guru', $data); 
+        if ($this->db->affected_rows()) {
+            $this->session->set_flashdata('notification', $this->myfunction->notification('success', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($data[$this->data_name]) . '</strong> berhasil di simpan.'));
         } else {
-            $this->session->set_flashdata('notification', $this->myfunction->notification('warning', 'Data ' . $this->data_notif . ' dengan nama ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($data[$this->data_name]) . '</strong> ini sudah ada.'));
+            $this->session->set_flashdata('notification', $this->myfunction->notification('danger', 'Data ' . $this->data_notif . ' <strong>' . $this->myfunction->_xss($data[$this->data_name]) . '</strong> gagal di simpan.'));
         }
     }
     public function data_update($data, $id)
